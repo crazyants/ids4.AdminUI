@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QuickstartIdentityServer.DBManager.BaseData;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,6 +30,15 @@ namespace QuickstartIdentityServer.DBManager
         /// api url
         /// </summary>
         public string Url { get; set; }
+        /// <summary>
+        /// 模块Id
+        /// </summary>
+        public int ModuleId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [ForeignKey("ModuleId")]
+        public ModuleEntity Module { get; set; }
     }
 
     /// <summary>
@@ -42,6 +52,7 @@ namespace QuickstartIdentityServer.DBManager
             builder.Property(u => u.ControllerName).HasMaxLength(20);
             builder.Property(u => u.ActionName).HasMaxLength(20);
             builder.Property(u => u.Url).HasMaxLength(50);
+            builder.HasIndex(u => u.Module);
         }
     }
 }

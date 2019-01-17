@@ -37,6 +37,7 @@ namespace QuickstartIdentityServer.DBManager
         public void Configure(EntityTypeBuilder<ModuleEntity> builder)
         {
             builder.Property(u => u.Name).HasMaxLength(30);
+            builder.HasIndex(u => u.AppId);
         }
     }
 }

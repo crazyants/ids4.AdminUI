@@ -30,6 +30,7 @@ namespace QuickstartIdentityServer.Filters
                 if ((objresult.Value as BaseResult) != null)
                     return;
                 DataResult<object> result = new DataResult<object>(objresult.Value);
+                if (objresult.StatusCode != 200) result.Result = false;
                 context.Result = new JsonResult(result);
             }
             //throw new NotImplementedException();

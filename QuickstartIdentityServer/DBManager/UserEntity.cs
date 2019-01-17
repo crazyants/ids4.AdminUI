@@ -25,6 +25,10 @@ namespace QuickstartIdentityServer.DBManager
         /// 密码
         /// </summary>
         public string Pwd { set; get; }
+        /// <summary>
+        /// 是否是系统所有者
+        /// </summary>
+        public bool IsSystemAdmin { set; get; }
     }
     /// <summary>
     /// 
@@ -36,6 +40,7 @@ namespace QuickstartIdentityServer.DBManager
             builder.Property(u=>u.Account).HasMaxLength(20);
             builder.Property(u=>u.Name).HasMaxLength(20);
             builder.Property(u=>u.Pwd).HasMaxLength(32);
+            builder.HasIndex(u => u.Account);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace QuickstartIdentityServer
             {
                 config.Filters.Add(new WebApiDoResultAttribute());
                 config.Filters.Add(new WebApiExceptionFilterAttribute());
-                config.Filters.Add(new ModelValidationAttribute());
+                //config.Filters.Add(new ModelValidationAttribute());
             }).AddJsonOptions(options => //全局配置Json序列化处理
             {
                 //忽略循环引用

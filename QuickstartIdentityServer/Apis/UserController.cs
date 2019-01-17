@@ -26,6 +26,8 @@ namespace QuickstartIdentityServer.Apis
         /// <summary>
         /// 查询用户
         /// </summary>
+        /// <param name="input">查询参数</param>
+        /// <returns>返回用户列表</returns>
         [HttpPost]
         public async Task<List<UserResponseDTO>> Query([FromBody]UserRequestDTO input)
         {
@@ -44,6 +46,7 @@ namespace QuickstartIdentityServer.Apis
         /// <summary>
         /// 创建用户
         /// </summary>
+        /// <param name="input">用户信息</param>
         [HttpPost]
         public async Task Create([FromBody]UserDTO input)
         {
@@ -63,6 +66,7 @@ namespace QuickstartIdentityServer.Apis
         /// <summary>
         /// 修改用户
         /// </summary>
+        /// <param name="input">用户信息</param>
         [HttpPost]
         public async Task Update([FromBody]UserDTO input)
         {
@@ -77,6 +81,7 @@ namespace QuickstartIdentityServer.Apis
         /// <summary>
         /// 删除用户
         /// </summary>
+        /// <param name="id">用户id</param>
         [HttpGet]
         public async Task Delete([FromQuery]int id)
         {

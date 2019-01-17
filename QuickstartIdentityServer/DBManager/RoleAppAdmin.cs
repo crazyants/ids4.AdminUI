@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 namespace QuickstartIdentityServer.DBManager
 {
     /// <summary>
-    /// 用户对应角色
+    /// 角色对应系统管理员
     /// </summary>
-    public class UserRoleMap : BaseKey<int>
+    public class RoleAppAdmin : BaseKey<int>
     {
         /// <summary>
-        /// 用户Id
+        /// 权限Id
         /// </summary>
-        public int UserId { get; set; }
+        public int AppId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [ForeignKey("UserId")]
-        public UserEntity User { get; set; }
+        [ForeignKey("AppId")]
+        public AppEntity App { get; set; }
         /// <summary>
         /// 角色Id
         /// </summary>

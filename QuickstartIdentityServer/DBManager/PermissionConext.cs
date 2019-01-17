@@ -20,7 +20,10 @@ namespace QuickstartIdentityServer.DBManager
         public DbSet<ModuleEntity> Module { get; set; }
         public DbSet<UserEntity> User { get; set; }
         public DbSet<RoleEntity> Role { get; set; }
+        public DbSet<PermissionEntity> Permission { get; set; }
         public DbSet<UserRoleMap> UserRoleMap { get; set; }
+        public DbSet<RolePermissionMap> RolePermissionMap { get; set; }
+        public DbSet<RoleAppAdmin> RoleAppAdmin { get; set; }
 
         /// <summary>
         /// </summary>
