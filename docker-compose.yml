@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  dmp:
+    image: dmp:1.0-beta1
+    build:
+      context: ./QuickstartIdentityServer
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - apollo:AppId=dmp
+      - apollo:Env=DEV
+      - apollo:LocalIp=172.16.0.148
+      - apollo:MetaServer=http://192.168.1.115:9080
+    ports:
+      - "6006:5000"

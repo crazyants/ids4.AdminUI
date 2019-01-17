@@ -137,8 +137,8 @@ namespace QuickstartIdentityServer
             //    });
 
             #region swagger
-            if (Env.IsDevelopment())
-            {
+            //if (Env.IsDevelopment())
+            //{
                 services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
@@ -147,7 +147,7 @@ namespace QuickstartIdentityServer
                     c.AddSecurityDefinition("Bearer", new ApiKeyScheme { In = "header", Description = "JWT授权(数据将在请求头中进行传输) 参数结构: \"Authorization: Bearer {token}\"", Name = "Authorization", Type = "apiKey" });
                     GetXmlCommentsPath(c, $"{Assembly.GetEntryAssembly().GetName().Name}");
                 });
-            }
+            //}
             #endregion
         }
         /// <summary>
@@ -172,8 +172,8 @@ namespace QuickstartIdentityServer
             }
 
             #region swagger
-            if (env.IsDevelopment())
-            {
+            //if (env.IsDevelopment())
+            //{
                 //At this point, you can spin up your application and view the generated Swagger JSON at "/swagger/v1/swagger.json."
                 app.UseSwagger();
                 //Now you can restart your application and check out the auto-generated, interactive docs at "/swagger".
@@ -181,7 +181,7 @@ namespace QuickstartIdentityServer
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 });
-            }
+            //}
             #endregion
 
             app.UseIdentityServer();
