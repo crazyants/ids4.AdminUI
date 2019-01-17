@@ -7,6 +7,11 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>D:\owen\github\IdentityServer4.Samples\Quickstarts\8_EntityFrameworkStorage\src\QuickstartIdentityServer\QuickstartIdentityServer.xml</DocumentationFile>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\owen\githubpro\ids\QuickstartIdentityServer\QuickstartIdentityServer.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
