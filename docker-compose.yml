@@ -3,6 +3,7 @@ version: '3'
 services:
   idsweb:
     image: idsweb:1.0-beta1
+    container_name: idsweb
     build:
       context: ./QuickstartIdentityServer
       dockerfile: Dockerfile
@@ -13,4 +14,4 @@ services:
       - apollo:LocalIp=172.16.0.148
       - apollo:MetaServer=http://192.168.1.115:9080
     ports:
-      - "6006:5000"
+      - "6006:80"
