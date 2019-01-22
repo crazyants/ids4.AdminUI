@@ -51,7 +51,7 @@ namespace QuickstartIdentityServer.Filters
             else if(ex is DbException)
             {
                 result.Code = "1002";
-                result.Message = "不好啦!数据库连接错误,请联系管理员!";
+                result.Message = $"数据库更新错误:{ex.Message}";
                 log.LogError(ex, $"数据库访问异常,Request={requestparam};");
             }
             else if (ex is NullReferenceException)
@@ -78,7 +78,7 @@ namespace QuickstartIdentityServer.Filters
                 result.Message = ex.Message;
                 log.LogError(ex, $"发生异常,Request={requestparam};");
             }
-            result.Detail = ex.StackTrace;
+            result.Detail = context.Exception.StackTrace;
             context.Result = new JsonResult(result);
         }
     }

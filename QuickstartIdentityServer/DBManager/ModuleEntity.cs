@@ -23,10 +23,9 @@ namespace QuickstartIdentityServer.DBManager
         /// </summary>
         public int AppId { get; set; }
         /// <summary>
-        /// 
+        /// 排序
         /// </summary>
-        [ForeignKey("AppId")]
-        public AppEntity App { get; set; }
+        public int Order { get; set; }
     }
 
     /// <summary>

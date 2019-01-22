@@ -4,6 +4,7 @@ using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using QuickstartIdentityServer.DBManager;
 
 namespace QuickstartIdentityServer
 {
@@ -15,8 +16,8 @@ namespace QuickstartIdentityServer
 
             using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
+                scope.ServiceProvider.GetService<PermissionConext>().Database.Migrate();
                 scope.ServiceProvider.GetService<PersistedGrantDbContext>().Database.Migrate();
-
                 var context = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
                 context.Database.Migrate();
                 EnsureSeedData(context);

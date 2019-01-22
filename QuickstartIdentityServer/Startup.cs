@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using QuickstartIdentityServer.DBManager;
 using QuickstartIdentityServer.Filters;
 using QuickstartIdentityServer.IdsAuthorization;
@@ -62,26 +63,35 @@ namespace QuickstartIdentityServer
             // configure identity server with in-memory stores, keys, clients and scopes
             services.AddIdentityServer(options => options.Authentication.CookieAuthenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddDeveloperSigningCredential()
-                .AddTestUsers(Config.GetUsers())
+                .AddResourceOwnerValidator<PasswordValidator>()
+                //.AddTestUsers(Config.GetUsers())
                 // this adds the config data from DB (clients, resources)
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
                         builder.UseMySql(connectionString,
-                            sql => sql.MigrationsAssembly(migrationsAssembly));
+                            sql => sql.MigrationsAssembly(migrationsAssembly)
+                                        .CharSetBehavior(CharSetBehavior.AppendToAllColumns)
+                                        .AnsiCharSet(CharSet.Utf8mb4)
+                                        .UnicodeCharSet(CharSet.Utf8mb4));
                 })
                 // this adds the operational data from DB (codes, tokens, consents)
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
                         builder.UseMySql(connectionString,
-                            sql => sql.MigrationsAssembly(migrationsAssembly));
+                            sql => sql.MigrationsAssembly(migrationsAssembly)
+                                        .CharSetBehavior(CharSetBehavior.AppendToAllColumns)
+                                        .AnsiCharSet(CharSet.Utf8mb4)
+                                        .UnicodeCharSet(CharSet.Utf8mb4));
 
                     // this enables automatic token cleanup. this is optional.
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;
                 });
 
+            string url= Configuration["ASPNETCORE_URLS"];
+            if (string.IsNullOrEmpty(url)) url = "http://localhost:5000";
             //添加身份认证服务
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -90,8 +100,8 @@ namespace QuickstartIdentityServer
                      options.TokenValidationParameters = new TokenValidationParameters();
                      options.RequireHttpsMetadata = false;
                      options.Audience = "api1";//api范围
-                    options.Authority = "http://localhost:5000";//IdentityServer地址
-                });
+                     options.Authority = url;//IdentityServer地址
+                 });
 
             //添加自定义的权限验证
             services.AddAuthorization(options =>
@@ -103,7 +113,10 @@ namespace QuickstartIdentityServer
             services.AddDbContext<PermissionConext>(options =>
             {
                 //Configuration.GetConnectionString("sql4")
-                options.UseMySql(connectionString, b => b.MigrationsAssembly(migrationsAssembly).UseRelationalNulls());
+                options.UseMySql(connectionString, b => b.MigrationsAssembly(migrationsAssembly).UseRelationalNulls()
+                                                        .CharSetBehavior(CharSetBehavior.AppendToAllColumns)
+                                                        .AnsiCharSet(CharSet.Utf8mb4)
+                                                        .UnicodeCharSet(CharSet.Utf8mb4));
                 //options.UseMySQL(Configuration.GetConnectionString("MysqlConnection"), b => b.MigrationsAssembly(this.GetType().GetTypeInfo().Assembly.FullName));
                 //if (Env.IsDevelopment())
                 //{

@@ -28,12 +28,12 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
         /// <summary>
         /// 模块
         /// </summary>
-        public List<ModuleDetaiDTO> Modules { get; set; }
+        public List<ModuleDetailDTO> Modules { get; set; }
     }
     /// <summary>
     /// 模块详细信息
     /// </summary>
-    public class ModuleDetaiDTO
+    public class ModuleDetailDTO
     {
         /// <summary>
         /// 模块 id

@@ -35,10 +35,9 @@ namespace QuickstartIdentityServer.DBManager
         /// </summary>
         public int ModuleId { get; set; }
         /// <summary>
-        /// 
+        /// 排序
         /// </summary>
-        [ForeignKey("ModuleId")]
-        public ModuleEntity Module { get; set; }
+        public int Order { get; set; }
     }
 
     /// <summary>
@@ -52,7 +51,7 @@ namespace QuickstartIdentityServer.DBManager
             builder.Property(u => u.ControllerName).HasMaxLength(20);
             builder.Property(u => u.ActionName).HasMaxLength(20);
             builder.Property(u => u.Url).HasMaxLength(50);
-            builder.HasIndex(u => u.Module);
+            builder.HasIndex(u => u.ModuleId);
         }
     }
 }

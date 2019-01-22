@@ -13,6 +13,10 @@ namespace QuickstartIdentityServer.DBManager
     public class RolePermissionMap : BaseKey<int>
     {
         /// <summary>
+        /// 系统Id
+        /// </summary>
+        public int AppId { get; set; }
+        /// <summary>
         /// 权限Id
         /// </summary>
         public int PermissionId { get; set; }

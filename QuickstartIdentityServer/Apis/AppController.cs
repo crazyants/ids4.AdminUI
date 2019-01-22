@@ -12,7 +12,7 @@ using QuickstartIdentityServer.Filters;
 
 namespace QuickstartIdentityServer.Apis
 {
-    [Authorize]
+    //[Authorize]
     [Route("base/api/[controller]/[action]")]
     [ApiController]
     public class AppController : ControllerBase
@@ -147,15 +147,39 @@ namespace QuickstartIdentityServer.Apis
             await pcontext.SaveChangesAsync();
         }
 
-        ///// <summary>
-        ///// App模块权限信息
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpGet]
-        //public async Task<List<AppDetaiDTO>> AppDeatil()
-        //{
-
-        //   // pcontext.App.Where();
-        //}
+        /// <summary>
+        /// 所有App模块权限信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<List<AppDetaiDTO>> AppDeatil()
+        {
+            var apps = await (from a in pcontext.App
+                       join b in pcontext.Module on a.Id equals b.AppId
+                       join c in pcontext.Permission on b.Id equals c.ModuleId
+                       select new
+                       {
+                           a.Id,
+                           a.Name,
+                           Mid = b.Id,
+                           MName = b.Name,
+                           Pid = c.Id,
+                           PName = c.Name
+                       }).ToListAsync();
+            return apps.GroupBy(a => new { a.Id, a.Name }).Select(kv => new AppDetaiDTO
+            {
+                Id = kv.Key.Id,
+                Name = kv.Key.Name,
+                Modules = kv.GroupBy(m=>new {m.Mid,m.MName }).Select(mkv => new ModuleDetailDTO
+                {
+                    Id = mkv.Key.Mid,
+                    Name = mkv.Key.MName,
+                    Permissions = mkv.Select(pkv=>new PermissionDetaiDTO {
+                        Id = pkv.Pid,
+                        Name = pkv.PName
+                    }).ToList()
+                }).ToList()
+            }).ToList();
+        }
     }
 }

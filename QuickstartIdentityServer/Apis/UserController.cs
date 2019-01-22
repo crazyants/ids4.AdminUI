@@ -12,7 +12,7 @@ using QuickstartIdentityServer.Filters;
 
 namespace QuickstartIdentityServer.Apis
 {
-    [Authorize]
+    //[Authorize]
     [Route("base/api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -114,6 +114,38 @@ namespace QuickstartIdentityServer.Apis
                 });
             }
             await pcontext.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 是否有权限
+        /// </summary>
+        /// <param name="input">验证权限的信息</param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<bool> Validate([FromBody]ValidatePermissionDTO input)
+        {
+            bool isappadmin = await (from u in pcontext.User.Where(u => u.Id == input.UserId)
+                            join urm in pcontext.UserRoleMap on u.Id equals urm.UserId
+                            join ra in pcontext.RoleAppAdmin.Where(m => m.AppId == input.SystemId) on urm.RoleId equals ra.RoleId select 1).AnyAsync();
+            if (isappadmin) return true;
+            bool haspermission = await (from u in pcontext.User.Where(u => u.Id == input.UserId)
+                                  join urm in pcontext.UserRoleMap on u.Id equals urm.UserId
+                                  join rmp in pcontext.RolePermissionMap.Where(m => m.AppId == input.SystemId) on urm.RoleId equals rmp.RoleId
+                                  join p in pcontext.Permission.Where(per=>per.ControllerName==input.Controller&&per.ActionName==input.Action) on rmp.PermissionId equals p.Id
+                                        select 1).AnyAsync();
+            return haspermission;
+        }
+
+        /// <summary>
+        /// 角色已有权限
+        /// </summary>
+        /// <param name="roleid">角色id</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Task<int[]> Permission([FromQuery]int roleid)
+        {
+            return  pcontext.RolePermissionMap.Where(m => m.RoleId == roleid).Select(m => m.PermissionId).ToArrayAsync();
         }
     }
 }

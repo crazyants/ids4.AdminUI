@@ -12,7 +12,7 @@ using QuickstartIdentityServer.Filters;
 
 namespace QuickstartIdentityServer.Apis
 {
-    [Authorize]
+    //[Authorize]
     [Route("base/api/[controller]/[action]")]
     [ApiController]
     public class RoleController : ControllerBase
@@ -127,14 +127,20 @@ namespace QuickstartIdentityServer.Apis
             {
                 if (!pids.Contains(map.PermissionId)) pcontext.Entry(map).State = EntityState.Deleted;
             });
-            foreach (var pid in pids)
+            var adds =  pids.Where(pid => !maps.Any(m => m.PermissionId == pid)).ToList();
+            var dic = await (from pm in pcontext.Permission.Where(p => adds.Contains(p.Id))
+             join m in pcontext.Module on pm.ModuleId equals m.Id
+             select new { pm.Id, m.AppId }
+            ).ToDictionaryAsync(a => a.Id, a => a.AppId);
+            adds.ForEach(pid =>
             {
-                if (!maps.Any(m => m.PermissionId == pid)) pcontext.RolePermissionMap.Add(new RolePermissionMap
+                pcontext.RolePermissionMap.Add(new RolePermissionMap
                 {
                     RoleId = id,
-                    PermissionId = pid
+                    PermissionId = pid,
+                    AppId = dic[pid]
                 });
-            }
+            });
             await pcontext.SaveChangesAsync();
         }
     }

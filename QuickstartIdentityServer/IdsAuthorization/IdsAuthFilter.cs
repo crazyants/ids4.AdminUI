@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using IdentityModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
+using QuickstartIdentityServer.DBManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace QuickstartIdentityServer.IdsAuthorization
@@ -21,7 +24,12 @@ namespace QuickstartIdentityServer.IdsAuthorization
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IdsAuthPermissionHandler requirement)
         {
             var filterContext = context.Resource as AuthorizationFilterContext;
-            var methodInfo = (filterContext.ActionDescriptor as ControllerActionDescriptor).MethodInfo ;
+            var controllerContext = (filterContext.ActionDescriptor as ControllerActionDescriptor) ;
+
+            var db = filterContext.HttpContext.RequestServices.GetService(typeof(PermissionConext)) as PermissionConext;
+            var userid = context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            //var role = context.User.Claims.FirstOrDefault(c => c.Type == JwtClaimTypes.Role).Value;
+
             //var attr = methodInfo.GetCustomAttribute<QKAuthAttribute>();
 
             //var appstr = context.User.Claims.FirstOrDefault(c=>c.Type == userinfo);
