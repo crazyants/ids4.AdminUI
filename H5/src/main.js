@@ -9,21 +9,21 @@ import http from './plugin/http.js'
 Vue.use(http);
 
 Vue.mixin({
-  activated() {
-    if (this.$$top) {
-      $(this.$refs.content).scrollTop(this.$$top);
-    }
-  },
+  // activated() {
+  //   if (this.$$top) {
+  //     $(this.$refs.content).scrollTop(this.$$top);
+  //   }
+  // },
   beforeRouteLeave(to, from, next) {
-    if (this.$refs.content) {
-      this.$$top = $(this.$refs.content).scrollTop()
-    }
-    else if (from.name == 'home') {
-      Object.keys(this.$refs).forEach(key => {
-        const comp = this.$refs[key];
-        comp.$$top = $(comp.$refs.content).scrollTop()
-      });
-    }
+    // if (this.$refs.content) {
+    //   this.$$top = $(this.$refs.content).scrollTop()
+    // }
+    // else if (from.name == 'home') {
+    //   Object.keys(this.$refs).forEach(key => {
+    //     const comp = this.$refs[key];
+    //     comp.$$top = $(comp.$refs.content).scrollTop()
+    //   });
+    // }
 
     // if (from.name=='home' && to.name=='login') {//此处判断是如果返回上一层，你可以根据自己的业务更改此处的判断逻辑，酌情决定是否摧毁本层缓存。
     //   if (this.$vnode && this.$vnode.data.keepAlive) {
