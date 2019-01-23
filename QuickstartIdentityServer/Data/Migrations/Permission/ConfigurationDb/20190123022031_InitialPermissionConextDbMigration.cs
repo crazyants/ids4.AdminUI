@@ -42,7 +42,7 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
                     UpdateId = table.Column<int>(nullable: false),
                     UpdateTime = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(maxLength: 30, nullable: true),
-                    AppId = table.Column<int>(nullable: false),
+                    Code = table.Column<string>(nullable: true),
                     Order = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -94,6 +94,35 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
                 });
 
             migrationBuilder.CreateTable(
+                name: "RoleAppAdmin",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Code = table.Column<string>(nullable: true),
+                    RoleId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleAppAdmin", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RolePermissionMap",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Code = table.Column<string>(nullable: true),
+                    PermissionId = table.Column<int>(nullable: false),
+                    RoleId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RolePermissionMap", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -113,59 +142,6 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoleAppAdmin",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AppId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleAppAdmin", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RoleAppAdmin_App_AppId",
-                        column: x => x.AppId,
-                        principalTable: "App",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RoleAppAdmin_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Role",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RolePermissionMap",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AppId = table.Column<int>(nullable: false),
-                    PermissionId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RolePermissionMap", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RolePermissionMap_Permission_PermissionId",
-                        column: x => x.PermissionId,
-                        principalTable: "Permission",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RolePermissionMap_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Role",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,34 +171,14 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Module_AppId",
+                name: "IX_Module_Code",
                 table: "Module",
-                column: "AppId");
+                column: "Code");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permission_ModuleId",
                 table: "Permission",
                 column: "ModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RoleAppAdmin_AppId",
-                table: "RoleAppAdmin",
-                column: "AppId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RoleAppAdmin_RoleId",
-                table: "RoleAppAdmin",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RolePermissionMap_PermissionId",
-                table: "RolePermissionMap",
-                column: "PermissionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RolePermissionMap_RoleId",
-                table: "RolePermissionMap",
-                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Account",
@@ -243,7 +199,13 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "App");
+
+            migrationBuilder.DropTable(
                 name: "Module");
+
+            migrationBuilder.DropTable(
+                name: "Permission");
 
             migrationBuilder.DropTable(
                 name: "RoleAppAdmin");
@@ -253,12 +215,6 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
 
             migrationBuilder.DropTable(
                 name: "UserRoleMap");
-
-            migrationBuilder.DropTable(
-                name: "App");
-
-            migrationBuilder.DropTable(
-                name: "Permission");
 
             migrationBuilder.DropTable(
                 name: "Role");

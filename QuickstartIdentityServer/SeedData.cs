@@ -5,6 +5,7 @@ using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuickstartIdentityServer.DBManager;
+using QuickstartIdentityServer.Filters;
 
 namespace QuickstartIdentityServer
 {
@@ -16,7 +17,10 @@ namespace QuickstartIdentityServer
 
             using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                scope.ServiceProvider.GetService<PermissionConext>().Database.Migrate();
+                var pcontext = scope.ServiceProvider.GetService<PermissionConext>();
+                pcontext.Database.Migrate();
+                EnsureSeedData(pcontext);
+
                 scope.ServiceProvider.GetService<PersistedGrantDbContext>().Database.Migrate();
                 var context = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
                 context.Database.Migrate();
@@ -26,7 +30,46 @@ namespace QuickstartIdentityServer
             Console.WriteLine("Done seeding database.");
             Console.WriteLine();
         }
-
+        private static void EnsureSeedData(PermissionConext context)
+        {
+            if (!context.User.Any())
+            {
+                Console.WriteLine("User being populated");
+                var adminuser = new UserEntity
+                {
+                    Account = "superadmin",
+                    Name = "superadmin",
+                    Pwd = EncryptUtil.GetMd5("666666"),
+                    IsSystemAdmin = true
+                };
+                context.User.Add(adminuser);
+                context.SaveChanges();
+            }
+            if(!context.App.Any(a=>a.Code == "base"))
+            {
+                context.App.Add(new AppEntity
+                {
+                    Code = "base",
+                    Name = "权限系统"
+                });
+                context.Module.Add(new ModuleEntity
+                {
+                    Code = "base",
+                    Name = "人员管理"
+                });
+                context.Module.Add(new ModuleEntity
+                {
+                    Code = "base",
+                    Name = "系统管理"
+                });
+                context.Module.Add(new ModuleEntity
+                {
+                    Code = "base",
+                    Name = "角色管理"
+                });
+                context.SaveChanges();
+            }
+        }
         private static void EnsureSeedData(ConfigurationDbContext context)
         {
             if (!context.Clients.Any())

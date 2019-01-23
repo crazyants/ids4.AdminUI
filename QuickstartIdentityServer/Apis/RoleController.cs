@@ -44,9 +44,9 @@ namespace QuickstartIdentityServer.Apis
         }
 
         /// <summary>
-        /// 创建用户
+        /// 创建角色
         /// </summary>
-        /// <param name="input">用户信息</param>
+        /// <param name="input">角色信息</param>
         [HttpPost]
         public async Task Create([FromBody]RoleDTO input)
         {
@@ -62,9 +62,9 @@ namespace QuickstartIdentityServer.Apis
         }
 
         /// <summary>
-        /// 修改用户
+        /// 修改角色
         /// </summary>
-        /// <param name="input">用户信息</param>
+        /// <param name="input">角色信息</param>
         [HttpPost]
         public async Task Update([FromBody]RoleDTO input)
         {
@@ -76,7 +76,7 @@ namespace QuickstartIdentityServer.Apis
         }
 
         /// <summary>
-        /// 删除用户
+        /// 删除角色
         /// </summary>
         /// <param name="id">用户id</param>
         [HttpGet]
@@ -92,22 +92,22 @@ namespace QuickstartIdentityServer.Apis
         /// 分配系统管理员
         /// </summary>
         /// <param name="id">用户id</param>
-        /// <param name="appids">系统id集合</param>
+        /// <param name="appcodes">系统id集合</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task SetAdmin([FromQuery]int id, [FromBody] int[] appids)
+        public async Task SetAdmin([FromQuery]int id, [FromBody] string[] appcodes)
         {
             var maps = await pcontext.RoleAppAdmin.Where(map => map.RoleId == id).ToListAsync();
             maps.ForEach(map =>
             {
-                if (!appids.Contains(map.AppId)) pcontext.Entry(map).State = EntityState.Deleted;
+                if (!appcodes.Contains(map.Code)) pcontext.Entry(map).State = EntityState.Deleted;
             });
-            foreach (var appid in appids)
+            foreach (var code in appcodes)
             {
-                if (!maps.Any(m => m.AppId == appid)) pcontext.RoleAppAdmin.Add(new RoleAppAdmin
+                if (!maps.Any(m => m.Code == code)) pcontext.RoleAppAdmin.Add(new RoleAppAdmin
                 {
                     RoleId = id,
-                    AppId = appid
+                    Code = code
                 });
             }
             await pcontext.SaveChangesAsync();
@@ -130,15 +130,15 @@ namespace QuickstartIdentityServer.Apis
             var adds =  pids.Where(pid => !maps.Any(m => m.PermissionId == pid)).ToList();
             var dic = await (from pm in pcontext.Permission.Where(p => adds.Contains(p.Id))
              join m in pcontext.Module on pm.ModuleId equals m.Id
-             select new { pm.Id, m.AppId }
-            ).ToDictionaryAsync(a => a.Id, a => a.AppId);
+             select new { pm.Id, m.Code }
+            ).ToDictionaryAsync(a => a.Id, a => a.Code);
             adds.ForEach(pid =>
             {
                 pcontext.RolePermissionMap.Add(new RolePermissionMap
                 {
                     RoleId = id,
                     PermissionId = pid,
-                    AppId = dic[pid]
+                    Code = dic[pid]
                 });
             });
             await pcontext.SaveChangesAsync();

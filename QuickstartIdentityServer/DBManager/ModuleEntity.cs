@@ -21,7 +21,7 @@ namespace QuickstartIdentityServer.DBManager
         /// <summary>
         /// 系统Id
         /// </summary>
-        public int AppId { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// 排序
         /// </summary>
@@ -36,7 +36,7 @@ namespace QuickstartIdentityServer.DBManager
         public void Configure(EntityTypeBuilder<ModuleEntity> builder)
         {
             builder.Property(u => u.Name).HasMaxLength(30);
-            builder.HasIndex(u => u.AppId);
+            builder.HasIndex(u => u.Code);
         }
     }
 }

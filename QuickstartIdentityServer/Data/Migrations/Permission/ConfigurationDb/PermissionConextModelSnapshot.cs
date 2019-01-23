@@ -52,7 +52,7 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AppId");
+                    b.Property<string>("Code");
 
                     b.Property<int>("CreateId");
 
@@ -73,7 +73,7 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppId");
+                    b.HasIndex("Code");
 
                     b.ToTable("Module");
                 });
@@ -123,15 +123,11 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AppId");
+                    b.Property<string>("Code");
 
                     b.Property<int>("RoleId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppId");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("RoleAppAdmin");
                 });
@@ -166,17 +162,13 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AppId");
+                    b.Property<string>("Code");
 
                     b.Property<int>("PermissionId");
 
                     b.Property<int>("RoleId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PermissionId");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("RolePermissionMap");
                 });
@@ -232,32 +224,6 @@ namespace QuickstartIdentityServer.Data.Migrations.Permission.ConfigurationDb
                     b.HasIndex("UserId");
 
                     b.ToTable("UserRoleMap");
-                });
-
-            modelBuilder.Entity("QuickstartIdentityServer.DBManager.RoleAppAdmin", b =>
-                {
-                    b.HasOne("QuickstartIdentityServer.DBManager.AppEntity", "App")
-                        .WithMany()
-                        .HasForeignKey("AppId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("QuickstartIdentityServer.DBManager.RoleEntity", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("QuickstartIdentityServer.DBManager.RolePermissionMap", b =>
-                {
-                    b.HasOne("QuickstartIdentityServer.DBManager.PermissionEntity", "Permission")
-                        .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("QuickstartIdentityServer.DBManager.RoleEntity", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("QuickstartIdentityServer.DBManager.UserRoleMap", b =>

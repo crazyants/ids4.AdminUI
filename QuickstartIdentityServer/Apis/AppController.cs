@@ -50,28 +50,33 @@ namespace QuickstartIdentityServer.Apis
         [HttpPost]
         public async Task Create([FromBody]AppDTO input)
         {
+            if (await pcontext.App.AnyAsync(u => u.Code == input.Code))
+            {
+                throw new Exception("已有相同系统编号存在");
+            }
             pcontext.App.Add(new AppEntity
             {
+                Code = input.Code,
                 Name = input.Name
             });
             await pcontext.SaveChangesAsync();
         }
 
         /// <summary>
-        /// 修改用户
+        /// 修改系统
         /// </summary>
         /// <param name="input">用户信息</param>
         [HttpPost]
         public async Task Update([FromBody]AppDTO input)
         {
-            var app = await pcontext.App.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == input.Id);
+            var app = await pcontext.App.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Code == input.Code);
             if (app == null) throw new Exception("系统信息不存在");
             app.Name = input.Name;
             await pcontext.SaveChangesAsync();
         }
 
         /// <summary>
-        /// 删除用户
+        /// 删除系统
         /// </summary>
         /// <param name="id">用户id</param>
         [HttpGet]
@@ -94,7 +99,7 @@ namespace QuickstartIdentityServer.Apis
             pcontext.Module.Add(new ModuleEntity
             {
                 Name = input.Name,
-                AppId = input.AppId
+                Code = input.Code
             });
             await pcontext.SaveChangesAsync();
         }
@@ -126,7 +131,10 @@ namespace QuickstartIdentityServer.Apis
             pcontext.Permission.Add(new PermissionEntity
             {
                 Name = input.Name,
-                ModuleId = input.ModuleId
+                ModuleId = input.ModuleId,
+                ControllerName = input.ControllerName.ToLower(),
+                ActionName = input.ActionName.ToLower(),
+                Url =input.Url.ToLower()
             });
             await pcontext.SaveChangesAsync();
         }
@@ -155,20 +163,20 @@ namespace QuickstartIdentityServer.Apis
         public async Task<List<AppDetaiDTO>> AppDeatil()
         {
             var apps = await (from a in pcontext.App
-                       join b in pcontext.Module on a.Id equals b.AppId
+                       join b in pcontext.Module on a.Code equals b.Code
                        join c in pcontext.Permission on b.Id equals c.ModuleId
                        select new
                        {
-                           a.Id,
+                           a.Code,
                            a.Name,
                            Mid = b.Id,
                            MName = b.Name,
                            Pid = c.Id,
                            PName = c.Name
                        }).ToListAsync();
-            return apps.GroupBy(a => new { a.Id, a.Name }).Select(kv => new AppDetaiDTO
+            return apps.GroupBy(a => new { a.Code, a.Name }).Select(kv => new AppDetaiDTO
             {
-                Id = kv.Key.Id,
+                Code = kv.Key.Code,
                 Name = kv.Key.Name,
                 Modules = kv.GroupBy(m=>new {m.Mid,m.MName }).Select(mkv => new ModuleDetailDTO
                 {

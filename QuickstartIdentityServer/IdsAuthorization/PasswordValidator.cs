@@ -15,6 +15,7 @@ namespace QuickstartIdentityServer.IdsAuthorization
 {
     public class PasswordValidator : IResourceOwnerPasswordValidator
     {
+        private const string userinfo = "userinfo";
         PermissionConext db;
         ILogger<PasswordValidator> logger;
         /// <summary>
@@ -50,8 +51,8 @@ namespace QuickstartIdentityServer.IdsAuthorization
                     return;
                 }
                 context.Result = new GrantValidationResult(subject: user.Id.ToString(),
-                    authenticationMethod: ClaimsIdentityName.Custom,
-                    claims: new Claim[] { new Claim(JwtClaimTypes.Role, user.IsSystemAdmin ? ClaimsIdentityName.Admin : ClaimsIdentityName.Custom) });
+                    authenticationMethod: user.IsSystemAdmin ? ClaimsIdentityName.Admin : ClaimsIdentityName.Custom);
+                    //claims: new Claim[] { new Claim(userinfo, user.IsSystemAdmin ? ClaimsIdentityName.Admin : ClaimsIdentityName.Custom) });
             }
             catch (Exception e)
             {
@@ -73,5 +74,9 @@ namespace QuickstartIdentityServer.IdsAuthorization
         /// 
         /// </summary>
         public const string Custom = "custom";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string Role = "http://schemas.microsoft.com/claims/authnmethodsreferences";
     }
 }

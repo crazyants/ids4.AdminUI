@@ -1,4 +1,6 @@
-﻿using QuickstartIdentityServer.DBManager.BaseData;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using QuickstartIdentityServer.DBManager.BaseData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,22 +15,24 @@ namespace QuickstartIdentityServer.DBManager
     public class RoleAppAdmin : BaseKey<int>
     {
         /// <summary>
-        /// 权限Id
+        /// 系统Code
         /// </summary>
-        public int AppId { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [ForeignKey("AppId")]
-        public AppEntity App { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// 角色Id
         /// </summary>
         public int RoleId { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [ForeignKey("RoleId")]
-        public RoleEntity Role { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class RoleAppConfiguration : IEntityTypeConfiguration<RoleAppAdmin>
+    {
+        public void Configure(EntityTypeBuilder<RoleAppAdmin> builder)
+        {
+            builder.HasIndex(u => u.Code);
+            builder.HasIndex(u => u.RoleId);
+        }
     }
 }
