@@ -2,12 +2,7 @@ import Vue from 'vue'
 
 Vue.mixin({
     activated() {
-    //   if (this.$$top) {
-    //     $(this.$refs.content).scrollTop(this.$$top);
-    //   }
-        console.log("actived")
-        this.$store.commit('tab/OpenTab',{path:this.$route.fullPath,title:this.$route.meta.title})
-        console.log(this.$route)
+      this.$store.commit('tab/OpenTab',{path:this.$route.fullPath,title:this.$route.meta.title})
     },
     beforeRouteLeave(to, from, next) {
       // if (this.$refs.content) {

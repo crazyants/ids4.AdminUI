@@ -38,24 +38,5 @@ export default {
 </script>
 
 <style>
-.hometab.el-tabs--card>.el-tabs__header .el-tabs__item .el-icon-close{
-  position:absolute;
-  top: 0;
-  right: 0;
-}
-.hometab.el-tabs--card>.el-tabs__header .el-tabs__item.is-active.is-closable .el-icon-close{
-width:0px;
-}
-.hometab.el-tabs--card>.el-tabs__header .el-tabs__item.is-closable:hover .el-icon-close
-{
-    width: 14px
-}
-.el-tabs--card>.el-tabs__header{
-    /* height: 60px; */
-    margin: 0;
-}
 
-  .el-tabs__content{
-    display: none;
-  }
 </style>
