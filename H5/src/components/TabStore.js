@@ -1,28 +1,33 @@
 
 export default {
-  namespaced: true,
-  state: {
-    CurTabIndex: 0,
-    Tabs: [{
-      title: '首页',
-      path:'index',
-      closable:false
-    }, {
-      title: 'Tab 2',
-      path:'other',
-      closable:true
-    }]
-  },
-  mutations: {
-    AddTab(state,tab){
-      state.Tabs.push(tab);
+    namespaced: true,
+    state: {
+        CurTabIndex: 1,
+        Tabs: [{
+            title: '首页',
+            path: '/home/index',
+            closable: false
+        }]
     },
-    DelTab(state,index){
-        state.Tabs.splice(idnex,1);
-        state.CurTabIndex = 0;
-    }
-  },
-  actions: {
+    mutations: {
+        OpenTab(state, tab) {
+            tab.closable = true;
+            const exists = state.Tabs.some(t => t.path == tab.path);
+            if (!exists) state.Tabs.push(tab);
+        },
+        DelTab(state, index) {
+            state.Tabs.splice(index, 1);
+            if (state.CurTabIndex === index) {
+                state.CurTabIndex--;
+                //页面跳转
+                console.log(this)
+            }
+            else {
+                if (index < state.CurTabIndex) state.CurTabIndex--;
+            }
+        }
+    },
+    actions: {
 
-  }
+    }
 }

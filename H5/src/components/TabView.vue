@@ -1,8 +1,8 @@
 <template>
   <el-container>
     <el-header height="auto">
-     <div>{{CurTabIndex}}</div> 
-      <span v-for="tab in Tabs" class="el-tag" :key="tab.path">{{tab.title}}<span v-if="tab.closable" class="el-icon-close"></span></span>
+      <div>{{CurTabIndex}}</div> 
+      <span v-for="(tab,index) in Tabs" class="el-tag" :key="tab.path">{{tab.title}}<span v-if="tab.closable" @click="DelTab(index)" class="el-icon-close"></span></span>
     </el-header>
     <el-main>
       <keep-alive>
@@ -13,31 +13,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState,mapMutations } from 'vuex'
 export default {
   name: "tab-view",
    data() {
       return {
         CurTabName: '2',
-        Tabs: [{
-          title: '首页',
-          name: '1',
-          path:'index',
-          closable:false
-        }, {
-          title: 'Tab 2',
-          name: '2',
-          path:'other',
-          closable:true
-        }],
         tabIndex: 2
       }
     },
     computed:{
-      ...mapState('tab',['CurTabIndex']
-      )
+      ...mapState('tab',['CurTabIndex','Tabs'])
     },
     methods: {
+      ...mapMutations('tab',['DelTab']),
       addTab(targetName) {
         let newTabName = ++this.tabIndex + '';
         this.Tabs.push({

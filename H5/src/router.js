@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'root',
-      redirect:'home/index'
+      redirect:'home/test'
     },
     {
       path: '/home',
@@ -20,7 +20,14 @@ export default new Router({
         {
           path: '/home/index',
           name: 'home.index',
+          meta :{title:"首页"},
           component: () => import(/* webpackChunkName: "about" */ './views/Tabs/Index.vue')
+        },
+        {
+          path: '/home/test',
+          name: 'home.test',
+          meta :{title:"测试"},
+          component: () => import(/* webpackChunkName: "about" */ './views/Tabs/Index2.vue')
         }
       ]
     },
