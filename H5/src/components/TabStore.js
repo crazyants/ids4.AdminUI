@@ -1,13 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 
-Vue.use(Vuex)
-
-import tabstore from './components/TabStore'
-
-export default new Vuex.Store({
+export default {
   state: {
-    CurTabIndex: 3,
+    CurTabIndex: 0,
     Tabs: [{
       title: '首页',
       path:'index',
@@ -19,12 +13,15 @@ export default new Vuex.Store({
     }]
   },
   mutations: {
-
+    AddTab(state,tab){
+      state.Tabs.push(tab);
+    },
+    DelTab(state,index){
+        state.Tabs.splice(idnex,1);
+        state.CurTabIndex = 0;
+    }
   },
   actions: {
 
-  },
-  modules:{
-    tab:tabstore
   }
-})
+}

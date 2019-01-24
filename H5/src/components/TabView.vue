@@ -1,18 +1,11 @@
 <template>
   <el-container>
     <el-header height="auto">
-      <el-tabs class="hometab" v-model="CurTabName" type="card" @tab-remove="removeTab">
-        <el-tab-pane
-          v-for="item in Tabs"
-          :key="item.name"
-          :label="item.title"
-          :name="item.name"
-          :closable="item.closable"
-        ></el-tab-pane>
-      </el-tabs>
+     <div>{{CurTabIndex}}</div> 
+      <span v-for="tab in Tabs" class="el-tag" :key="tab.path">{{tab.title}}<span v-if="tab.closable" class="el-icon-close"></span></span>
     </el-header>
     <el-main>
-      <keep-alive exclude="login">
+      <keep-alive>
         <router-view/>
       </keep-alive>
     </el-main>
@@ -20,22 +13,30 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: "tab-view",
    data() {
       return {
         CurTabName: '2',
         Tabs: [{
-          title: 'Index',
+          title: '首页',
           name: '1',
+          path:'index',
           closable:false
         }, {
           title: 'Tab 2',
           name: '2',
+          path:'other',
           closable:true
         }],
         tabIndex: 2
       }
+    },
+    computed:{
+      ...mapState({
+        tab: state => state.tab
+      })
     },
     methods: {
       addTab(targetName) {
