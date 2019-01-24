@@ -1,16 +1,11 @@
 <template>
     <el-container id="content_box">
         <el-header>
-            <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-                <el-radio-button :label="false">展开</el-radio-button>
-                <el-radio-button :label="true">收起</el-radio-button>
-            </el-radio-group>
+            <HeaderBar :toggle-side-bar="toggleSideBar" :is-active="isCollapse" > </HeaderBar>
         </el-header>
-
         <el-container class='aside_box'>
             <el-scrollbar wrap-class="scrollbar-wrapper">
                 <el-aside width="auto">
-
                     <el-menu
                             default-active="1-4-1"
                             class="el-menu-vertical-demo"
@@ -106,7 +101,7 @@
 <script>
     // @ is an alias to /src
     import TabView from '../components/TabView.vue'
-
+    import HeaderBar from '../components/HeaderBar/index'
     export default {
         name: "home",
         data: function () {
@@ -116,7 +111,8 @@
             };
         },
         components: {
-            TabView
+            TabView,
+            HeaderBar
         },
         mounted() {
 
@@ -124,6 +120,9 @@
         methods: {
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
+            },
+            toggleSideBar() {
+                this.isCollapse = !this.isCollapse
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
