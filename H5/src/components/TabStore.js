@@ -12,10 +12,16 @@ export default {
         }]
     },
     mutations: {
+        ActiveTab(state,index){
+            router.push(state.Tabs[index].path);
+        },
         OpenTab(state, tab) {
             tab.closable = true;
-            const exists = state.Tabs.some(t => t.path == tab.path);
-            if (!exists) {
+            const item = state.Tabs.find(t => t.path == tab.path);
+            if(item){
+                state.CurTabIndex = state.Tabs.indexOf(item) ;
+            }
+            else {
                 state.Tabs.push(tab);
                 state.CurTabIndex = state.Tabs.length -1;
             }
