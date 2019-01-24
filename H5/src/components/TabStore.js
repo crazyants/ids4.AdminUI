@@ -1,5 +1,6 @@
 
 export default {
+  namespaced: true,
   state: {
     CurTabIndex: 0,
     Tabs: [{

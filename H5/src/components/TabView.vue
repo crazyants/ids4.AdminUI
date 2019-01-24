@@ -34,9 +34,8 @@ export default {
       }
     },
     computed:{
-      ...mapState({
-        tab: state => state.tab
-      })
+      ...mapState('tab',['CurTabIndex']
+      )
     },
     methods: {
       addTab(targetName) {
