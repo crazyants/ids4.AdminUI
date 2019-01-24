@@ -28,30 +28,10 @@ export default {
     methods: {
       ...mapMutations('tab',['DelTab']),
       addTab(targetName) {
-        let newTabName = ++this.tabIndex + '';
-        this.Tabs.push({
-          title: 'New Tab',
-          name: newTabName,
-          content: 'New Tab content'
-        });
-        this.CurTabName = newTabName;
+      
       },
       removeTab(targetName) {
-        let tabs = this.Tabs;
-        let activeName = this.CurTabName;
-        if (activeName === targetName) {
-          tabs.forEach((tab, index) => {
-            if (tab.name === targetName) {
-              let nextTab = tabs[index + 1] || tabs[index - 1];
-              if (nextTab) {
-                activeName = nextTab.name;
-              }
-            }
-          });
-        }
         
-        this.CurTabName = activeName;
-        this.Tabs = tabs.filter(tab => tab.name !== targetName);
       }
     }
 };

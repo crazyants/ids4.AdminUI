@@ -1,4 +1,7 @@
 
+import Vue from 'vue'
+import router from '../router'
+
 export default {
     namespaced: true,
     state: {
@@ -13,14 +16,17 @@ export default {
         OpenTab(state, tab) {
             tab.closable = true;
             const exists = state.Tabs.some(t => t.path == tab.path);
-            if (!exists) state.Tabs.push(tab);
+            if (!exists) {
+                state.Tabs.push(tab);
+                state.CurTabIndex = state.Tabs.length -1;
+            }
         },
         DelTab(state, index) {
             state.Tabs.splice(index, 1);
             if (state.CurTabIndex === index) {
                 state.CurTabIndex--;
                 //页面跳转
-                console.log(this)
+                router.push(state.Tabs[state.CurTabIndex].path);
             }
             else {
                 if (index < state.CurTabIndex) state.CurTabIndex--;
