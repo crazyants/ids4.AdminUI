@@ -1,6 +1,6 @@
 <template>
     <div>
-测试
+<input type="text" value="测试">
     </div>
 </template>
 

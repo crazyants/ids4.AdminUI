@@ -11,7 +11,7 @@
       <span v-if="tab.closable" @click="DelTab(index,$event)" class="el-icon-close"></span>
     </span>
     <keep-alive>
-      <router-view/>
+      <router-view ref='cur'/>
     </keep-alive>
   </div>
 </template>
@@ -33,6 +33,7 @@ export default {
     ...mapMutations("tab", ["ActiveTab"]),
     DelTab(index, e) {
       e.stopPropagation();
+      this.$refs.cur.$nocache = true;
       this.$store.commit("tab/DelTab", index);
     }
   }
