@@ -1,7 +1,7 @@
 <template>
-  <keep-alive exclude='login'>
+  <!-- <keep-alive exclude='login'> -->
     <router-view/>
-  </keep-alive>
+  <!-- </keep-alive> -->
 </template>
 
 <script>

@@ -49,14 +49,16 @@
           </el-menu-item>
         </el-menu>
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main>
+        <tab-view />
+      </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import TabView from '../components/TabView.vue'
 export default {
   name: "home",
   data: function() {
@@ -65,7 +67,9 @@ export default {
       mainboxH :0
     };
   },
-  components: {},
+  components: {
+    TabView
+  },
   mounted() {
     
   },
@@ -86,13 +90,13 @@ export default {
   min-height: 400px;
 }
 
-.el-header,
+/* .el-header,
 .el-footer {
   background-color: #b3c0d1;
   color: #333;
   text-align: center;
   line-height: 60px;
-}
+} */
 
 .el-aside {
   background-color: #d3dce6;
@@ -104,8 +108,8 @@ export default {
 .el-main {
   /* background-color: #e9eef3; */
   color: #333;
-  text-align: center;
-  line-height: 160px;
+  /* text-align: center;
+  line-height: 160px; */
 }
 
 body > .el-container {

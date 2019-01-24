@@ -9,13 +9,20 @@ export default new Router({
     {
       path: '/',
       name: 'root',
-      redirect:'home'
+      redirect:'home/index'
     },
     {
       path: '/home',
       name: 'home',
       // component: Home
-      component: () => import(/* webpackChunkName: "about" */ './views/Home.vue')
+      component: () => import(/* webpackChunkName: "about" */ './views/Home.vue'),
+      children:[
+        {
+          path: '/home/index',
+          name: 'home.index',
+          component: () => import(/* webpackChunkName: "about" */ './views/Tabs/Index.vue')
+        }
+      ]
     },
     {
       path: '/login',
