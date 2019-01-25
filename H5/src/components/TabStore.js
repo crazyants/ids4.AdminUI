@@ -33,17 +33,18 @@ export default {
         CurTabIndex: 1,
         Tabs: [{
             title: '首页',
-            path: '/home/index',
+            routername: 'home.index',//路由名称
+            routerparams: null,//路由参数
             closable: false
         }]
     },
     mutations: {
         ActiveTab(state, index) {
-            router.push(state.Tabs[index].path);
+            router.push({name: state.Tabs[index].routername,params:state.Tabs[index].routerparams});
         },
         OpenTab(state, tab) {
             tab.closable = true;
-            const item = state.Tabs.find(t => t.path == tab.path);
+            const item = state.Tabs.find(t => t.routername == tab.routername);
             if (item) {
                 state.CurTabIndex = state.Tabs.indexOf(item);
             }
@@ -58,14 +59,14 @@ export default {
             if (state.CurTabIndex === index) {
                 state.CurTabIndex--;
                 //页面跳转
-                router.push(state.Tabs[state.CurTabIndex].path);
+                router.push({name:state.Tabs[state.CurTabIndex].routername,params:state.Tabs[state.CurTabIndex].params});
             }
             else {
                 if (index < state.CurTabIndex) state.CurTabIndex--;
             }
         },
-        DelCache(state,path){
-            const item = state.Tabs.find(t => t.path == path);
+        DelCache(state,routername){
+            const item = state.Tabs.find(t => t.routername == routername);
             removecomponent(item.component);
         },
         Flush(state){//刷新当前路由

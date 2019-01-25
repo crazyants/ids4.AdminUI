@@ -13,7 +13,7 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-
+      redirect:'home/index',
       // component: Home
       component: () => import(/* webpackChunkName: "about" */ './views/Home.vue'),
       children:[
@@ -27,7 +27,14 @@ export default new Router({
           path: '/home/test',
           name: 'home.test',
           meta :{title:"测试"},//此处为规则配置页面 title为Tab显示的标题
-          component: () => import(/* webpackChunkName: "about" */ './views/Tabs/Index2.vue')
+          component: () => import(/* webpackChunkName: "about" */ './views/Tabs/Test.vue')
+        },
+        {
+          path: '/home/hasparam/:name',
+          name: 'home.hasparam',
+          meta :{title:"带参数"},//此处为规则配置页面 title为Tab显示的标题
+          component: () => import(/* webpackChunkName: "about" */ './views/Tabs/HasParam.vue'),
+          props:true
         }
       ]
     },
