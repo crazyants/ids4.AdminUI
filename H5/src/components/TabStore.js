@@ -1,6 +1,31 @@
 
 import router from '../router'
 
+const removecomponent = (component) => {
+    if (component.$vnode && component.$vnode.data.keepAlive) {
+        if (component.$vnode.parent && component.$vnode.parent.componentInstance && component.$vnode.parent.componentInstance.cache) {
+            if (component.$vnode.componentOptions) {
+                var key = component.$vnode.key == null
+                    ? component.$vnode.componentOptions.Ctor.cid + (component.$vnode.componentOptions.tag ? `::${component.$vnode.componentOptions.tag}` : '')
+                    : component.$vnode.key;
+                var cache = component.$vnode.parent.componentInstance.cache;
+                var keys = component.$vnode.parent.componentInstance.keys;
+                if (cache[key]) {
+                    if (keys.length) {
+                        var index = keys.indexOf(key);
+                        if (index > -1) {
+                            keys.splice(index, 1);
+                        }
+                    }
+                    delete cache[key];
+                    component.$destroy();
+                }
+            }
+        }
+    }
+   
+}
+
 export default {
     namespaced: true,
     state: {
@@ -12,21 +37,22 @@ export default {
         }]
     },
     mutations: {
-        ActiveTab(state,index){
+        ActiveTab(state, index) {
             router.push(state.Tabs[index].path);
         },
         OpenTab(state, tab) {
             tab.closable = true;
             const item = state.Tabs.find(t => t.path == tab.path);
-            if(item){
-                state.CurTabIndex = state.Tabs.indexOf(item) ;
+            if (item) {
+                state.CurTabIndex = state.Tabs.indexOf(item);
             }
             else {
                 state.Tabs.push(tab);
-                state.CurTabIndex = state.Tabs.length -1;
+                state.CurTabIndex = state.Tabs.length - 1;
             }
         },
         DelTab(state, index) {
+            removecomponent(state.Tabs[index].component);//删除缓存和销毁组件
             state.Tabs.splice(index, 1);
             if (state.CurTabIndex === index) {
                 state.CurTabIndex--;
@@ -36,6 +62,10 @@ export default {
             else {
                 if (index < state.CurTabIndex) state.CurTabIndex--;
             }
+        },
+        DelCache(state,path){
+            const item = state.Tabs.find(t => t.path == path);
+            removecomponent(item.component);//删除缓存和销毁组件
         }
     },
     actions: {
