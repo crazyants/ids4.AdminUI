@@ -1,6 +1,6 @@
 <template>
     <div>
-        参数值：{{name}}
+        参数值：{{val}}
     </div>
 </template>
 
@@ -13,7 +13,7 @@
           }
       },
       mounted(){
-          this.val = this.$route.params;
+          this.val = this.$route.params.name;
       }
     }
 </script>

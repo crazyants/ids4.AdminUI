@@ -18,12 +18,11 @@ const removecomponent = (component) => {
                         }
                     }
                     delete cache[key];
-                    component.$destroy();
                 }
             }
         }
     }
-   
+    component.$destroy();
 }
 
 export default {
@@ -46,6 +45,8 @@ export default {
             tab.closable = true;
             const item = state.Tabs.find(t => t.routername == tab.routername);
             if (item) {
+                item.component = tab.component;
+                item.routerparams = tab.routerparams;
                 state.CurTabIndex = state.Tabs.indexOf(item);
             }
             else {
@@ -67,7 +68,7 @@ export default {
         },
         DelCache(state,routername){
             const item = state.Tabs.find(t => t.routername == routername);
-            removecomponent(item.component);
+            if(item) removecomponent(item.component);
         },
         Flush(state){//刷新当前路由
             if(state.isRouterAlive){

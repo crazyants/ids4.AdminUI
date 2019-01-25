@@ -12,6 +12,7 @@ import { mapActions } from "vuex";
         methods:{
             ...mapActions("tab",["reflush"]),
             to(){
+                this.$store.commit('tab/DelCache','home.hasparam')
                 var val = new Date().getTime();
                 this.$router.push( '/home/hasparam/'+val);
             }
