@@ -65,7 +65,7 @@ export default {
             }
         },
         DelCache(state,path){
-            const item = state.Tabs.find(t => t.path == tab.path);
+            const item = state.Tabs.find(t => t.path == path);
             removecomponent(item.component);
         },
         Flush(state){//刷新当前路由
