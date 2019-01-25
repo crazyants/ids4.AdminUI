@@ -64,6 +64,10 @@ export default {
                 if (index < state.CurTabIndex) state.CurTabIndex--;
             }
         },
+        DelCache(state,path){
+            const item = state.Tabs.find(t => t.path == tab.path);
+            removecomponent(item.component);
+        },
         Flush(state){//刷新当前路由
             if(state.isRouterAlive){
                 removecomponent(state.Tabs[state.CurTabIndex].component);//删除缓存和销毁组件
