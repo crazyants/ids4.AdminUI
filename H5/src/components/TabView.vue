@@ -11,7 +11,7 @@
       <span v-if="tab.closable" @click="DelTab(index,$event)" class="el-icon-close"></span>
     </span>
     <keep-alive>
-      <router-view ref='cur'/>
+      <router-view v-if="isRouterAlive" ref='cur'/>
     </keep-alive>
   </div>
 </template>
@@ -22,19 +22,24 @@ export default {
   name: "tab-view",
   data() {
     return {
-      CurTabName: "2",
-      tabIndex: 2
+      CurTabName: "2"
     };
   },
   computed: {
-    ...mapState("tab", ["CurTabIndex", "Tabs"])
+    ...mapState("tab", ["CurTabIndex", "Tabs","isRouterAlive"])
   },
   methods: {
     ...mapMutations("tab", ["ActiveTab"]),
     DelTab(index, e) {
       e.stopPropagation();
-      this.$refs.cur.$nocache = true;
       this.$store.commit("tab/DelTab", index);
+    },
+    reload () {
+    }  
+  },
+  provide(){
+    return {
+      reload: this.reload
     }
   }
 };

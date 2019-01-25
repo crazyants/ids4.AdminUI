@@ -29,6 +29,7 @@ const removecomponent = (component) => {
 export default {
     namespaced: true,
     state: {
+        isRouterAlive:true,
         CurTabIndex: 1,
         Tabs: [{
             title: '首页',
@@ -63,12 +64,22 @@ export default {
                 if (index < state.CurTabIndex) state.CurTabIndex--;
             }
         },
-        DelCache(state,path){
-            const item = state.Tabs.find(t => t.path == path);
-            removecomponent(item.component);//删除缓存和销毁组件
+        Flush(state){//刷新当前路由
+            if(state.isRouterAlive){
+                removecomponent(state.Tabs[state.CurTabIndex].component);//删除缓存和销毁组件
+            }
+            state.isRouterAlive=!state.isRouterAlive;
         }
     },
     actions: {
-
+        reflush ({commit,state}) {//刷新当前路由
+            commit('Flush');
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  commit('Flush');
+                  resolve()
+                }, 0)
+              })
+        }
     }
 }

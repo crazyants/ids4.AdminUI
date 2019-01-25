@@ -6,12 +6,12 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
     export default {
         methods:{
-            reflush(){
-                this.$router.push("/home/test?sdaa=1231")
-            }
-        }
+            ...mapActions("tab",["reflush"])
+        },
+        inject:['reload']
     }
 </script>
 
