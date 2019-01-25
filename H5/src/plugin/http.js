@@ -69,17 +69,16 @@ axios.interceptors.response.use(response => {
 
 const handleResult = (res) => {
     if (res.status == 200) {
-        if (res.data.result) {
-          return res.data.data;
+        if(res.data.hasOwnProperty('result')){
+            if(res.data.result) return res.data.data;
+            else throw res.data;
         }
         else {
-            throw res;
+            return res.data;
         }
-
     }
     if (res.status === 401) {
         location.href = "#/login"
-
     }
     throw res
 }
@@ -105,16 +104,13 @@ var http = {
         this.header.Authorization = "Bearer " + token;
     },
     async get(url) {
-        // block.block();
         const res = await axios.get(url, { headers: this.header }).catch(res => res);
-        // block.unblock();
         return handleResult(res);
 
     },
-    async post(url, data) {
-        // block.block();
-        const res = await axios.post(url, data, { headers: this.header }).catch(res => res);
-        // block.unblock();
+    async post(url, data, config) {
+        if(!config) config = { headers: this.header };
+        const res = await axios.post(url, data, config).catch(res => res);
         return handleResult(res);
     },
     async awaitTasks(tasks) {

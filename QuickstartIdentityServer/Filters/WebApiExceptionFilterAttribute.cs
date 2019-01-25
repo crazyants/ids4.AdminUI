@@ -79,7 +79,7 @@ namespace QuickstartIdentityServer.Filters
                 log.LogError(ex, $"发生异常,Request={requestparam};");
             }
             result.Detail = context.Exception.StackTrace;
-            context.Result = new JsonResult(result);
+            context.Result = new JsonResult(result) { StatusCode = 500 };
         }
     }
 }

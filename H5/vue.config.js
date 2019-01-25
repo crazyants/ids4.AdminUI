@@ -2,8 +2,8 @@ module.exports = {
   lintOnSave: false,
   devServer: {
     proxy: {
-      '/dmp': {
-        target: 'http://172.16.0.148:20001'
+      '/connect': {
+        target: 'http://192.168.103.251:6006'
       }
     }
   }
