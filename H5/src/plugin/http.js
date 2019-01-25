@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import router from '../router'
 /**
          * 请求拦截器
          * 
@@ -78,7 +78,7 @@ const handleResult = (res) => {
         }
     }
     if (res.status === 401) {
-        location.href = "#/login"
+        router.push("/login")
     }
     throw res
 }
