@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-import tab from './components/TabStore'
+import tab from './components/TabCtrl'
 
 export default new Vuex.Store({
   state: {

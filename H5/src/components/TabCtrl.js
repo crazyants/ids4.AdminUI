@@ -1,5 +1,18 @@
 
 import router from '../router'
+import Vue from 'vue'
+
+Vue.mixin({
+  activated() {
+    var title="新页面";
+    if(this.$route.meta&&this.$route.meta.title) title = this.$route.meta.title;
+    else{
+        console.warn("您还未配置该路由的Tab页面显示的标题！{meta:{tile:'页面名称'}}")
+    }
+    if(!this.$route.name) throw "您未配置该页面路由名称 {name}"
+    this.$store.commit('tab/OpenTab',{routername:this.$route.name,routerparams:this.$route.params,title:title,component:this})
+  }
+})
 
 const removecomponent = (component) => {
     if (component.$vnode && component.$vnode.data.keepAlive) {
@@ -45,8 +58,7 @@ export default {
             tab.closable = true;
             const item = state.Tabs.find(t => t.routername == tab.routername);
             if (item) {
-                item.component = tab.component;
-                item.routerparams = tab.routerparams;
+                if(tab.routerparams) item.routerparams = tab.routerparams;
                 state.CurTabIndex = state.Tabs.indexOf(item);
             }
             else {
@@ -58,9 +70,15 @@ export default {
             removecomponent(state.Tabs[index].component);//删除缓存和销毁组件
             state.Tabs.splice(index, 1);
             if (state.CurTabIndex === index) {
-                state.CurTabIndex--;
-                //页面跳转
-                router.push({name:state.Tabs[state.CurTabIndex].routername,params:state.Tabs[state.CurTabIndex].params});
+                if(state.CurTabIndex===0){
+                    if(!state.Tabs.length){ router.push('/');return;}
+                }
+                else{
+                    if(state.Tabs.length===1||state.CurTabIndex!==1)
+                        state.CurTabIndex--;
+                }
+                router.push({name:state.Tabs[state.CurTabIndex].routername,params:state.Tabs[state.CurTabIndex].routerparams});//页面跳转
+                
             }
             else {
                 if (index < state.CurTabIndex) state.CurTabIndex--;
