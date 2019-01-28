@@ -52,8 +52,9 @@ export default {
     },
     mutations: {
         ActiveTab(state, index) {
-            state.CurTabIndex = index;
-            router.push({name: state.Tabs[index].routername,params:state.Tabs[index].routerparams});
+            var routerconfig = { name: state.Tabs[index].routername };
+            if(state.Tabs[index].routerparams) routerconfig.params = state.Tabs[index].routerparams;
+            router.push(routerconfig);
         },
         OpenTab(state, tab) {
             tab.closable = true;
