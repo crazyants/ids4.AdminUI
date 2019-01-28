@@ -52,6 +52,7 @@ export default {
     },
     mutations: {
         ActiveTab(state, index) {
+            state.CurTabIndex = index;
             router.push({name: state.Tabs[index].routername,params:state.Tabs[index].routerparams});
         },
         OpenTab(state, tab) {
