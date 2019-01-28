@@ -2,7 +2,7 @@
     <div class='nav_bar'>
         <h1 class='logo' :class="{'is-active':isActive}">
             <img src="../../assets/images/top_logo.png" alt="">
-            <span v-if='!isActive'>服务平台</span>
+            <span v-if='!isActive'>权限认证</span>
         </h1>
         <div class='open_aside'>
                <svg
