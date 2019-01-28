@@ -59,6 +59,7 @@ export default {
             const item = state.Tabs.find(t => t.routername == tab.routername);
             if (item) {
                 if(tab.routerparams) item.routerparams = tab.routerparams;
+                if(tab.component) item.component = tab.component;
                 state.CurTabIndex = state.Tabs.indexOf(item);
             }
             else {
