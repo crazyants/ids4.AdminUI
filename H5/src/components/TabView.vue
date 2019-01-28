@@ -6,18 +6,18 @@
                class="el-tag"
                :class="{'active':CurTabIndex==index}"
                @click="ActiveTab(index)"
-               :key="tab.path"
+               :key="tab.routername"
        >
        <s class='tab_rect'></s>
       {{tab.title}}
       <i v-if="tab.closable" @click="DelTab(index,$event)" class="el-icon-close"></i>
     </span>
     </div>
-    <keep-alive>
       <el-main>
+    <keep-alive>
         <router-view v-if="isRouterAlive" ref='cur'/>
-      </el-main>
     </keep-alive>
+      </el-main>
   </div>
 </template>
 

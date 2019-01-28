@@ -15,7 +15,7 @@
                             :collapse-transition="false"
                             background-color="#222d32"
                             text-color="#fff"
-                            unique-opened='true'
+                            :unique-opened='true'
                     >
 
                         <el-submenu index="1">
