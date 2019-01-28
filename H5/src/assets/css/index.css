@@ -1,9 +1,18 @@
-.aside_scrollbar_box.el-scrollbar > .scrollbar-wrapper {
-    overflow-x: hidden;
-}
-.aside_scrollbar_box.el-scrollbar >.is-horizontal {
-    display: none;
-}
+
 html ,body {
     height: 100%;
+}
+
+.aside_box > .el-scrollbar > .scrollbar-wrapper {
+    overflow-x: hidden;
+}
+.aside_box > .el-scrollbar >.is-horizontal {
+    display: none;
+}
+.el-submenu.is-opened > .el-menu--inline ,
+.el-submenu.is-opened > .el-menu--inline > li{
+    background-color: #2c3b41 !important;
+}
+.el-submenu > .el-menu--inline > li{
+    text-indent: 1em;
 }
