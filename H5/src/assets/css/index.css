@@ -1,0 +1,9 @@
+.aside_scrollbar_box.el-scrollbar > .scrollbar-wrapper {
+    overflow-x: hidden;
+}
+.aside_scrollbar_box.el-scrollbar >.is-horizontal {
+    display: none;
+}
+html ,body {
+    height: 100%;
+}

@@ -1,6 +1,5 @@
 <template>
    <div>
-       <h1 class='title'>admin</h1>
        <svg
                :class="{'is-active':isActive}"
                class="hamburger"
@@ -48,10 +47,7 @@
         float: left;
         width: 200px;
     }
-    .togole_bar {
-        float: left;
 
-    }
     .hamburger {
          display: inline-block;
          cursor: pointer;
