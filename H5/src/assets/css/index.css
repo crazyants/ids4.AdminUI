@@ -11,8 +11,12 @@ html ,body {
 }
 .el-submenu.is-opened > .el-menu--inline ,
 .el-submenu.is-opened > .el-menu--inline > li{
-    background-color: #2c3b41 !important;
+    /* background-color: #2c3b41 !important; */
 }
 .el-submenu > .el-menu--inline > li{
     text-indent: 1em;
+}
+
+.el-aside>.el-menu{
+    border-right: none;
 }
