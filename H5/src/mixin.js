@@ -1,5 +1,4 @@
 import Vue from 'vue'
-
 const whiteList = ['login']// 免登录白名单
 Vue.mixin({
     beforeRouteEnter(to, from, next){
@@ -7,8 +6,9 @@ Vue.mixin({
         next()
       }
       else{
-        if(localStorage.getItem("_token"))
-          next()
+        if(localStorage.getItem("_token")){
+            next()
+        }
         else
           next('/login')
       }
