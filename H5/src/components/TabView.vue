@@ -57,8 +57,8 @@ export default {
     .el-tag{
       cursor: pointer;
       display: inline-block;
-      height: 40px;
-      line-height: 40px;
+      height: 35px;
+      line-height: 35px;
       border-right: solid 1px #ddd;
       border-top: solid 1px #ddd;
       border-bottom: none;
@@ -80,7 +80,7 @@ export default {
       background-color: #fff;
       color: #666;
       border-bottom-color: #fff;
-        height: 41px;
+        height: 36px;
       margin-bottom: -1px;
       i{
         color: #666;

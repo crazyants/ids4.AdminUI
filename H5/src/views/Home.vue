@@ -13,7 +13,7 @@
                             @close="handleClose"
                             :collapse="isCollapse"
                             :collapse-transition="false"
-                            background-color="#222d32"
+                            background-color="#2e4050"
                             text-color="#fff"
                             :unique-opened='true'
                     >
@@ -101,7 +101,7 @@
     }
     .aside_box {
         height: 100%;
-        background-color: #222d32;
+        background-color: #2e4050;
         color: #333;
     }
 

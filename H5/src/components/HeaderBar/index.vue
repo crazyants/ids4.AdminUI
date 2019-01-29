@@ -70,7 +70,7 @@
             line-height: 50px;
             img {
                 vertical-align: middle;
-                margin-top: -9px;
+                margin-top: -6px;
             }
             &.is-active {
                 width: 64px;
@@ -81,7 +81,7 @@
             }
             span {
                 font-weight: 400;
-                font-size: 25px;
+                font-size: 22px;
                 color: #fff;
                 margin-left: 6px;
             }
