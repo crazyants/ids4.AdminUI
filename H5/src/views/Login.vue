@@ -1,26 +1,30 @@
 <template>
-  <el-form
-    :model="logindata"
-    status-icon
-    :rules="loginrules"
-    ref="loginForm"
-    label-width="100px"
-    class="login-ruleForm"
-  >
-    <el-form-item label="用户名" prop="userName">
-      <el-input v-model.number="logindata.userName"></el-input>
-    </el-form-item>
-    <el-form-item label="密码" prop="passWord">
-      <el-input type="password" v-model="logindata.passWord" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="记住我">
-      <el-switch v-model="logindata.rember"></el-switch>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm('loginForm')">提交</el-button>
-      <el-button @click="resetForm('loginForm')">重置</el-button>
-    </el-form-item>
-  </el-form>
+ <div id='login_box'>
+    <div class='form_box'>
+      <el-form
+              :model="logindata"
+              status-icon
+              :rules="loginrules"
+              ref="loginForm"
+              label-width="66px"
+              class="login-ruleForm"
+      >
+        <el-form-item label="用户名" prop="userName">
+          <el-input v-model.number="logindata.userName"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="passWord">
+          <el-input type="password" v-model="logindata.passWord" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="记住我">
+          <el-switch v-model="logindata.rember"></el-switch>
+        </el-form-item>
+        <el-form-item class='submenu_btn_lo'>
+          <el-button class='submenu_btn' type="primary" @click="submitForm('loginForm')">登录</el-button>
+          <!--<el-button @click="resetForm('loginForm')">重置</el-button>-->
+        </el-form-item>
+      </el-form>
+    </div>
+ </div>
 </template>
 
 <script>
@@ -78,5 +82,25 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+  #login_box{
+    height: 100% ;
+    background: url("../assets/images/loginBG.png") no-repeat center;
+    background-size: cover;
+    .form_box {
+      width: 30%;
+      padding-top: 15%;
+      margin: 0 auto;
+      .el-form{
+        padding: 30px 30px 20px ;
+        border-radius: 10px;
+        width: 100%;
+        background-color: #fff;
+      }
+    }
+    .submenu_btn {
+      width: 90%;
+
+    }
+  }
 </style>
