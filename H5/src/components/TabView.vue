@@ -77,12 +77,13 @@ export default {
       }
     }
     .el-tag.active{
-      background-color: #e9eef3;
-      color: #fff;
-      border-bottom-color: #e9eef3;
+      background-color: #fff;
+      color: #666;
+      border-bottom-color: #fff;
+        height: 41px;
       margin-bottom: -1px;
       i{
-        color: #fff;
+        color: #666;
       }
       // .tab_rect {
       //   content: "";
