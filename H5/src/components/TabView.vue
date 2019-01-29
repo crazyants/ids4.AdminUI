@@ -52,15 +52,19 @@ export default {
 
 <style lang='scss' scoped>
   .tab_box {
-    border-bottom: 2px solid #304156;
-    background-color: #e9eef3;
+    border-bottom: 1px solid #ddd;
+    background-color: #f1f1f1;
     .el-tag{
       cursor: pointer;
+      display: inline-block;
       height: 40px;
       line-height: 40px;
       border-right: solid 1px #ddd;
+      border-top: solid 1px #ddd;
+      border-bottom: none;
+      border-left: none;
       color: #475059;
-      background: #fff;
+      background: #f1f1f1;
       padding: 0 10px;
       font-size: 12px;
       border-radius: 0;
@@ -73,23 +77,23 @@ export default {
       }
     }
     .el-tag.active{
-      background-color: #304156;
+      background-color: #e9eef3;
       color: #fff;
-      border-color: #304156;
+      border-bottom-color: #e9eef3;
       margin-bottom: -1px;
       i{
         color: #fff;
       }
-      .tab_rect {
-        content: "";
-        background: #fff;
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        position: relative;
-        margin-right: 2px;
-      }
+      // .tab_rect {
+      //   content: "";
+      //   background: #fff;
+      //   display: inline-block;
+      //   width: 8px;
+      //   height: 8px;
+      //   border-radius: 50%;
+      //   position: relative;
+      //   margin-right: 2px;
+      // }
     }
   }
 
