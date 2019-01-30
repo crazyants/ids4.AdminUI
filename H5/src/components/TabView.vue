@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tabbody">
     <div class='tab_box'>
        <span
                v-for="(tab,index) in Tabs"
@@ -51,6 +51,20 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.tabbody {
+  height: 100%;
+  overflow: hidden;
+}
+.el-main {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 36px;
+  // height: 100%;
+  padding: 15px 0 15px 15px;
+}
+
   .tab_box {
     border-bottom: 1px solid #ddd;
     background-color: #f1f1f1;

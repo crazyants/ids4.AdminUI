@@ -61,7 +61,7 @@
           </el-menu>
         </el-aside>
       </el-scrollbar>
-      <el-main>
+      <el-main class="home_main">
         <tab-view/>
       </el-main>
     </el-container>
@@ -90,7 +90,7 @@ export default {
     created(){
       setTimeout( () => {
           this.menus.push(...menus)
-      },1000)
+      },100)
     },
   mounted() {},
   methods: {
@@ -150,5 +150,6 @@ export default {
   color: #333;
   height: 100%;
   padding: 0;
+  position: relative;
 }
 </style>

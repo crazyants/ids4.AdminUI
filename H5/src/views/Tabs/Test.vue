@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <el-scrollbar wrap-class="scrollbar-wrapper">
     <input type="text" value="测试">
     <button @click="reflush()">刷新</button>
     <div></div>
     <div>
       <button @click="to()">强制跳转（刷新）</button>
     </div>
-    <div>
+    <div style="height:900px">
       <button @click="to1()">跳转（不刷新）</button>
     </div>
-  </div>
+  </el-scrollbar>
 </template>
 
 <script>
