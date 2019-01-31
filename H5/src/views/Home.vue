@@ -142,7 +142,7 @@ export default {
 }
 
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
+  min-width: 180px;/* 左边导航宽度 */
   min-height: 100%;
 }
 .el-main {

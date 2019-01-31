@@ -18,7 +18,9 @@ html ,body {
 .el-submenu > .el-menu--inline > li{
     text-indent: 1em;
 }
-
+.el-aside{
+    overflow-x: hidden;
+}
 .el-aside>.el-menu{
     border-right: none;
 }
@@ -27,9 +29,11 @@ html ,body {
     height: 50px;
     line-height: 50px;
     font-size: 12px;
+    min-width: auto;
 }
 
 .el-submenu .el-menu-item{
     height: 50px;
     line-height: 50px;
+    min-width: auto;
 }
