@@ -88,9 +88,15 @@ export default {
     background: url("../assets/images/loginBG.png") no-repeat center;
     background-size: cover;
     .form_box {
-      width: 30%;
-      padding-top: 15%;
-      margin: 0 auto;
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 400px;
+      top: 0;
+      height: 300px;
+      bottom: 0;
+      margin: auto;
       .el-form{
         padding: 30px 30px 20px ;
         border-radius: 10px;
