@@ -62,7 +62,7 @@ export default {
   bottom: 0;
   top: 36px;
   // height: 100%;
-  padding: 15px 0 15px 15px;
+  padding: 1px 0 1px 1px;
 }
 
   .tab_box {
