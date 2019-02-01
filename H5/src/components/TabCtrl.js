@@ -38,7 +38,8 @@ const removecomponent = (component) => {
     component.$destroy();
 }
 
-var maxtab = 2;
+var maxtab = 2;//tab打开最大数量配置
+
 export default {
     namespaced: true,
     state: {

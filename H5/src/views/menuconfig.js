@@ -4,9 +4,9 @@ var menus = [
         icon:"el-icon-menu",
         title:"权限管理",
         children:[
-            {title:"系统配置",routername:'home.index'},
+            {title:"首页",routername:'home.index'},
             {title:"模块配置"},
-            {title:"权限配置",routername:'home.test'}
+            {title:"测试tab",routername:'home.test'}
         ]
     },
     {
