@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar wrap-class="scrollbar-wrapper">
+  <el-scrollbar wrap-class="scrollbar-wrapper-y">
      <div style="height:100px"></div>
     <input type="text" value="测试">
     <button @click="reflush()">刷新</button>

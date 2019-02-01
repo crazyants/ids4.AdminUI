@@ -38,6 +38,7 @@ const removecomponent = (component) => {
     component.$destroy();
 }
 
+var maxtab = 2;
 export default {
     namespaced: true,
     state: {
@@ -66,6 +67,10 @@ export default {
             }
             else {
                 state.Tabs.push(tab);
+                if(state.Tabs.length>maxtab){
+                    removecomponent(state.Tabs[1].component);
+                    state.Tabs.splice(1,1);
+                }
                 state.CurTabIndex = state.Tabs.length - 1;
             }
         },

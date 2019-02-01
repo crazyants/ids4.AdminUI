@@ -83,6 +83,7 @@ namespace QuickstartIdentityServer.DBManager
         private void PrivateCheckDoWork()
         {
             var entries = ChangeTracker.Entries().Where(e => e.State != EntityState.Unchanged).ToArray();
+            var tsnow = GetUnixTimestamp();
             foreach (var entry in entries)
             {
                 if (entry.Entity is IUpdateOperation bd)
@@ -92,7 +93,7 @@ namespace QuickstartIdentityServer.DBManager
                 }
                 if (entry.Entity is ITimeStamp ts)
                 {
-                    ts.Ts = GetUnixTimestamp();
+                    ts.Ts = tsnow;
                 }
                 switch (entry.State)
                 {

@@ -4,7 +4,7 @@
       <HeaderBar :toggle-side-bar="toggleSideBar" :is-active="isCollapse"></HeaderBar>
     </el-header>
     <el-container class="aside_box">
-      <el-scrollbar wrap-class="scrollbar-wrapper">
+      <el-scrollbar wrap-class="scrollbar-wrapper-y">
         <el-aside width="auto">
           <el-menu
             default-active="1-4-1"

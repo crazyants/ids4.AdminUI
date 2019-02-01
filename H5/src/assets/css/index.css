@@ -5,7 +5,7 @@ html ,body {
 .el-scrollbar {
     height: 100%;
 }
-.el-scrollbar > .scrollbar-wrapper {
+.el-scrollbar > .scrollbar-wrapper-y {
     overflow-x: hidden;
 }
 .aside_box > .el-scrollbar >.is-horizontal {
