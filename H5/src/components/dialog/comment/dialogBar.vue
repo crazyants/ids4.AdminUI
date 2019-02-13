@@ -47,8 +47,14 @@
                 type: Number
             }
         },
+        data(){
+          return{
+              dialogMainHeight :''
+          }
+        },
         mounted() {
            this.$nextTick(() => {
+               this.dialogMainHeight = this.$refs.dialogContentBox.clientHeight
                this.resize();
            });
            this.$$resize = ()=>{
@@ -62,14 +68,12 @@
                 //如果需要传参的话，可以在"on-close"后面再加参数，然后在父组件的函数里接收就可以了。
             },
             resize(){
-                console.log(this.$refs.dialogMain);
-               let dialogMainHeight = this.$refs.dialogContentBox.clientHeight
                let windowHeight = window.innerHeight
-               if (dialogMainHeight >= (windowHeight-60)) {
+               if (this.dialogMainHeight >= (windowHeight-60)) {
                    this.$refs.dialogMain.$el.style.height = (windowHeight - 60 - this.$refs.header.clientHeight- this.$refs.footer.clientHeight) + 'px';
                    this.$refs.dialogContentBox.style.top = '30px'
                } else {
-                   this.$refs.dialogContentBox.style.top = (windowHeight - dialogMainHeight) / 2 +'px'
+                   this.$refs.dialogContentBox.style.top = (windowHeight - this.dialogMainHeight) / 2 +'px'
                }
             }
         },
