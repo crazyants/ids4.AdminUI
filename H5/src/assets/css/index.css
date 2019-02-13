@@ -2,6 +2,7 @@
 html ,body {
     height: 100%;
 }
+/*滚动条*/
 .el-scrollbar {
     height: 100%;
 }
@@ -11,10 +12,7 @@ html ,body {
 .aside_box > .el-scrollbar >.is-horizontal {
     display: none;
 }
-.el-submenu.is-opened > .el-menu--inline ,
-.el-submenu.is-opened > .el-menu--inline > li{
-    /* background-color: #2c3b41 !important; */
-}
+/*左侧菜单*/
 .el-submenu > .el-menu--inline > li{
     text-indent: 1em;
 }

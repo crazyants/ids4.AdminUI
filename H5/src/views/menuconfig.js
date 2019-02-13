@@ -11,7 +11,8 @@ var menus = [
     },
     {
         icon:"el-icon-document",
-        title:"角色管理"
+        title:"角色管理",
+        routername:'home.role'
     },
     {
         icon:"el-icon-location",

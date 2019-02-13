@@ -61,7 +61,7 @@
           </el-menu>
         </el-aside>
       </el-scrollbar>
-      <el-main class="home_main">
+      <el-main >
         <tab-view/>
       </el-main>
     </el-container>
