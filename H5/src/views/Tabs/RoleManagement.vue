@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <el-scrollbar wrap-class="scrollbar-wrapper-y">
+        <div>
         <el-row class='role_title'>
             <el-col :span="2">
                 <div>
@@ -62,7 +63,6 @@
                             show-overflow-tooltip>
                     </el-table-column>
                     <el-table-column
-                            fixed="right"
                             label="操作"
                             width='100'
                     >
@@ -74,8 +74,9 @@
                 </el-table>
             </el-col>
         </el-row>
+        </div>
         <RoleEduit :is-show='show' @close-dailog="RoleEduitHide"></RoleEduit>
-    </div>
+    </el-scrollbar>
 </template>
 
 <script>
