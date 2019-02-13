@@ -1,6 +1,6 @@
 <template>
     <div>
-        参数值：{{val}}
+        参数值：{{val}} 当前时间：{{curtime}}
     </div>
 </template>
 
@@ -9,11 +9,13 @@
         props:['name'],
       data() {
           return {
-              val: ""
+              val: "",
+              curtime:null
           }
       },
       mounted(){
           this.val = this.$route.params.name;
+          this.curtime = new Date().getTime();
       }
     }
 </script>

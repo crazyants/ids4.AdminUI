@@ -15,7 +15,7 @@
         </div>
         <el-main>
             <keep-alive>
-                <router-view v-if="isRouterAlive" ref='cur'/>
+                <router-view v-if="isRouterAlive" :key="$route.fullPath" ref='cur'/>
             </keep-alive>
         </el-main>
     </div>
