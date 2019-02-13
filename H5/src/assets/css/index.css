@@ -12,6 +12,9 @@ html ,body {
 .aside_box > .el-scrollbar >.is-horizontal {
     display: none;
 }
+.el-scrollbar__thumb {
+    background-color: rgba(144,147,153,.6);
+}
 /*左侧菜单*/
 .el-submenu > .el-menu--inline > li{
     text-indent: 1em;

@@ -22,10 +22,16 @@
                     </el-row>
 
                 </div>
-                <div class="dialog_main" ref="dialogMain">
-                    <!--弹窗的内容-->
-                    <slot name="main">弹窗内容</slot>
-                </div>
+                <el-container id="dialog_main" ref="dialogMain">
+                    <el-scrollbar wrap-class="scrollbar-wrapper-y">
+                        <slot name="main">弹窗内容</slot>
+                    </el-scrollbar>
+                </el-container>
+
+                <!--<div class="dialog_main" ref="dialogMain">-->
+                    <!--&lt;!&ndash;弹窗的内容&ndash;&gt;-->
+                    <!--<slot name="main">弹窗内容</slot>-->
+                <!--</div>-->
                 <!--弹窗关闭按钮-->
                 <div class="el-message-box__btns">
                     <slot name="footer">按钮区域</slot>
@@ -49,14 +55,11 @@
         },
         mounted() {
            this.$nextTick(() => {
-
-               let dialogMainHeight = this.$refs.dialogMain.clientHeight
+               let dialogMainHeight = this.$refs.dialogMain.$el.clientHeight
                let windowHeight = window.innerHeight
-
                if (dialogMainHeight >= windowHeight) {
-                   this.$refs.dialogMain.style.height = windowHeight - 130 + 'px'
+                   this.$refs.dialogMain.$el.style.height = windowHeight - 130 + 'px'
                } else {
-                   console.log((windowHeight - dialogMainHeight) / 2);
                    this.$refs.dialogContentBox.style.top = (windowHeight - dialogMainHeight) / 2.5 +'px'
                }
            })
@@ -106,7 +109,7 @@
         }
     }
 
-    .dialog_main {
+    #dialog_main {
         padding: 10px 15px;
         overflow-y: auto;
     }
