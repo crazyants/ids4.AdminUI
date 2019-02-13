@@ -7,7 +7,7 @@
             <!--style 通过props 控制内容的样式 -->
             <div class="dialog-content" ref='dialogContentBox' :style="{width:dialogW+'px',margin: '0 auto'}">
 
-                <div class="dialog_head back">
+                <div class="dialog_head back" ref='header'>
                     <!--弹窗头部 title-->
                     <el-row>
                         <el-col :span='22' class='dialog_head_tip'>
@@ -33,7 +33,7 @@
                     <!--<slot name="main">弹窗内容</slot>-->
                 <!--</div>-->
                 <!--弹窗关闭按钮-->
-                <div class="el-message-box__btns">
+                <div class="el-message-box__btns" ref='footer'>
                     <slot name="footer">按钮区域</slot>
                 </div>
             </div>
@@ -47,24 +47,35 @@
                 type: Number
             }
         },
-        methods: {
+        mounted() {
+           this.$nextTick(() => {
+               this.resize();
+           });
+           this.$$resize = ()=>{
+               this.resize();
+           }
+           window.addEventListener("resize",this.$$resize);
+        },
+        methods:{
             closeMyself() {
                 this.$emit("on-close");
                 //如果需要传参的话，可以在"on-close"后面再加参数，然后在父组件的函数里接收就可以了。
             },
-        },
-        mounted() {
-           this.$nextTick(() => {
-               let dialogMainHeight = this.$refs.dialogMain.$el.clientHeight
+            resize(){
+                console.log(this.$refs.dialogMain);
+               let dialogMainHeight = this.$refs.dialogContentBox.clientHeight
                let windowHeight = window.innerHeight
-               if (dialogMainHeight >= windowHeight) {
-                   this.$refs.dialogMain.$el.style.height = windowHeight - 130 + 'px'
+               if (dialogMainHeight >= (windowHeight-60)) {
+                   this.$refs.dialogMain.$el.style.height = (windowHeight - 60 - this.$refs.header.clientHeight- this.$refs.footer.clientHeight) + 'px';
+                   this.$refs.dialogContentBox.style.top = '30px'
                } else {
-                   this.$refs.dialogContentBox.style.top = (windowHeight - dialogMainHeight) / 2.5 +'px'
+                   this.$refs.dialogContentBox.style.top = (windowHeight - dialogMainHeight) / 2 +'px'
                }
-           })
+            }
+        },
+        destroyed(){
+            window.removeEventListener("resize",this.$$resize);
         }
-
     }
 </script>
 <style lang="scss" scoped>
