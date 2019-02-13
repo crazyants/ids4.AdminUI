@@ -16,6 +16,9 @@
       mounted(){
           this.val = this.$route.params.name;
           this.curtime = new Date().getTime();
+          this.$nextTick(()=>{
+          this.$store.commit("tab/ModifyTile", {fullPath:"/home/hasparam/"+this.val,title:`详细(${this.curtime})`});
+          })
       }
     }
 </script>

@@ -2,7 +2,7 @@
 import router from '../router' //app路由配置文件
 import Vue from 'vue'
 
-var maxtab = 6;//tab打开最大数量配置
+var maxtab = 7;//tab打开最大数量配置
 var defaulttab = {//默认打开页面
     title: '首页',
     fullPath: '/home/index',//完整路径
@@ -60,7 +60,7 @@ export default {
             // if(state.Tabs[index].routerparams) routerconfig.params = state.Tabs[index].routerparams;
             router.push(state.Tabs[index].fullPath);
         },
-        OpenTab(state, tab) {
+        OpenTab(state, tab) {//路由拦截触发,获取meta里的title
             tab.closable = true;
             const item = state.Tabs.find(t => t.fullPath == tab.fullPath);
             if (item) {
@@ -75,6 +75,10 @@ export default {
                 }
                 state.CurTabIndex = state.Tabs.length - 1;
             }
+        },
+        ModifyTile(state, tab){//自定标题
+            const item = state.Tabs.find(t => t.fullPath == tab.fullPath);
+            item.title = tab.title;
         },
         DelTab(state, index) {
             removecomponent(state.Tabs[index].component);//删除缓存和销毁组件
