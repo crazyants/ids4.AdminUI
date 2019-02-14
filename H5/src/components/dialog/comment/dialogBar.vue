@@ -5,7 +5,7 @@
         <!-- transition 这里可以加一些简单的动画效果 -->
         <transition name="drop">
             <!--style 通过props 控制内容的样式 -->
-            <div class="dialog-content" ref='dialogContentBox' :style="{width:dialogW+'px',margin: '0 auto'}">
+            <div class="dialog-content" ref='dialogContentBox' :style="{width:dialogWidth+'px',margin: '0 auto'}">
 
                 <div class="dialog_head back" ref='header'>
                     <!--弹窗头部 title-->
@@ -29,8 +29,8 @@
                 </el-container>
 
                 <!--<div class="dialog_main" ref="dialogMain">-->
-                    <!--&lt;!&ndash;弹窗的内容&ndash;&gt;-->
-                    <!--<slot name="main">弹窗内容</slot>-->
+                <!--&lt;!&ndash;弹窗的内容&ndash;&gt;-->
+                <!--<slot name="main">弹窗内容</slot>-->
                 <!--</div>-->
                 <!--弹窗关闭按钮-->
                 <div class="el-message-box__btns" ref='footer'>
@@ -43,42 +43,42 @@
 <script>
     export default {
         props: {
-            dialogW: {
+            dialogWidth: {
                 type: Number
             }
         },
-        data(){
-          return{
-              dialogMainHeight :''
-          }
+        data() {
+            return {
+                dialogMainHeight: ''
+            }
         },
         mounted() {
-           this.$nextTick(() => {
-               this.dialogMainHeight = this.$refs.dialogContentBox.clientHeight
-               this.resize();
-           });
-           this.$$resize = ()=>{
-               this.resize();
-           }
-           window.addEventListener("resize",this.$$resize);
+            this.$nextTick(() => {
+                this.dialogMainHeight = this.$refs.dialogContentBox.clientHeight
+                this.resize();
+            });
+            this.$$resize = () => {
+                this.resize();
+            }
+            window.addEventListener("resize", this.$$resize);
         },
-        methods:{
+        methods: {
             closeMyself() {
                 this.$emit("on-close");
                 //如果需要传参的话，可以在"on-close"后面再加参数，然后在父组件的函数里接收就可以了。
             },
-            resize(){
-               let windowHeight = window.innerHeight
-               if (this.dialogMainHeight >= (windowHeight-60)) {
-                   this.$refs.dialogMain.$el.style.height = (windowHeight - 60 - this.$refs.header.clientHeight- this.$refs.footer.clientHeight) + 'px';
-                   this.$refs.dialogContentBox.style.top = '30px'
-               } else {
-                   this.$refs.dialogContentBox.style.top = (windowHeight - this.dialogMainHeight) / 2 +'px'
-               }
+            resize() {
+                let windowHeight = window.innerHeight
+                if (this.dialogMainHeight >= (windowHeight - 60)) {
+                    this.$refs.dialogMain.$el.style.height = (windowHeight - 60 - this.$refs.header.clientHeight - this.$refs.footer.clientHeight) + 'px';
+                    this.$refs.dialogContentBox.style.top = '30px'
+                } else {
+                    this.$refs.dialogContentBox.style.top = (windowHeight - this.dialogMainHeight) / 2 + 'px'
+                }
             }
         },
-        destroyed(){
-            window.removeEventListener("resize",this.$$resize);
+        destroyed() {
+            window.removeEventListener("resize", this.$$resize);
         }
     }
 </script>
