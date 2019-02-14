@@ -8,6 +8,7 @@ services:
       context: ./QuickstartIdentityServer
       dockerfile: Dockerfile
     environment:
+      - ASPNETCORE_URLS=http://*:80
       - ASPNETCORE_ENVIRONMENT=Production
       - apollo:AppId=ids
       - apollo:Env=DEV
