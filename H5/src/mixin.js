@@ -1,4 +1,21 @@
 import Vue from 'vue'
+//PC
+Vue.mixin({
+  mounted(){
+    if(this.wrapClass=="scrollbar-wrapper-y"){
+      this.$$scrollbar_resize = ()=>{
+        this.update();
+      }
+      window.addEventListener("resize",this.$$scrollbar_resize);
+    }
+  },
+  beforeDestroy(){
+    if(this.wrapClass=="scrollbar-wrapper-y"){
+      window.removeEventListener("resize",this.$$scrollbar_resize);
+    }
+  }
+})
+
 const whiteList = ['login']// 免登录白名单
 Vue.mixin({
   activated() {
