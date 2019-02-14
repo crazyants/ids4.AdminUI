@@ -73,8 +73,9 @@
                 </el-table-column>
             </el-table>
             <el-row class='page_footer'>
-                <el-col :span='11' :offset='13'>
+                <el-col :span='24'>
                     <el-pagination
+                            class='page_footer_box'
                             @size-change="handleSizeChange"
                             @current-change="handleCurrentChange"
                             :current-page.sync="currentPage3"
@@ -225,5 +226,8 @@
 
     .page_footer {
         margin-top: 10px;
+    }
+    .page_footer_box{
+        float: right;
     }
 </style>
