@@ -91,7 +91,7 @@ namespace QuickstartIdentityServer
                 });
 
             string url= Configuration["ASPNETCORE_URLS"];
-            if (string.IsNullOrEmpty(url)) url = "http://localhost:5000";
+            if (string.IsNullOrEmpty(url)) url = "http://localhost";
             //添加身份认证服务
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
