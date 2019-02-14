@@ -124,7 +124,14 @@
                 show: false
             }
         },
+        mounted(){
+            this.flush();
+        },
         methods: {
+            async flush(){
+                 const result = await this.$http.post("/base/api/Role/Query", {"name": "string","pageIndex": 1,"pageSize": 10});
+                 console.log(result);
+            },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
