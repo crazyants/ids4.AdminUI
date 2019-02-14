@@ -12,7 +12,7 @@ using QuickstartIdentityServer.Filters;
 
 namespace QuickstartIdentityServer.Apis
 {
-    //[Authorize]
+    [Authorize]
     [Route("base/api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
