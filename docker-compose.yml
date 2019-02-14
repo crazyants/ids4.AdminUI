@@ -9,6 +9,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_URLS=http://*:80
+      - Ids4_Authority=http://192.168.103.251:6006/
       - ASPNETCORE_ENVIRONMENT=Production
       - apollo:AppId=ids
       - apollo:Env=DEV
