@@ -90,8 +90,9 @@ namespace QuickstartIdentityServer
                     options.TokenCleanupInterval = 30;
                 });
 
-            string url= Configuration["ASPNETCORE_URLS"];
+            string url = Configuration["ASPNETCORE_URLS"];
             if (string.IsNullOrEmpty(url)) url = "http://127.0.0.1:80/";
+            else url = url.Replace("*", "127.0.0.1");
             Console.WriteLine($"url;{url}");
             //添加身份认证服务
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
