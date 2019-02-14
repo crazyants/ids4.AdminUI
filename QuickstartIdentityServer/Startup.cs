@@ -91,7 +91,7 @@ namespace QuickstartIdentityServer
                 });
 
             string url= Configuration["ASPNETCORE_URLS"];
-            if (string.IsNullOrEmpty(url)) url = "http://127.0.0.1";
+            if (string.IsNullOrEmpty(url)) url = "http://127.0.0.1:80";
             Console.WriteLine($"url;{url}");
             //添加身份认证服务
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
