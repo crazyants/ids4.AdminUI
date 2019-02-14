@@ -129,7 +129,7 @@
         },
         methods: {
             async flush(){
-                 const result = await this.$http.post("/base/api/Role/Query", {"name": "string","pageIndex": 1,"pageSize": 10});
+                 const result = await this.$http.post("/base/api/Role/Query", {"pageIndex": 1,"pageSize": 10});
                  console.log(result);
             },
             handleSelectionChange(val) {
