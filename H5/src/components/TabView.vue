@@ -43,8 +43,9 @@ export default {
   },
   mounted(){
     this.$refs.tabbox.$el.addEventListener("mousewheel",(e)=>{
-      if(e.deltaY>0) this.$refs.tabbox.$el.firstElementChild.scrollLeft+=10;
-      else if(e.deltaY<0) this.$refs.tabbox.$el.firstElementChild.scrollLeft-=10;
+      console.log(e)
+      if(e.wheelDelta<0) this.$refs.tabbox.$el.firstElementChild.scrollLeft+=10;
+      else if(e.wheelDelta>0) this.$refs.tabbox.$el.firstElementChild.scrollLeft-=10;
     })
   },
   methods: {
@@ -107,7 +108,13 @@ export default {
       this.$nextTick(() => {
         this.$refs.tabbox.update();
       });
-    }
+    },
+    // CurTabIndex(newval,oldval){
+    //   console.log(arguments);
+    //   this.$nextTick(() => {
+    //     const tabbox = this.$refs.tabbox.$el.firstChild.firstChild;
+    //   });
+    // }
     // tabcount() {
     //   this.$nextTick(() => {
     //     const tabbox = this.$refs.tabbox;
