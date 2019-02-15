@@ -74,7 +74,8 @@
         methods: {
             closeMyself() {
                 this.$refs.roleForm.resetFields();
-                this.$emit("close-dailog");
+                //this.$emit("close-dailog");
+                this.$emit('update:isShow', false)
                 //如果需要传参的话，可以在"on-close"后面再加参数，然后在父组件的函数里接收就可以了。
             },
             onSubmit(roleForm){

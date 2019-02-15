@@ -1,6 +1,6 @@
 <template>
   <div class="tabbody">
-    <div class="tab_box" ref="tabbox" @dragover="allowDrop($event)" @drop="drop($event)">
+    <el-scrollbar class="tab_box scroll-container" ref="tabbox" @dragover="allowDrop($event)" @drop="drop($event)">
       <span draggable="true" @dragstart="drag($event,index)" 
         v-for="(tab,index) in Tabs"
         class="el-tag"
@@ -16,7 +16,7 @@
           class="el-icon-close"
         ></i>
       </span>
-    </div>
+    </el-scrollbar>
     <el-main>
       <keep-alive>
         <router-view v-if="isRouterAlive" :key="$route.fullPath" ref="cur"/>
@@ -92,19 +92,19 @@ export default {
     reload() {}
   },
   watch: {
-    tabcount() {
-      this.$nextTick(() => {
-        const tabbox = this.$refs.tabbox;
-        const totalwidth = tabbox.clientWidth;
-        let contentwidth = this.Tabs.length;
-        for(var i=0;i<tabbox.children.length;i++){
-            contentwidth+=tabbox.children[i].clientWidth
-        }
-        if(totalwidth<contentwidth){
-            this.$store.commit("tab/DelTab", this.Tabs.length-2);
-        }
-      });
-    }
+    // tabcount() {
+    //   this.$nextTick(() => {
+    //     const tabbox = this.$refs.tabbox;
+    //     const totalwidth = tabbox.clientWidth;
+    //     let contentwidth = this.Tabs.length;
+    //     for(var i=0;i<tabbox.children.length;i++){
+    //         contentwidth+=tabbox.children[i].clientWidth
+    //     }
+    //     if(totalwidth<contentwidth){
+    //         this.$store.commit("tab/DelTab", this.Tabs.length-2);
+    //     }
+    //   });
+    // }
   },
   provide() {
     return {
@@ -128,7 +128,21 @@ export default {
   margin: 10px;
   box-shadow: 0px 0px 4px #999;
 }
-
+.scroll-container {
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  /deep/ {
+    .el-scrollbar__bar {
+      bottom: 0px;
+    }
+    .el-scrollbar__wrap {
+      height: 49px;
+    }
+  }
+}
 .tab_box {
   border-bottom: 1px solid #ddd;
   background-color: #f1f1f1;

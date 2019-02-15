@@ -86,7 +86,7 @@
                 </el-col>
             </el-row>
         </div>
-        <RoleEduit :is-show='show' @close-dailog="RoleEduitDilagHide" :dialog-tittle='dialogTittle'
+        <RoleEduit :is-show.sync='show' @close-dailog="RoleEduitDilagHide" :dialog-tittle='dialogTittle'
                    :role-info='roleInfo'></RoleEduit>
     </el-scrollbar>
 </template>
@@ -227,7 +227,8 @@
     .page_footer {
         margin-top: 10px;
     }
-    .page_footer_box{
+
+    .page_footer_box {
         float: right;
     }
 </style>
