@@ -129,23 +129,33 @@ export default {
   box-shadow: 0px 0px 4px #999;
 }
 .scroll-container {
-  white-space: nowrap;
-  position: relative;
-  overflow: hidden;
   width: 100%;
   height: auto;
+  white-space: nowrap;
   /deep/ {
     .el-scrollbar__bar {
       bottom: 0px;
+      &.is-vertical {
+        display: none;
+      }
     }
     .el-scrollbar__wrap {
-      height: 49px;
+      height: 53px;
     }
   }
 }
 .tab_box {
-  border-bottom: 1px solid #ddd;
   background-color: #f1f1f1;
+  &:after{
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
   .el-tag {
     cursor: pointer;
     display: inline-block;
@@ -174,6 +184,8 @@ export default {
     border-bottom-color: #fff;
     height: 36px;
     margin-bottom: -1px;
+    position: relative;
+    z-index: 2;
     i {
       color: #666;
     }
