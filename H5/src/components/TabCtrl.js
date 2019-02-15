@@ -107,6 +107,12 @@ export default {
                 removecomponent(state.Tabs[state.CurTabIndex].component);//删除缓存和销毁组件
             }
             state.isRouterAlive=!state.isRouterAlive;
+        },
+        exchange(state,{before,after}){//交换顺序
+           var activeitem = state.Tabs[state.CurTabIndex];
+           const beforeitem =  state.Tabs.splice(before,1)[0];
+           state.Tabs.splice(after,0,beforeitem);
+           state.CurTabIndex = state.Tabs.indexOf(activeitem);
         }
     },
     actions: {

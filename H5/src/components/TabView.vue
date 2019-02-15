@@ -1,7 +1,7 @@
 <template>
   <div class="tabbody">
-    <div class="tab_box" ref="tabbox">
-      <span
+    <div class="tab_box" ref="tabbox" @dragover="allowDrop($event)" @drop="drop($event)">
+      <span draggable="true" @dragstart="drag($event,index)" 
         v-for="(tab,index) in Tabs"
         class="el-tag"
         :class="{'active':CurTabIndex==index}"
@@ -46,6 +46,48 @@ export default {
     DelTab(index, e) {
       e.stopPropagation();
       this.$store.commit("tab/DelTab", index);
+    },
+    drag(event,dragindex) {
+       const dom = event.currentTarget;
+       this.$start_x = event.clientX;
+       this.$dragindex = dragindex;
+    },
+    drop(event) {
+        const dx = event.clientX - this.$start_x;
+        console.log(dx)
+        event.preventDefault();
+        const afterindex = this.getafterindex(dx);
+        if(afterindex != this.$dragindex){
+            this.$store.commit("tab/exchange", {before:this.$dragindex,after:afterindex});
+        }
+    },
+    getafterindex(dx){//根据拖拽位移获取 移动后的index
+        const tabbox = this.$refs.tabbox;
+        let afterindex = this.$dragindex;
+        if(dx<0){//左移
+            var i = this.$dragindex -1;
+            let dis = -dx;
+            while(i>0){
+               dis -= tabbox.children[i].clientWidth;
+               if(dis>0) afterindex = i;
+               else break;
+               i--;
+            }
+        }
+        else if(dx>0&&this.$dragindex>0){//右移
+            var i = this.$dragindex+1;
+            let dis = dx;
+            while(i<tabbox.children.length){
+                dis -= tabbox.children[i].clientWidth;
+                if(dis>0) afterindex = i;
+                else break;
+                i++;
+            }
+        }
+        return afterindex;
+    },
+    allowDrop(event) {
+        event.preventDefault();
     },
     reload() {}
   },
