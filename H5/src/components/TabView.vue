@@ -1,6 +1,6 @@
 <template>
   <div class="tabbody"  @dragover="allowDrop($event)" @drop="drop($event)">
-    <el-scrollbar class="tab_box scroll-container" ref="tabbox">
+    <el-scrollbar class="tab_box scroll-container" wrap-class="scrollbar-wrapper-y" ref="tabbox">
       <span draggable="true" @dragstart="drag($event,index)" 
         v-for="(tab,index) in Tabs"
         class="el-tag"
@@ -137,8 +137,8 @@ export default {
 .el-main {
   height: 100%;
   padding: 0;
-  margin: 10px;
-  box-shadow: 0px 0px 4px #999;
+  // margin: 10px;
+  // box-shadow: 0px 0px 4px #999;
 }
 .scroll-container {
   width: 100%;
