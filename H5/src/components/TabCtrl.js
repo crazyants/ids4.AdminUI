@@ -108,11 +108,18 @@ export default {
             }
             state.isRouterAlive=!state.isRouterAlive;
         },
-        exchange(state,{before,after}){//交换顺序
+        exchange(state,{before,after}){//改变顺序
            var activeitem = state.Tabs[state.CurTabIndex];
            const beforeitem =  state.Tabs.splice(before,1)[0];
            state.Tabs.splice(after,0,beforeitem);
            state.CurTabIndex = state.Tabs.indexOf(activeitem);
+        },
+        closeAndTo(state,{fullPath,flush}){//关闭当前页跳转到指定页面,并执行指定函数
+            removecomponent(state.Tabs[state.CurTabIndex].component);//删除缓存和销毁组件
+            state.Tabs.splice(state.CurTabIndex, 1);
+            const item = state.Tabs.find(t => t.fullPath == fullPath);
+            if(item&&item.component&&item.component[flush]) item.component[flush]();
+            router.push(fullPath);//页面跳转
         }
     },
     actions: {
