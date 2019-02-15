@@ -140,7 +140,10 @@ export default {
   background-color: #2e4050;
   color: #333;
 }
-
+.aside_box>.el-scrollbar{
+  flex-grow: 0;/* 不索取父容器空间 默认0 */
+  flex-shrink: 0;/* 父容器空间不够，不压缩 默认1 */
+}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   min-width: 180px;/* 左边导航宽度 */
   min-height: 100%;
