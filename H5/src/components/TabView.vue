@@ -56,11 +56,12 @@ export default {
     drag(event,dragindex) {
        const dom = event.currentTarget;
        this.$start_x = event.clientX;
+       this.$move_x = event.clientX;
        this.$dragindex = dragindex;
+       this.$scrollLeft = this.$refs.tabbox.$el.firstElementChild.scrollLeft;
     },
     drop(event) {
         const dx = event.clientX - this.$start_x;
-        console.log(dx)
         event.preventDefault();
         const afterindex = this.getafterindex(dx);
         if(afterindex != this.$dragindex){
@@ -68,6 +69,7 @@ export default {
         }
     },
     getafterindex(dx){//根据拖拽位移获取 移动后的index
+        dx +=this.$refs.tabbox.$el.firstElementChild.scrollLeft - this.$scrollLeft;//相对滚动条的移动距离
         const tabbox = this.$refs.tabbox.$el.firstChild.firstChild;
         let afterindex = this.$dragindex;
         if(dx<0){//左移
@@ -94,6 +96,9 @@ export default {
     },
     allowDrop(event) {
         event.preventDefault();
+        const dx = event.clientX - this.$move_x;
+        this.$refs.tabbox.$el.firstElementChild.scrollLeft+=dx;
+        this.$move_x = event.clientX;
     },
     reload() {}
   },
