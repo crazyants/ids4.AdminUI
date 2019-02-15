@@ -92,6 +92,11 @@ export default {
     reload() {}
   },
   watch: {
+    tabcount() {
+      this.$nextTick(() => {
+        this.$refs.tabbox.update();
+      });
+    }
     // tabcount() {
     //   this.$nextTick(() => {
     //     const tabbox = this.$refs.tabbox;
@@ -119,7 +124,8 @@ export default {
   height: 100%;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .el-main {
@@ -185,7 +191,7 @@ export default {
     height: 36px;
     margin-bottom: -1px;
     position: relative;
-    z-index: 2;
+    z-index: 1;
     i {
       color: #666;
     }
