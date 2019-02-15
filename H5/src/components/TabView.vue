@@ -43,7 +43,6 @@ export default {
   },
   mounted(){
     this.$refs.tabbox.$el.addEventListener("mousewheel",(e)=>{
-      console.log(e)
       if(e.wheelDelta<0) this.$refs.tabbox.$el.firstElementChild.scrollLeft+=10;
       else if(e.wheelDelta>0) this.$refs.tabbox.$el.firstElementChild.scrollLeft-=10;
     })
