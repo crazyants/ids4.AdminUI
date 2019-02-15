@@ -1,6 +1,6 @@
 <template>
-  <div class="tabbody">
-    <el-scrollbar class="tab_box scroll-container" ref="tabbox" @dragover="allowDrop($event)" @drop="drop($event)">
+  <div class="tabbody"  @dragover="allowDrop($event)" @drop="drop($event)">
+    <el-scrollbar class="tab_box scroll-container" ref="tabbox">
       <span draggable="true" @dragstart="drag($event,index)" 
         v-for="(tab,index) in Tabs"
         class="el-tag"
@@ -41,6 +41,12 @@ export default {
       return this.Tabs.length;
     }
   },
+  mounted(){
+    this.$refs.tabbox.$el.addEventListener("mousewheel",(e)=>{
+      if(e.deltaY>0) this.$refs.tabbox.$el.firstElementChild.scrollLeft+=10;
+      else if(e.deltaY<0) this.$refs.tabbox.$el.firstElementChild.scrollLeft-=10;
+    })
+  },
   methods: {
     ...mapMutations("tab", ["ActiveTab"]),
     DelTab(index, e) {
@@ -62,7 +68,7 @@ export default {
         }
     },
     getafterindex(dx){//根据拖拽位移获取 移动后的index
-        const tabbox = this.$refs.tabbox;
+        const tabbox = this.$refs.tabbox.$el.firstChild.firstChild;
         let afterindex = this.$dragindex;
         if(dx<0){//左移
             var i = this.$dragindex -1;
