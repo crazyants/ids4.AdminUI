@@ -61,10 +61,6 @@ export default {
         if(totalwidth<contentwidth){
             this.$store.commit("tab/DelTab", this.Tabs.length-2);
         }
-        console.log(tabbox);
-        console.log(totalwidth);
-        console.log(contentwidth);
-        console.log("tabcount changes");
       });
     }
   },
