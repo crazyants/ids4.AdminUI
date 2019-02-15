@@ -2,7 +2,7 @@
 import router from '../router' //app路由配置文件
 import Vue from 'vue'
 
-var maxtab = 7;//tab打开最大数量配置
+var maxtab = 999;//tab打开最大数量配置
 var defaulttab = {//默认打开页面
     title: '首页',
     fullPath: '/home/index',//完整路径
