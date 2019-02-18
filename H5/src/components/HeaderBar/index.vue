@@ -95,7 +95,7 @@
         width: 36px;
         text-align: center;
         line-height: 48px;
-        border-radius: 4px;
+        // border-radius: 4px;
         padding-top: 8px;
         &:hover{
             background-color: #367fa9
