@@ -7,13 +7,13 @@
                         <h3 class='role_title_text'>角色管理</h3>
                     </div>
                 </el-col>
-                <el-col :span="8" :offset="14">
+                <el-col :span="2" :offset="19">
                     <div>
-                        <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='addRole'>创建角色
+                        <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='eduitNameRole("")'>创建角色
                         </el-button>
                         <!--<el-button type="warning" size="mini" icon="el-icon-edit" @click='eduitRole'>编辑</el-button>-->
-                        <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除</el-button>
-                        <el-button type="primary" size="mini" icon='el-icon-news'>分配权限</el-button>
+                        <!--<el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除</el-button>-->
+                        <!--<el-button type="primary" size="mini" icon='el-icon-news'>分配权限</el-button>-->
                     </div>
                 </el-col>
             </el-row>
@@ -37,38 +37,52 @@
             </el-row>
             <el-table
                     ref="multipleTable"
-                    :data="tableData3.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                    :data="roleData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
                     tooltip-effect="dark"
                     border
+                    align='center'
+                    :stripe='true'
                     size='mini'
                     style="width: 100%"
                     @selection-change="handleSelectionChange">
                 <el-table-column
                         type="selection"
+                        align='center'
                 >
                 </el-table-column>
                 <el-table-column
-                        label="日期"
+                        type="index"
+                        width="50"
+                        align='center'
+                        label="序号">
+                </el-table-column>
+                <el-table-column
+                        prop="id"
+                        label="权限ID"
+                        align='center'
                 >
-                    <template slot-scope="scope">{{ scope.row.date }}</template>
+                    <!--<template slot-scope="scope">{{ scope.row.id }}</template>-->
                 </el-table-column>
                 <el-table-column
                         prop="name"
-                        label="姓名"
+                        label="角色名称"
+                        align='center'
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="address"
-                        label="地址"
+                        prop="createTime"
+                        label="创建时间"
+                        align='center'
                         show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column
                         label="操作"
-                        width='100'
+                        align='center'
+                        width='160'
                 >
                     <template slot-scope="scope">
-                        <el-button @click="roleCheck(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button type="text" size="small" @click='eduitRole(scope.row)'>编辑</el-button>
+                        <el-button type="text" size="small" @click='eduitNameRole(scope.row)'>编辑</el-button>
+                        <el-button @click="roleCheck(scope.row)" type="text" size="small">权限组分配</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -88,48 +102,25 @@
         </div>
         <RoleEduit :is-show.sync='show' @close-dailog="RoleEduitDilagHide" :dialog-tittle='dialogTittle'
                    :role-info='roleInfo'></RoleEduit>
+
+        <RoleNameEduit :is-show.sync='RoleNameEduitShow' @close-dailog="RoleEduitDilagHide" :dialog-tittle='RoleNameEduitTitle'
+                   :role-info='roleInfo'></RoleNameEduit>
     </el-scrollbar>
 </template>
 
 <script>
     import RoleEduit from '../../components/dialog/RoleEduit'
+    import RoleNameEduit from '../../components/dialog/RoleNameEduit'
 
     export default {
 
         components: {
             'RoleEduit': RoleEduit,
+            'RoleNameEduit': RoleNameEduit,
         },
         data() {
             return {
-                tableData3: [{
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-08',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-06',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-07',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }],
+                roleData: [],
                 multipleSelection: [],
                 search: '',
                 systemSelect: '',
@@ -137,6 +128,9 @@
                 dialogTittle: '',
                 show: false,
                 roleInfo: {},
+                // 角色名称编辑
+                RoleNameEduitShow:false,
+                RoleNameEduitTitle:'',
                 // 分页
                 currentPage3: 5,
             }
@@ -146,8 +140,8 @@
         },
         methods: {
             async flush() {
-                const result = await this.$http.post("/base/api/Role/Query", {"pageIndex": 1, "pageSize": 10});
-                console.log(result);
+                 this.roleData = await this.$http.post("/base/api/Role/Query", {"pageIndex": 1, "pageSize": 10});
+
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
@@ -180,6 +174,17 @@
             roleCheck(row) {
                 console.log(row);
             },
+            // 角色名编辑
+            eduitNameRole(row) {
+                if(row){
+                    this.RoleNameEduitTitle='编辑角色名称';
+                    this.roleInfo = row
+                }else {
+                    this.RoleNameEduitTitle='创建角色名称';
+                    this.roleInfo = {}
+                }
+                this.RoleNameEduitShow = true
+            },
             eduitRole(row) {
                 this.show = true
                 this.dialogTittle = '编辑角色'
@@ -193,6 +198,7 @@
                 this.roleInfo = {}
                 this.show = false
             },
+            // 分页
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
