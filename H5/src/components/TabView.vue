@@ -106,6 +106,12 @@ export default {
     tabcount() {
       this.$nextTick(() => {
         this.$refs.tabbox.update();
+        if(this.CurTabIndex==this.Tabs.length-1){
+          const el = this.$refs.tabbox.$el.firstElementChild;
+          el.scrollLeft = el.scrollWidth - el.clientWidth;
+          console.log(this.$refs.tabbox.$el.firstElementChild.scrollWidth) 
+          console.log(this.$refs.tabbox.$el.firstElementChild.clientWidth) 
+        }
       });
     },
     // CurTabIndex(newval,oldval){
