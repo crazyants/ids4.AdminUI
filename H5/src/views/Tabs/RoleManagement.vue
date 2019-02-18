@@ -11,7 +11,7 @@
                     <div>
                         <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='addRole'>创建角色
                         </el-button>
-                        <!--<el-button type="warning" size="mini" icon="el-icon-edit" @click='eduitRole'>编辑</el-button>-->
+                        <el-button type="warning" size="mini" icon="el-icon-edit" @click='eduitRole'>编辑</el-button>
                         <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除</el-button>
                         <el-button type="primary" size="mini" icon='el-icon-news'>分配权限</el-button>
                     </div>
@@ -37,7 +37,7 @@
             </el-row>
             <el-table
                     ref="multipleTable"
-                    :data="tableData3.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                    :data="roleData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
                     tooltip-effect="dark"
                     border
                     size='mini'
@@ -48,18 +48,19 @@
                 >
                 </el-table-column>
                 <el-table-column
-                        label="日期"
+                        prop="id"
+                        label="编号"
                 >
-                    <template slot-scope="scope">{{ scope.row.date }}</template>
+                    <!--<template slot-scope="scope">{{ scope.row.id }}</template>-->
                 </el-table-column>
                 <el-table-column
                         prop="name"
-                        label="姓名"
+                        label="角色名称"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="address"
-                        label="地址"
+                        prop="createTime"
+                        label="创建时间"
                         show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column
@@ -101,7 +102,7 @@
         },
         data() {
             return {
-                tableData3: [{
+                roleData: [{
                     date: '2016-05-03',
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1518 弄'
@@ -146,8 +147,8 @@
         },
         methods: {
             async flush() {
-                const result = await this.$http.post("/base/api/Role/Query", {"pageIndex": 1, "pageSize": 10});
-                console.log(result);
+                 this.roleData = await this.$http.post("/base/api/Role/Query", {"pageIndex": 1, "pageSize": 10});
+
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
