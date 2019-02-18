@@ -116,17 +116,22 @@
         padding: 15px;
         padding-bottom: 10px;
         .dialog_head_tip {
-            font-size: 18px;
+            font-size: 16px;
         }
         .el-message-box_btn {
             padding: 0;
-            top: 6px;
+            top: 2px;
         }
     }
 
     #dialog_main {
-        padding: 10px 15px;
+        padding: 10px 15px ;
         overflow-y: auto;
+        /deep/ {
+          .el-scrollbar{
+            padding-bottom: 17px;
+        }
+        }
     }
 
     .el-message-box__btns {
