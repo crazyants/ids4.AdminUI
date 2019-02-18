@@ -106,7 +106,7 @@ export default {
       let dv = dis;
       this.$interval = setInterval(()=>{
         if (Math.abs(dv)>1) {
-          let d = parseInt(dv/2);
+          let d = parseInt(dv/3);
           el.scrollLeft +=d;
           dv = dv - d;
         }
@@ -115,7 +115,7 @@ export default {
           clearInterval(this.$interval);
           this.$interval = null;
         }
-      },20);
+      },25);
     },
     reload() {}
   },
