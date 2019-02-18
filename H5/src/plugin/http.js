@@ -101,7 +101,8 @@ var http = {
         }
     },
     setheader(token) {
-        this.header.Authorization = "Bearer " + token;
+       if(token) this.header.Authorization = "Bearer " + token;
+       else this.header.Authorization = null;
     },
     async get(url) {
         const res = await axios.get(url, { headers: this.header }).catch(res => res);

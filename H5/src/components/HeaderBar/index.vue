@@ -17,14 +17,14 @@
                </svg>
         </div>
         <div class="navbar-custom-menu">
-            <el-dropdown trigger="click">
+            <el-dropdown trigger="click" @command="handleCommand">
                   <span class="el-dropdown-link">
                    <img class="user-image" src="../../assets/images/timg.jpg" alt="">
                       <i class='hidden-xs'>administrator</i>
                   </span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>个人信息</el-dropdown-item>
-                    <el-dropdown-item>安全退出</el-dropdown-item>
+                    <el-dropdown-item command="a">个人信息</el-dropdown-item>
+                    <el-dropdown-item command="logOut">安全退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -52,7 +52,15 @@
         mounted() {
 
         },
-        methods: {}
+        methods: {
+            handleCommand(item){
+                if(item=="logOut") this.logOut();
+            },
+            logOut(){
+                this.$http.setheader(null);
+                this.$router.push('/login');
+            }
+        }
     };
 </script> 
 
