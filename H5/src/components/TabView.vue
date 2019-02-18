@@ -7,6 +7,7 @@
         :class="{'active':CurTabIndex==index}"
         @click="ActiveTab(index)"
         :key="tab.routername"
+        @contextmenu.prevent="openMenu(index,$event)"
       >
         <s class="tab_rect"></s>
         {{tab.title}}
@@ -17,6 +18,12 @@
         ></i>
       </span>
     </el-scrollbar>
+      <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
+          <li @click="refreshSelectedTag(selectedTagIndex)">刷新当前标签</li>
+          <!--<li @click="DelTab(selectedTagIndex,$event)">关闭当前标签</li>-->
+          <li @click="closeOthersTags">关闭其他标签</li>
+          <li @click="closeAllTags">关闭所有标签</li>
+      </ul>
     <el-main>
       <keep-alive>
         <router-view v-if="isRouterAlive" :key="$route.fullPath" ref="cur"/>
@@ -32,6 +39,10 @@ export default {
   name: "tab-view",
   data() {
     return {
+        visible: false,
+        top: 0,
+        left: 0,
+        selectedTagIndex: {},
       CurTabName: "2"
     };
   },
@@ -52,6 +63,7 @@ export default {
     DelTab(index, e) {
       e.stopPropagation();
       this.$store.commit("tab/DelTab", index);
+        this.visible = false
     },
     drag(event,dragindex) {
        const dom = event.currentTarget;
@@ -116,7 +128,37 @@ export default {
         }
       },25);
     },
-    reload() {}
+    reload() {},
+
+      openMenu(index, e) {
+          const menuMinWidth = 105
+          const offsetLeft = this.$el.getBoundingClientRect().left // container margin left
+          const offsetWidth = this.$el.offsetWidth // container width
+          const maxLeft = offsetWidth - menuMinWidth // left boundary
+          const left = e.clientX - offsetLeft + 15 // 15: margin right
+
+          if (left > maxLeft) {
+              this.left = maxLeft
+          } else {
+              this.left = left
+          }
+          this.top = e.clientY - 50
+
+          this.visible = true
+          this.selectedTagIndex = index
+      },
+      closeMenu() {
+          this.visible = false
+      },
+      refreshSelectedTag(view) {
+          alert('刷新当前标签')
+      },
+      closeOthersTags() {
+          alert('关闭其他标签')
+      },
+      closeAllTags() {
+          alert('关闭所有标签')
+      },
   },
   watch: {
     tabcount() {
@@ -149,7 +191,14 @@ export default {
         console.log(dis);
         if(dis!=0) this.scrollDis(dis);
       });
-    }
+    },
+      visible(value) {
+          if (value) {
+              document.body.addEventListener('click', this.closeMenu)
+          } else {
+              document.body.removeEventListener('click', this.closeMenu)
+          }
+      }
     // tabcount() {
     //   this.$nextTick(() => {
     //     const tabbox = this.$refs.tabbox;
@@ -259,5 +308,26 @@ export default {
     //   margin-right: 2px;
     // }
   }
+}
+.contextmenu {
+    margin: 0;
+    background: #fff;
+    z-index: 100;
+    position: absolute;
+    list-style-type: none;
+    padding: 5px 0;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
+    li {
+        margin: 0;
+        padding: 7px 16px;
+        cursor: pointer;
+        &:hover {
+            background: #eee;
+        }
+    }
 }
 </style>
