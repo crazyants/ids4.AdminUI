@@ -10,8 +10,8 @@ var defaulttab = {//默认打开页面
 };
 
 Vue.mixin({
-  activated() {
-    if(!this.$vnode.parent||!this.$vnode.parent.componentInstance.cache) return;
+  created() {
+    if(!this.$vnode||!this.$vnode.parent||!this.$vnode.parent.componentInstance.cache) return;
     var title="新页面";
     if(this.$route.meta&&this.$route.meta.title) title = this.$route.meta.title;
     else{
@@ -60,6 +60,7 @@ export default {
             // var routerconfig = { name: state.Tabs[index].routername };
             // if(state.Tabs[index].routerparams) routerconfig.params = state.Tabs[index].routerparams;
             router.push(state.Tabs[index].fullPath);
+            state.CurTabIndex = index;
         },
         OpenTab(state, tab) {//路由拦截触发,获取meta里的title
             tab.closable = true;
