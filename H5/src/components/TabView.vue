@@ -100,26 +100,57 @@ export default {
         this.$refs.tabbox.$el.firstElementChild.scrollLeft+=dx;
         this.$move_x = event.clientX;
     },
+    scrollDis(dis){
+      if(this.$interval){ clearInterval(this.$interval);this.$interval = null;}
+      const el = this.$refs.tabbox.$el.firstElementChild;
+      let dv = dis;
+      this.$interval = setInterval(()=>{
+        if (Math.abs(dv)>1) {
+          let d = parseInt(dv/2);
+          el.scrollLeft +=d;
+          dv = dv - d;
+        }
+        else{
+          el.scrollLeft += dv;
+          clearInterval(this.$interval);
+          this.$interval = null;
+        }
+      },20);
+    },
     reload() {}
   },
   watch: {
     tabcount() {
       this.$nextTick(() => {
         this.$refs.tabbox.update();
-        if(this.CurTabIndex==this.Tabs.length-1){
-          const el = this.$refs.tabbox.$el.firstElementChild;
-          el.scrollLeft = el.scrollWidth - el.clientWidth;
-          console.log(this.$refs.tabbox.$el.firstElementChild.scrollWidth) 
-          console.log(this.$refs.tabbox.$el.firstElementChild.clientWidth) 
-        }
+        // if(this.CurTabIndex==this.Tabs.length-1){
+        //   const el = this.$refs.tabbox.$el.firstElementChild;
+        //   el.scrollLeft = el.scrollWidth - el.clientWidth;
+        //   console.log(this.$refs.tabbox.$el.firstElementChild.scrollWidth) 
+        //   console.log(this.$refs.tabbox.$el.firstElementChild.clientWidth) 
+        // }
       });
     },
-    // CurTabIndex(newval,oldval){
-    //   console.log(arguments);
-    //   this.$nextTick(() => {
-    //     const tabbox = this.$refs.tabbox.$el.firstChild.firstChild;
-    //   });
-    // }
+    CurTabIndex(){
+      this.$nextTick(() => {
+        const el = this.$refs.tabbox.$el.firstElementChild;
+        const tabbox = this.$refs.tabbox.$el.firstChild.firstChild;
+        const actel = tabbox.children[this.CurTabIndex];
+        const scrollleft = actel.offsetLeft - parseInt(el.clientWidth/2);
+        let dis = 0;
+        if(scrollleft<=0){
+          dis = 0 - el.scrollLeft;
+        }
+        else if((el.scrollWidth - actel.offsetLeft)<parseInt(el.clientWidth/2)){
+          dis = el.scrollWidth - el.clientWidth - el.scrollLeft;
+        }
+        else{
+          dis = scrollleft - el.scrollLeft;
+        }
+        console.log(dis);
+        if(dis!=0) this.scrollDis(dis);
+      });
+    }
     // tabcount() {
     //   this.$nextTick(() => {
     //     const tabbox = this.$refs.tabbox;
