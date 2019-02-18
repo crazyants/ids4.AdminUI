@@ -104,16 +104,15 @@ export default {
       if(this.$interval){ clearInterval(this.$interval);this.$interval = null;}
       const el = this.$refs.tabbox.$el.firstElementChild;
       let dv = dis;
-      this.$interval = setInterval(()=>{
-        if (Math.abs(dv)>1) {
+      const interval = this.$interval = setInterval(()=>{
+        if (Math.abs(dv)>2) {
           let d = parseInt(dv/3);
           el.scrollLeft +=d;
           dv = dv - d;
         }
         else{
           el.scrollLeft += dv;
-          clearInterval(this.$interval);
-          this.$interval = null;
+          clearInterval(interval);
         }
       },25);
     },
