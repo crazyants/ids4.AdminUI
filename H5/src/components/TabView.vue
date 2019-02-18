@@ -7,7 +7,7 @@
         :class="{'active':CurTabIndex==index}"
         @click="ActiveTab(index)"
         :key="tab.routername"
-        @contextmenu.prevent="openMenu(index,$event)"
+        @contextmenu.prevent="openMenu(index,$event);ActiveTab(index);"
       >
         <s class="tab_rect"></s>
         {{tab.title}}
@@ -19,10 +19,11 @@
       </span>
     </el-scrollbar>
       <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
-          <li @click="refreshSelectedTag(selectedTagIndex)">刷新当前标签</li>
-          <!--<li @click="DelTab(selectedTagIndex,$event)">关闭当前标签</li>-->
-          <li @click="closeOthersTags">关闭其他标签</li>
-          <li @click="closeAllTags">关闭所有标签</li>
+          <li @click="reflush">刷新</li>
+          <li @click="DelTab(selectedTagIndex,$event)">关闭当前标签</li>
+          <!-- <li @click="Fixed(selectedTagIndex);updatescroll();">固定/取消</li> -->
+          <li @click="DelOther">关闭其他标签</li>
+          <li @click="DelAll">全部关闭</li>
       </ul>
     <el-main>
       <keep-alive>
@@ -33,7 +34,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "tab-view",
@@ -59,11 +60,12 @@ export default {
     })
   },
   methods: {
-    ...mapMutations("tab", ["ActiveTab"]),
+    ...mapMutations("tab", ["ActiveTab","DelOther","DelAll","Fixed"]),
+    ...mapActions("tab", ["reflush"]),
     DelTab(index, e) {
       e.stopPropagation();
       this.$store.commit("tab/DelTab", index);
-        this.visible = false
+      this.visible = false
     },
     drag(event,dragindex) {
        const dom = event.currentTarget;
@@ -128,6 +130,17 @@ export default {
         }
       },25);
     },
+    updatescroll(){
+      this.$nextTick(() => {
+        this.$refs.tabbox.update();
+        // if(this.CurTabIndex==this.Tabs.length-1){
+        //   const el = this.$refs.tabbox.$el.firstElementChild;
+        //   el.scrollLeft = el.scrollWidth - el.clientWidth;
+        //   console.log(this.$refs.tabbox.$el.firstElementChild.scrollWidth) 
+        //   console.log(this.$refs.tabbox.$el.firstElementChild.clientWidth) 
+        // }
+      });
+    },
     reload() {},
 
       openMenu(index, e) {
@@ -162,15 +175,7 @@ export default {
   },
   watch: {
     tabcount() {
-      this.$nextTick(() => {
-        this.$refs.tabbox.update();
-        // if(this.CurTabIndex==this.Tabs.length-1){
-        //   const el = this.$refs.tabbox.$el.firstElementChild;
-        //   el.scrollLeft = el.scrollWidth - el.clientWidth;
-        //   console.log(this.$refs.tabbox.$el.firstElementChild.scrollWidth) 
-        //   console.log(this.$refs.tabbox.$el.firstElementChild.clientWidth) 
-        // }
-      });
+      this.updatescroll();
     },
     CurTabIndex(){
       this.$nextTick(() => {
@@ -188,7 +193,6 @@ export default {
         else{
           dis = scrollleft - el.scrollLeft;
         }
-        console.log(dis);
         if(dis!=0) this.scrollDis(dis);
       });
     },
@@ -212,6 +216,9 @@ export default {
     //     }
     //   });
     // }
+  },
+  beforeDestroy(){
+    document.body.removeEventListener('click', this.closeMenu)
   },
   provide() {
     return {

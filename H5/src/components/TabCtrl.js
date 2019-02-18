@@ -120,6 +120,37 @@ export default {
             const item = state.Tabs.find(t => t.fullPath == fullPath);
             if(item&&item.component&&item.component[flush]) item.component[flush]();
             router.push(fullPath);//页面跳转
+        },
+        DelOther(state){//除当前激活页其他都关闭
+            var activeitem = state.Tabs[state.CurTabIndex];
+            let i = state.Tabs.length-1;
+            while(i>=0){
+                if(state.Tabs[i]!=activeitem&&state.Tabs[i].closable){
+                    const item = state.Tabs.splice(i,1)[0];
+                    removecomponent(item.component);
+                }
+                i--;
+            }
+            state.CurTabIndex = state.Tabs.indexOf(activeitem);
+        },
+        DelAll(state){//关闭所有页面
+            var activeitem = state.Tabs[state.CurTabIndex];
+            let i = state.Tabs.length-1;
+            while(i>=0){
+                if(state.Tabs[i].closable){
+                    const item = state.Tabs.splice(i,1)[0];
+                    removecomponent(item.component);
+                }
+                i--;
+            }
+            state.CurTabIndex = state.Tabs.indexOf(activeitem);
+            if(state.CurTabIndex==-1){ 
+                state.CurTabIndex=0; 
+                router.push(state.Tabs[0].fullPath);
+            }
+        },
+        Fixed(state,index){//固定
+           if(index) state.Tabs[index].closable = !state.Tabs[index].closable;
         }
     },
     actions: {
