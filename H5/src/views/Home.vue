@@ -108,17 +108,18 @@ export default {
         ids.forEach(i=>{
             if(items[i].children) items = items[i].children;
             else item = items[i];
-        })
-        if(item.fullPath){
-            if(this.$router.currentRoute.fullPath==item.fullPath){
-                this.reflush();
-            }
-            else {
-                this.$store.commit("tab/DelCache", item.fullPath);
-                this.$router.push(item.fullPath);
-            }
-        }
-        else console.warn('该菜单未配置路由')
+        });
+        this.$router.push(item.fullPath);
+        // if(item.fullPath){
+        //     if(this.$router.currentRoute.fullPath==item.fullPath){
+        //         this.reflush();
+        //     }
+        //     else {
+        //         this.$store.commit("tab/DelCache", item.fullPath);
+        //         this.$router.push(item.fullPath);
+        //     }
+        // }
+        // else console.warn('该菜单未配置路由')
     }
   }
 };
