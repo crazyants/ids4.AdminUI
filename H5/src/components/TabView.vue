@@ -261,6 +261,15 @@ export default {
   display: -webkit-flex;     /* NEW - Chrome */
   display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
   
+   /* 09版 */
+  -webkit-box-orient: horizontal;
+  /* 12版 */
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+
   /* 09版 */
   /*-webkit-box-lines: multiple;*/
   /* 12版 */
@@ -272,7 +281,14 @@ export default {
 }
 
 .el-main {
-  height: 100%;
+  -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 1;         /* OLD - Firefox 19- */
+  width: 20%;               /* For old syntax, otherwise collapses. */
+  -webkit-flex: 1;          /* Chrome */
+  -ms-flex: 1;              /* IE 10 */
+  flex: 1;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+
+  width: 100%;
   padding: 0;
   // margin: 10px;
   // box-shadow: 0px 0px 4px #999;
