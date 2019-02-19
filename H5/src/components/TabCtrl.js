@@ -10,7 +10,7 @@ var defaulttab = {//默认打开页面
 };
 
 Vue.mixin({
-  created() {
+  activated() {
     if(!this.$vnode||!this.$vnode.parent||!this.$vnode.parent.componentInstance.cache) return;
     var title="新页面";
     if(this.$route.meta&&this.$route.meta.title) title = this.$route.meta.title;
