@@ -117,7 +117,7 @@
                 // 分页
                 currentPage: 1,
                 pageSize:10,
-                total:11
+                total:12
             }
         },
         mounted() {
