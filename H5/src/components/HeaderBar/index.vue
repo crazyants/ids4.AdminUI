@@ -73,7 +73,7 @@
             float: left;
             height: 50px;
             text-align: center;
-            width: 200px;
+            width: 180px;
             // background-color: #27404c;
             line-height: 50px;
             img {
