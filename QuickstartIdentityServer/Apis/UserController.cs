@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuickstartIdentityServer.Apis.ApiDTO;
+using QuickstartIdentityServer.CommonDTO;
 using QuickstartIdentityServer.DBManager;
 using QuickstartIdentityServer.Filters;
 
@@ -29,7 +30,7 @@ namespace QuickstartIdentityServer.Apis
         /// <param name="input">查询参数</param>
         /// <returns>返回用户列表</returns>
         [HttpPost]
-        public async Task<List<UserResponseDTO>> Query([FromBody]UserRequestDTO input)
+        public async Task<PageResult<UserResponseDTO>> Query([FromBody]UserRequestDTO input)
         {
             string likevalue = $"%{input.Name}%";
             var query = pcontext.User.Where(u => EF.Functions.Like(u.Name, likevalue))
@@ -39,8 +40,10 @@ namespace QuickstartIdentityServer.Apis
                     Name = u.Name,
                     CreateTime = u.CreateTime
                 });
-           return await query.Skip((input.PageIndex-1)* input.PageSize).Take(input.PageSize)
-                .ToListAsync();
+            var count = await query.CountAsync();
+            var data = await query.Skip((input.PageIndex - 1) * input.PageSize).Take(input.PageSize)
+                 .ToListAsync();
+            return new PageResult<UserResponseDTO>(count, data);
         }
 
         /// <summary>

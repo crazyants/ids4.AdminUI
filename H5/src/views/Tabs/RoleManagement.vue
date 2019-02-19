@@ -72,12 +72,13 @@
                 <el-col :span='24'>
                     <el-pagination
                             class='page_footer_box'
-                            @size-change="handleSizeChange"
-                            @current-change="handleCurrentChange"
-                            :current-page.sync="currentPage3"
-                            :page-size="100"
-                            layout="prev, pager, next, jumper"
-                            :total="1000">
+                            @size-change="flush"
+                            @current-change="flush"
+                            :current-page.sync="currentPage"
+                            :page-sizes="[10, 20, 30, 50]"
+                            :page-size.sync="pageSize"
+                            layout="total, prev, pager, next, jumper, sizes"
+                            :total="total">
                     </el-pagination>
                 </el-col>
             </el-row>
@@ -114,7 +115,9 @@
                 RoleNameEduitShow:false,
                 RoleNameEduitTitle:'',
                 // 分页
-                currentPage3: 5,
+                currentPage: 1,
+                pageSize:10,
+                total:11
             }
         },
         mounted() {
@@ -122,8 +125,7 @@
         },
         methods: {
             async flush() {
-                 this.roleData = await this.$http.post("/base/api/Role/Query", {"pageIndex": 1, "pageSize": 10});
-
+                this.roleData = await this.$http.post("/base/api/Role/Query", {"pageIndex": this.currentPage, "pageSize": this.pageSize});
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
@@ -172,14 +174,7 @@
             RoleEduitDilagHide() {
                 this.roleInfo = {}
                 this.show = false
-            },
-            // 分页
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
-            },
+            }
         }
     }
 </script>
