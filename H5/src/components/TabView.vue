@@ -7,7 +7,7 @@
         :class="{'active':CurTabIndex==index}"
         @click="ActiveTab(index)"
         :key="tab.routername"
-        @contextmenu.prevent="openMenu(index,$event);ActiveTab(index);"
+        @contextmenu.prevent="openMenu(index,$event);"
       >
         <s class="tab_rect"></s>
         {{tab.title}}
@@ -20,9 +20,10 @@
     </el-scrollbar>
       <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
           <li @click="reflush">刷新</li>
-          <li @click="DelTab(selectedTagIndex,$event)">关闭当前标签</li>
+          <li @click="DelTab(selectedTagIndex)">关闭当前标签</li>
+          <li @click="DelRight(selectedTagIndex)">关闭右侧标签</li>
           <!-- <li @click="Fixed(selectedTagIndex);updatescroll();">固定/取消</li> -->
-          <li @click="DelOther">关闭其他标签</li>
+          <li @click="DelOther(selectedTagIndex)">关闭其他标签</li>
           <li @click="DelAll">全部关闭</li>
       </ul>
     <el-main>
@@ -60,7 +61,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations("tab", ["ActiveTab","DelOther","DelAll","Fixed"]),
+    ...mapMutations("tab", ["ActiveTab","DelOther","DelAll","Fixed","DelRight"]),
     ...mapActions("tab", ["reflush"]),
     DelTab(index, e) {
       e.stopPropagation();

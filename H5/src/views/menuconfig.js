@@ -4,15 +4,15 @@ var menus = [
         icon:"el-icon-menu",
         title:"权限管理",
         children:[
-            {title:"系统配置",routername:'home.index'},
+            {title:"系统配置",fullPath:'/home/index'},
             {title:"模块配置"},
-            {title:"权限配置",routername:'home.test'}
+            {title:"权限配置",fullPath:'/home/test'}
         ]
     },
     {
         icon:"el-icon-document",
         title:"角色管理",
-        routername:'home.role'
+        fullPath:'/home/role'
     },
     {
         icon:"el-icon-location",

@@ -123,17 +123,21 @@ export default {
             if(item&&item.component&&item.component[flush]) item.component[flush]();
             router.push(fullPath);//页面跳转
         },
-        DelOther(state){//除当前激活页其他都关闭
+        DelOther(state,index){//除当前激活页其他都关闭
             var activeitem = state.Tabs[state.CurTabIndex];
             let i = state.Tabs.length-1;
             while(i>=0){
-                if(state.Tabs[i]!=activeitem&&state.Tabs[i].closable){
+                if(i!=index&&state.Tabs[i].closable){
                     const item = state.Tabs.splice(i,1)[0];
                     removecomponent(item.component);
                 }
                 i--;
             }
             state.CurTabIndex = state.Tabs.indexOf(activeitem);
+            if(state.CurTabIndex==-1){ 
+                state.CurTabIndex = state.Tabs.length-1; 
+                router.push(state.Tabs[state.CurTabIndex].fullPath);
+            }
         },
         DelAll(state){//关闭所有页面
             var activeitem = state.Tabs[state.CurTabIndex];
@@ -147,8 +151,24 @@ export default {
             }
             state.CurTabIndex = state.Tabs.indexOf(activeitem);
             if(state.CurTabIndex==-1){ 
-                state.CurTabIndex=0; 
-                router.push(state.Tabs[0].fullPath);
+                state.CurTabIndex = state.Tabs.length-1; 
+                router.push(state.Tabs[state.CurTabIndex].fullPath);
+            }
+        },
+        DelRight(state,index){//关闭右侧标签
+            var activeitem = state.Tabs[state.CurTabIndex];
+            let i = state.Tabs.length-1;
+            while(i>index){
+                if(state.Tabs[i].closable){
+                    const item = state.Tabs.splice(i,1)[0];
+                    removecomponent(item.component);
+                }
+                i--;
+            }
+            state.CurTabIndex = state.Tabs.indexOf(activeitem);
+            if(state.CurTabIndex==-1){ 
+                state.CurTabIndex = state.Tabs.length-1; 
+                router.push(state.Tabs[state.CurTabIndex].fullPath);
             }
         },
         Fixed(state,index){//固定

@@ -109,13 +109,13 @@ export default {
             if(items[i].children) items = items[i].children;
             else item = items[i];
         })
-        if(item.routername){
-            if(this.$router.currentRoute.name==item.routername){
+        if(item.fullPath){
+            if(this.$router.currentRoute.fullPath==item.fullPath){
                 this.reflush();
             }
             else {
-                this.$store.commit("tab/DelCache", item.routername);
-                this.$router.push({name:item.routername});
+                this.$store.commit("tab/DelCache", item.fullPath);
+                this.$router.push(item.fullPath);
             }
         }
         else console.warn('该菜单未配置路由')
