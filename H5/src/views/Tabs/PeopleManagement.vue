@@ -101,7 +101,7 @@
                    :role-info='roleInfo'></RoleEduit>
 
         <RoleNameEduit :is-show.sync='RoleNameEduitShow' @close-dailog="RoleEduitDilagHide" :dialog-tittle='RoleNameEduitTitle'
-                   :role-info='roleInfo'></RoleNameEduit>
+                       :role-info='roleInfo'></RoleNameEduit>
     </el-scrollbar>
 </template>
 
@@ -137,7 +137,7 @@
         },
         methods: {
             async flush() {
-                 this.roleData = await this.$http.post("/base/api/Role/Query", {"pageIndex": 1, "pageSize": 10});
+                this.roleData = await this.$http.post("/base/api/Role/Query", {"pageIndex": 1, "pageSize": 10});
 
             },
             handleSelectionChange(val) {
