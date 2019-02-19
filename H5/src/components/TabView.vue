@@ -19,8 +19,8 @@
       </span>
     </el-scrollbar>
       <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
-          <li @click="reflush">刷新</li>
-          <li @click="DelTab(selectedTagIndex)">关闭当前标签</li>
+          <li @click="reflush">刷新(F5)</li>
+          <li @click="DelTab(selectedTagIndex)">关闭当前(Esc)</li>
           <li @click="DelRight(selectedTagIndex)">关闭右侧标签</li>
           <!-- <li @click="Fixed(selectedTagIndex);updatescroll();">固定/取消</li> -->
           <li @click="DelOther(selectedTagIndex)">关闭其他标签</li>
@@ -58,7 +58,8 @@ export default {
     this.$refs.tabbox.$el.addEventListener("mousewheel",(e)=>{
       if(e.wheelDelta<0) this.$refs.tabbox.$el.firstElementChild.scrollLeft+=10;
       else if(e.wheelDelta>0) this.$refs.tabbox.$el.firstElementChild.scrollLeft-=10;
-    })
+    });
+    document.addEventListener("keydown",this.keypress)
   },
   methods: {
     ...mapMutations("tab", ["ActiveTab","DelOther","DelAll","Fixed","DelRight"]),
@@ -82,6 +83,24 @@ export default {
         if(afterindex != this.$dragindex){
             this.$store.commit("tab/exchange", {before:this.$dragindex,after:afterindex});
         }
+    },
+    keypress(e){
+      console.log(e);
+      switch (e.keyCode) {
+        case 27:
+          e.preventDefault();
+          e.stopPropagation();
+          if(this.CurTabIndex) this.$store.commit("tab/DelTab", this.CurTabIndex);
+          break;
+        case 116:
+          e.preventDefault();
+          e.stopPropagation();
+          this.reflush();
+          break;
+        default:
+          break;
+      } 
+      this.visible = false;
     },
     getafterindex(dx){//根据拖拽位移获取 移动后的index
         dx +=this.$refs.tabbox.$el.firstElementChild.scrollLeft - this.$scrollLeft;//相对滚动条的移动距离
@@ -220,6 +239,7 @@ export default {
   },
   beforeDestroy(){
     document.body.removeEventListener('click', this.closeMenu)
+    document.removeEventListener("keydown",this.keypress)
   },
   provide() {
     return {
