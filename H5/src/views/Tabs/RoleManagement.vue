@@ -2,17 +2,13 @@
     <el-scrollbar wrap-class="scrollbar-wrapper-y">
         <div>
             <el-row class='role_title'>
-                <el-col :span="2">
-                    <div>
+                <el-col :span="12">
                         <h3 class='role_title_text'>角色管理</h3>
-                    </div>
                 </el-col>
-                <el-col :span="5" :offset="17">
-                    <div>
+                <el-col :span="12" >
                         <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='eduitNameRole("")'>创建角色
                         </el-button>
                         <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除角色</el-button>
-                    </div>
                 </el-col>
             </el-row>
             <el-row class='role_system'>
