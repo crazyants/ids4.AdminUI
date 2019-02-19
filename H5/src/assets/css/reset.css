@@ -62,3 +62,7 @@ caption, th {
 q:before, q:after, blockquote:before, blockquote:after {
     content:"";
 }
+
+.el-input{
+    width: auto;
+}

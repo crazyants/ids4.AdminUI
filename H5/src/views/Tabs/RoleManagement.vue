@@ -1,34 +1,23 @@
 <template>
     <el-scrollbar wrap-class="scrollbar-wrapper-y">
         <div>
-            <el-row class='role_title'>
-                <el-col :span="12">
-                        <h3 class='role_title_text'>角色管理</h3>
-                </el-col>
-                <el-col :span="12" >
-                        <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='eduitNameRole("")'>创建角色
-                        </el-button>
-                        <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除角色</el-button>
-                </el-col>
-            </el-row>
-            <el-row class='role_system'>
-                <el-col :span="2">
-                    <span class='role_system_select'>选择系统 :</span>
-                </el-col>
-                <el-col :span="3">
-                    <el-select size="mini" v-model='systemSelect' placeholder="请选择系统">
+            <div class="flex flex-h flex-hc">
+                <h3 class='role_title_text'>角色管理</h3>
+                <div class="flex1"></div>
+                <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='eduitNameRole("")'>创建角色</el-button>
+                <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除角色</el-button>
+                <div style="width:20px"></div>
+            </div>
+            <div class="flex flex-h flex-hc">
+               <span class='role_system_select'>选择系统 :</span>
+               <el-select size="mini" v-model='systemSelect' placeholder="请选择系统">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
-
-                </el-col>
-                <el-col :span="4" :offset="14">
-                    <el-input
-                            v-model="search"
-                            size="mini"
-                            placeholder="输入关键字搜索"/>
-                </el-col>
-            </el-row>
+                <div class="flex1"></div>
+                <el-input v-model="search" size="mini" placeholder="输入关键字搜索"/>
+                <div style="width:20px"></div>
+            </div>
             <el-table
                     ref="multipleTable"
                     :data="roleData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
@@ -196,25 +185,21 @@
 </script>
 
 <style lang='scss' scoped>
-    .role_title {
+    .flex{
         padding: 4px 0;
         border-bottom: 1px solid #ccc;
-        .role_title_text {
+    }
+
+    .role_title_text {
             line-height: 28px;
             text-indent: 1em;
         }
 
-    }
-
-    .role_system {
-        padding: 4px 0;
-        border-bottom: 2px solid #e50a10;
-        .role_system_select {
+    .role_system_select {
             line-height: 30px;
             display: inline-block;
             text-indent: 1.5em;
         }
-    }
 
     .page_footer {
         margin-top: 10px;
