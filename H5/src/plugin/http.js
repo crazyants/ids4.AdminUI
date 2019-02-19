@@ -77,7 +77,7 @@ const handleResult = (res) => {
             return res.data;
         }
     }
-    if (res.status === 401) {
+    if (res.status === 401||res.status === 400) {
         router.push("/login")
     }
     throw res
