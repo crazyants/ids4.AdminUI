@@ -20,7 +20,7 @@
             </div>
             <el-table
                     ref="multipleTable"
-                    :data="roleData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                    :data="roleData"
                     tooltip-effect="dark"
                     border
                     align='center'
@@ -77,7 +77,7 @@
                             :current-page.sync="currentPage"
                             :page-sizes="[10, 20, 30, 50]"
                             :page-size.sync="pageSize"
-                            layout="total, prev, pager, next, jumper, sizes"
+                            layout="total, sizes, prev, pager, next, jumper"
                             :total="total">
                     </el-pagination>
                 </el-col>
@@ -117,7 +117,7 @@
                 // 分页
                 currentPage: 1,
                 pageSize:10,
-                total:12
+                total:0
             }
         },
         mounted() {
@@ -125,7 +125,9 @@
         },
         methods: {
             async flush() {
-                this.roleData = await this.$http.post("/base/api/Role/Query", {"pageIndex": this.currentPage, "pageSize": this.pageSize});
+                let result = await this.$http.post("/base/api/Role/Query", {"pageIndex": this.currentPage, "pageSize": this.pageSize});
+                this.roleData = result.list;
+                this.total = result.totalCount;
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
