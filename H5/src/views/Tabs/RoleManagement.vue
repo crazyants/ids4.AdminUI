@@ -1,14 +1,14 @@
 <template>
     <el-scrollbar wrap-class="scrollbar-wrapper-y">
         <div>
-            <div class="flex flex-h flex-hc">
+            <div class="flex">
                 <h3 class='role_title_text'>角色管理</h3>
                 <div class="flex1"></div>
                 <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='eduitNameRole("")'>创建角色</el-button>
                 <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除角色</el-button>
                 <div style="width:20px"></div>
             </div>
-            <div class="flex flex-h flex-hc">
+            <div class="flex">
                <span class='role_system_select'>选择系统 :</span>
                <el-select size="mini" v-model='systemSelect' placeholder="请选择系统">
                         <el-option label="区域一" value="shanghai"></el-option>
