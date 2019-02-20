@@ -22,11 +22,11 @@
                     </el-row>
 
                 </div>
-                <el-container id="dialog_main" ref="dialogMain">
+                <div id="dialog_main" ref="dialogMain">
                     <el-scrollbar wrap-class="scrollbar-wrapper-y">
                         <slot name="main">弹窗内容</slot>
                     </el-scrollbar>
-                </el-container>
+                </div>
 
                 <!--<div class="dialog_main" ref="dialogMain">-->
                 <!--&lt;!&ndash;弹窗的内容&ndash;&gt;-->

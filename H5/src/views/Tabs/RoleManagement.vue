@@ -78,11 +78,7 @@
             </el-pagination>
             
         </div>
-        <RoleEduit :is-show.sync='show' @close-dailog="RoleEduitDilagHide" :dialog-tittle='dialogTittle'
-                   :role-info='roleInfo'></RoleEduit>
-
-        <RoleNameEduit :is-show.sync='RoleNameEduitShow' @close-dailog="RoleEduitDilagHide" :dialog-tittle='RoleNameEduitTitle'
-                   :role-info='roleInfo'></RoleNameEduit>
+        <RoleNameEduit :config="config" @close="flush" ></RoleNameEduit>
     </el-scrollbar>
 </template>
 
@@ -102,17 +98,17 @@
                 multipleSelection: [],
                 keyword: '',
                 systemSelect: '',
-                // 对话框
-                dialogTittle: '',
                 show: false,
-                roleInfo: {},
-                // 角色名称编辑
-                RoleNameEduitShow:false,
-                RoleNameEduitTitle:'',
                 // 分页
                 currentPage: 1,
                 pageSize:10,
-                total:0
+                total:0,
+                config:{
+                    show:false,
+                    width:500,
+                    title:"",
+                    data:{}
+                }
             }
         },
         mounted() {
@@ -157,22 +153,16 @@
             roleCheck(row) {
                 console.log(row);
             },
-
             // 角色名编辑
             eduitNameRole(row) {
                 if(row){
-                    this.RoleNameEduitTitle='编辑角色名称';
-                    this.roleInfo = row
+                    this.config.title='编辑角色名称';
+                    this.config.data = row
                 }else {
-                    this.RoleNameEduitTitle='创建角色名称';
-                    this.roleInfo = {}
+                    this.config.title='创建角色名称';
+                    this.config.data = {}
                 }
-                this.RoleNameEduitShow = true
-            },
-
-            RoleEduitDilagHide() {
-                this.roleInfo = {}
-                this.show = false
+                this.config.show = true
             }
         }
     }
