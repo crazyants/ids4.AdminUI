@@ -120,7 +120,6 @@
         },
         methods: {
             async flush() {
-                this.roleData = []
                 let result = await this.$http.post("/base/api/Role/Query", {"pageIndex": this.currentPage, "pageSize": this.pageSize,name:this.keyword});
                 this.roleData = result.list;
                 this.total = result.totalCount;
