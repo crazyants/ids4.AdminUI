@@ -81,13 +81,12 @@ namespace QuickstartIdentityServer.Apis
         /// <summary>
         /// 删除角色
         /// </summary>
-        /// <param name="id">用户id</param>
-        [HttpGet]
-        public async Task Delete([FromQuery]int id)
+        /// <param name="ids">角色id集合</param>
+        [HttpPost]
+        public async Task Delete([FromBody]int[] ids)
         {
-            var role = await pcontext.Role.FirstOrDefaultAsync(u => u.Id == id);
-            if (role == null) throw new Exception("用户信息不存在");
-            role.IsDeleted = true;
+            var roles = await pcontext.Role.Where(u => ids.Contains(u.Id)).ToListAsync();
+            roles.ForEach(r => r.IsDeleted = true);
             await pcontext.SaveChangesAsync();
         }
 
