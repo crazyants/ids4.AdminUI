@@ -8,8 +8,8 @@
                         <el-option label="区域二" value="beijing"></el-option>
                 </el-select> -->
                 <span>角色名称:</span>
-                <el-input v-model="keyword" size="mini" @keyup.enter.native="flush" placeholder="输入关键字搜索"/>
-                <el-button type="primary" size="mini" @click='flush'>查询</el-button>
+                <el-input v-model="keyword" size="mini" @keyup.enter.native="currentPage=1;flush();" placeholder="输入关键字搜索"/>
+                <el-button type="primary" size="mini" @click='currentPage=1;flush();'>查询</el-button>
                 <div class="flex1"></div>
                 <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='eduitNameRole("")'>创建角色</el-button>
                 <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除角色</el-button>
@@ -68,7 +68,7 @@
             </el-table>
             <el-pagination
                             class='page_footer_box'
-                            @size-change="flush"
+                            @size-change="currentPage=1;flush();"
                             @current-change="flush"
                             :current-page.sync="currentPage"
                             :page-sizes="[10, 20, 30, 50]"
