@@ -46,14 +46,22 @@ const removecomponent = (component) => {
     component.$destroy();
 }
 
-
+var test =[];
+for(var i=0;i<15;i++){
+    test.push({title: '带参数',
+    fullPath: '/home/hasparam/'+i,//完整路径
+    closable: true}) 
+}
+test.push({title: '测试tab',
+    fullPath: '/home/test',//完整路径
+    closable: true}) 
 
 export default {
     namespaced: true,
     state: {
         isRouterAlive:true,
         CurTabIndex: 1,
-        Tabs: [defaulttab]
+        Tabs: [defaulttab,...test]
     },
     mutations: {
         ActiveTab(state, index) {
@@ -129,7 +137,7 @@ export default {
             while(i>=0){
                 if(i!=index&&state.Tabs[i].closable){
                     const item = state.Tabs.splice(i,1)[0];
-                    removecomponent(item.component);
+                    if(item.component) removecomponent(item.component);
                 }
                 i--;
             }
@@ -145,7 +153,7 @@ export default {
             while(i>=0){
                 if(state.Tabs[i].closable){
                     const item = state.Tabs.splice(i,1)[0];
-                    removecomponent(item.component);
+                    if(item.component) removecomponent(item.component);
                 }
                 i--;
             }
@@ -161,7 +169,7 @@ export default {
             while(i>index){
                 if(state.Tabs[i].closable){
                     const item = state.Tabs.splice(i,1)[0];
-                    removecomponent(item.component);
+                    if(item.component) removecomponent(item.component);
                 }
                 i--;
             }

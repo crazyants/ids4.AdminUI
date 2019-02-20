@@ -1,6 +1,6 @@
 <template>
     <div>
-        参数值：{{val}} 当前时间：{{curtime}}
+        当前路由参数：{{val}} 当前时间：{{curtime}}
     </div>
 </template>
 
