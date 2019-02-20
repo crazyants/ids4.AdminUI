@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '../router'
+import { Loading } from 'element-ui';
 /**
          * 请求拦截器
          * 
@@ -110,10 +111,32 @@ var http = {
 
     },
     async post(url, data, config) {
+        this.block();
         if(!config) config = { headers: this.header };
         const res = await axios.post(url, data, config).catch(res => res);
+        this.unblock();
         return handleResult(res);
     },
+    count: 0,
+    loading:null,
+            /** block ui */
+            block() {
+                this.count = this.count + 1;
+                if (this.count != 1) return;
+                this.loading = Loading.service({
+                    lock: true,
+                    text: 'Loading',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.0)'
+                });
+            },
+            /** unblock */
+            unblock() {
+                this.count = this.count - 1;
+                if (this.count < 0) this.count = 0;
+                if (this.count) return;
+                this.loading.close();
+            },
     async awaitTasks(tasks) {
         if (!tasks) return;
         var result = [];
