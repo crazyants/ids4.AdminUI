@@ -1,6 +1,7 @@
 import axios from 'axios'
 import router from '../router'
 import { Loading } from 'element-ui';
+import { Message } from 'element-ui';
 /**
          * 请求拦截器
          * 
@@ -69,10 +70,16 @@ axios.interceptors.response.use(response => {
 );
 
 const handleResult = (res) => {
-    if (res.status == 200) {
+    if (res.status == 200||res.status == 500) {
         if(res.data.hasOwnProperty('result')){
             if(res.data.result) return res.data.data;
-            else throw res.data;
+            else {
+                Message.error({
+                    showClose: true,
+                    message: res.data.message
+                  })
+                throw res.data;
+            }
         }
         else {
             return res.data;
@@ -80,6 +87,12 @@ const handleResult = (res) => {
     }
     if (res.status === 401||res.status === 400) {
         router.push("/login")
+    }
+    else{
+        Message.error({
+            showClose: true,
+            message: "网络异常！"
+          })
     }
     throw res
 }
