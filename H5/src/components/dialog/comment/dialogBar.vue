@@ -126,12 +126,7 @@
 
     #dialog_main {
         padding: 10px 15px ;
-        // overflow-y: auto;
-        /deep/ {
-          .el-scrollbar{
-            padding-bottom: 17px;
-        }
-        }
+        overflow-y: auto;
     }
 
     .el-message-box__btns {
