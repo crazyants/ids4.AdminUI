@@ -37,11 +37,11 @@ Vue.mixin({
         next()
       }
       else{
-        if(localStorage.getItem("_token")){
+        // if(localStorage.getItem("_token")){
             next()
-        }
-        else
-          next('/login')
+        // }
+        // else
+        //   next('/login')
       }
     }
   })
