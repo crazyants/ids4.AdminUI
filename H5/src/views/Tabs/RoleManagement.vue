@@ -133,6 +133,7 @@
                     });
                     const ids = this.selectitems.map(item=>item.id);
                     await this.$http.post("/base/api/Role/Delete",ids);
+                    if(this.roleData.length==ids.length) this.currentPage--;//全部删除返回上一页
                     this.flush();
                     this.$message({
                         showClose: true,
