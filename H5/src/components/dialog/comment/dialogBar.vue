@@ -126,7 +126,7 @@
 
     #dialog_main {
         padding: 10px 15px ;
-        overflow-y: auto;
+        // overflow-y: auto;
         /deep/ {
           .el-scrollbar{
             padding-bottom: 17px;
