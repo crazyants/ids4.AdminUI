@@ -2,13 +2,13 @@
     <el-scrollbar wrap-class="scrollbar-wrapper-y">
         <div>
             <div class="flex">
-                <span>选择系统 :</span>
+                <!-- <span>选择系统 :</span>
                 <el-select size="mini" v-model='systemSelect' placeholder="请选择系统">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                <span>关键字 :</span>
-                <el-input v-model="keyword" size="mini" @keyup.13="flush" placeholder="输入关键字搜索"/>
+                </el-select> -->
+                <span>角色名称:</span>
+                <el-input v-model="keyword" size="mini" @keyup.enter.native="flush" placeholder="输入关键字搜索"/>
                 <el-button type="primary" size="mini" @click='flush'>查询</el-button>
                 <div class="flex1"></div>
                 <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='eduitNameRole("")'>创建角色</el-button>
