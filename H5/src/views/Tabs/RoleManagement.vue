@@ -30,10 +30,12 @@
                 >
                 </el-table-column>
                 <el-table-column
-                        type="index"
                         width="80"
                         align='center'
                         label="序号">
+                    <template slot-scope="scope">
+                        {{(currentPage - 1 ) * pageSize + scope.$index  + 1}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="id"
@@ -118,6 +120,7 @@
         },
         methods: {
             async flush() {
+                this.roleData = []
                 let result = await this.$http.post("/base/api/Role/Query", {"pageIndex": this.currentPage, "pageSize": this.pageSize,name:this.keyword});
                 this.roleData = result.list;
                 this.total = result.totalCount;
