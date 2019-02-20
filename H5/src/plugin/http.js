@@ -106,7 +106,9 @@ var http = {
        else this.header.Authorization = null;
     },
     async get(url) {
+        this.block();
         const res = await axios.get(url, { headers: this.header }).catch(res => res);
+        this.unblock();
         return handleResult(res);
 
     },
