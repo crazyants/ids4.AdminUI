@@ -64,9 +64,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <el-row class='page_footer'>
-                <el-col :span='24'>
-                    <el-pagination
+            <el-pagination
                             class='page_footer_box'
                             @size-change="flush"
                             @current-change="flush"
@@ -75,9 +73,8 @@
                             :page-size.sync="pageSize"
                             layout="total, sizes, prev, pager, next, jumper"
                             :total="total">
-                    </el-pagination>
-                </el-col>
-            </el-row>
+            </el-pagination>
+            
         </div>
         <RoleEduit :is-show.sync='show' @close-dailog="RoleEduitDilagHide" :dialog-tittle='dialogTittle'
                    :role-info='roleInfo'></RoleEduit>
@@ -187,5 +184,6 @@
 
     .page_footer_box {
         float: right;
+        margin: 3px 10px;
     }
 </style>
