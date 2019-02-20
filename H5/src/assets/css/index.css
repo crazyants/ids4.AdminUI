@@ -143,3 +143,17 @@ html ,body {
     -webkit-order: 2;               /* NEW - Chrome */
     order: 2;                       /* NEW, Spec - Opera 12.1, Firefox 20+ */
   }
+
+
+  /* 主题内容样式 */
+  .flex{
+    padding: 4px 0;
+    border-bottom: 1px solid #ccc;
+    flex-wrap: wrap;
+  }
+  .flex>span{
+    text-align:right;
+    line-height: 30px;
+    display: inline-block;
+    width: 80px;
+  }
