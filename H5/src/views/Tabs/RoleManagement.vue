@@ -8,7 +8,7 @@
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
                 <span>关键字 :</span>
-                <el-input v-model="keyword" size="mini" placeholder="输入关键字搜索"/>
+                <el-input v-model="keyword" size="mini" @keyup.enter="flush" placeholder="输入关键字搜索"/>
                 <div style="width:20px"></div>
                 <el-button type="primary" size="mini" @click='flush'>查询</el-button>
                 <div class="flex1"></div>

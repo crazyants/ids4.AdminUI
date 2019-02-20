@@ -85,7 +85,6 @@ export default {
         }
     },
     keypress(e){
-      console.log(e);
       switch (e.keyCode) {
         case 27:
           e.preventDefault();
