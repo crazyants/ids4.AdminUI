@@ -157,7 +157,7 @@
             eduitNameRole(row) {
                 if(row){
                     this.config.title='编辑角色名称';
-                    this.config.data = row
+                    this.config.data = Object.assign({},row);
                 }else {
                     this.config.title='创建角色名称';
                     this.config.data = {}

@@ -37,20 +37,21 @@ import { promised } from 'q';
             return {
                 rules: {
                     name: [
-                        {required: true, message: '请输入活动名字', trigger: 'blur'},
+                        {required: true, message: '请输入角色名字', trigger: 'blur'},
                     ],
                 }
             }
         },
         methods: {
             close(result) {
-                this.$refs.form.resetFields();
                 this.config.show = false;
                 if(result) this.$emit("close");
             },
             onSubmit() {
-                this.$refs.form.validate((valid) => {
+                this.$refs.form.validate(async(valid) => {
                     if (valid) {
+                       if(this.config.data.id) await this.$http.post("/base/api/Role/Update", this.config.data);
+                       else await this.$http.post("/base/api/Role/Create", this.config.data);
                        this.close(true);
                     }
                 })

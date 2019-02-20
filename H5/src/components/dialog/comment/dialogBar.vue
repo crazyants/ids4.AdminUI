@@ -70,7 +70,7 @@
             resize() {
                 let windowHeight = window.innerHeight
                 if (this.dialogMainHeight >= (windowHeight - 60)) {
-                    this.$refs.dialogMain.$el.style.height = (windowHeight - 60 - this.$refs.header.clientHeight - this.$refs.footer.clientHeight) + 'px';
+                    this.$refs.dialogMain.style.height = (windowHeight - 60 - this.$refs.header.clientHeight - this.$refs.footer.clientHeight) + 'px';
                     this.$refs.dialogContentBox.style.top = '30px'
                 } else {
                     this.$refs.dialogContentBox.style.top = (windowHeight - this.dialogMainHeight) / 2 + 'px'
