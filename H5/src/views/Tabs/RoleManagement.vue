@@ -95,7 +95,6 @@
         data() {
             return {
                 roleData: [],
-                multipleSelection: [],
                 keyword: '',
                 systemSelect: '',
                 show: false,
@@ -121,34 +120,33 @@
                 this.total = result.totalCount;
             },
             handleSelectionChange(val) {
-                this.multipleSelection = val;
+                this.selectitems = val;
             },
-
-            delRole() {
-                // if (this.multipleSelection.length < 1) {
-                //     this.$message({
-                //         message: '请选择需要删除的角色!',
-                //         type: 'warning'
-                //     });
-                //     return
-                // }
-                this.$confirm('确认删除所选角色?', '删除', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
+            async delRole() {
+                //this.$refs.multipleTable.clearSelection()
+                //this.$refs.multipleTable.toggleRowSelection(row) this.$refs.multipleTable.selection
+                if(this.selectitems&&this.selectitems.length){
+                    await this.$confirm('确认删除所选角色?', '删除', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    });
+                    const ids = this.selectitems.map(item=>item.id);
+                    await this.$http.post("/base/api/Role/Delete",ids);
+                    this.flush();
                     this.$message({
                         showClose: true,
                         type: 'success',
                         message: '删除成功!'
                     });
-                }).catch(() => {
+                }
+                else{
                     this.$message({
                         showClose: true,
-                        type: 'info',
-                        message: '已取消删除'
+                        type: 'warning',
+                        message: '请选择要删除的角色'
                     });
-                });
+                }
             },
             roleCheck(row) {
                 console.log(row);

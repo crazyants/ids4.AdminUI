@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QuickstartIdentityServer.DBManager.BaseData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -59,6 +61,17 @@ namespace QuickstartIdentityServer.DBManager
             base.OnModelCreating(modelBuilder);
             modelBuilder.HasDbFunction(() => Concat(default(string), default(string))).HasName("CONCAT");
             modelBuilder.HasDbFunction(() => Concat(default(string), default(string), default(string))).HasName("CONCAT");
+
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                var et = entityType.ClrType;
+                if (typeof(IDeleteOperation).IsAssignableFrom(et))
+                {
+                   var parameter = Expression.Parameter(et, "e");
+                   var body = Expression.Equal(Expression.Call(typeof(EF), nameof(EF.Property), new[] { typeof(bool) }, parameter, Expression.Constant(EntityConst.IsDeleted)), Expression.Constant(false));
+                   modelBuilder.Entity(et).HasQueryFilter(Expression.Lambda(body, parameter));
+                }
+            }
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
