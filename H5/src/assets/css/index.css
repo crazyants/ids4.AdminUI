@@ -38,10 +38,19 @@ html ,body {
     line-height: 50px;
     min-width: auto;
 }
+/* 表格 */
 .el-table--mini td, .el-table--mini th{
     padding: 3px;
 }
-
+/* 表单错误提示 */
+.el-form-item__error{
+    display: inline-block;
+    margin-left: 10px;
+    position: relative;
+}
+.el-form-item__label{
+    margin-left: 20px;
+}
 .flex{
     display: box;              /* OLD - Android 4.4- */
     display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
@@ -164,3 +173,4 @@ html ,body {
   .flex>.el-button{
       margin:0 15px; 
   }
+  

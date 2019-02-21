@@ -93,7 +93,7 @@
 
     // 遮罩 设置背景层，z-index值要足够大确保能覆盖，高度 宽度设置满 做到全屏遮罩
     .dialog-cover {
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 0.3);
         position: fixed;
         z-index: 200;
         top: 0;
@@ -110,6 +110,7 @@
         left: 0;
         background-color: #fff;
         z-index: 300;
+        border-radius: 4px;
     }
 
     .dialog_head {
@@ -127,7 +128,7 @@
 
     #dialog_main {
         padding: 10px 15px ;
-        overflow-y: auto;
+        // overflow-y: auto;
     }
 
     .el-message-box__btns {
