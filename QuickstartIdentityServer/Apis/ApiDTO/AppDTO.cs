@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,10 +14,14 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
         /// <summary>
         /// 系统名称
         /// </summary>
+        [StringLength(50, ErrorMessage = "系统名最大长度为50位")]
+        [Required(ErrorMessage = "系统名不允许为null")]
         public string Name { get; set; }
         /// <summary>
         /// 系统编号
         /// </summary>
+        [StringLength(8, ErrorMessage = "系统编号最大长度为8位")]
+        [Required(ErrorMessage = "系统编号不允许为null")]
         public string Code { set; get; }
     }
     /// <summary>
