@@ -47,14 +47,14 @@ const removecomponent = (component) => {
 }
 
 var test =[];
-for(var i=0;i<15;i++){
-    test.push({title: '带参数',
-    fullPath: '/home/hasparam/'+i,//完整路径
-    closable: true}) 
-}
-test.push({title: '测试tab',
-    fullPath: '/home/test',//完整路径
-    closable: true}) 
+// for(var i=0;i<15;i++){
+//     test.push({title: '带参数',
+//     fullPath: '/home/hasparam/'+i,//完整路径
+//     closable: true}) 
+// }
+// test.push({title: '测试tab',
+//     fullPath: '/home/test',//完整路径
+//     closable: true}) 
 
 export default {
     namespaced: true,

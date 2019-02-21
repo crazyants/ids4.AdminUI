@@ -20,7 +20,7 @@
             <el-dropdown trigger="click" @command="handleCommand">
                   <span class="el-dropdown-link">
                    <img class="user-image" src="../../assets/images/timg.jpg" alt="">
-                      <i class='hidden-xs'>administrator</i>
+                      <i class='hidden-xs'>{{username}}</i>
                   </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="a">个人信息</el-dropdown-item>
@@ -46,11 +46,15 @@
             }
         },
         data: function () {
-            return {};
+            return {
+                username:""
+            };
         },
 
         mounted() {
-
+            this.$http.get("/base/api/User/Current").then(u=>{
+                this.username = u.name;
+            })
         },
         methods: {
             handleCommand(item){

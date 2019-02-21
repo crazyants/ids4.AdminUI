@@ -76,7 +76,7 @@ export default {
       };
       const result = await this.$http.post("/connect/token", data, config);
       this.$http.setheader(result.access_token);
-      this.$router.push("/home/test");
+      this.$router.push("/home/index");
     }
   }
 };
