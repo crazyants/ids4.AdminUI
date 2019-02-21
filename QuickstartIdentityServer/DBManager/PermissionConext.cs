@@ -1,10 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.DependencyInjection;
 using QuickstartIdentityServer.DBManager.BaseData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,6 +16,7 @@ namespace QuickstartIdentityServer.DBManager
 {
     public class PermissionConext : DbContext
     {
+        IServiceProvider provider { get; set; }
         /// <summary>
         /// 登录人userid
         /// </summary>
@@ -32,6 +37,14 @@ namespace QuickstartIdentityServer.DBManager
         /// <param name="options"></param>
         public PermissionConext(DbContextOptions<PermissionConext> options) : base(options)
         {
+            var optionsExtensions = options.Extensions;
+            foreach (IDbContextOptionsExtension dbContextOptionsExtension in optionsExtensions)
+            {
+                if (dbContextOptionsExtension is CoreOptionsExtension coreOptionsExtension)
+                {
+                    provider = coreOptionsExtension.ApplicationServiceProvider;
+                }
+            }
         }
         /// <summary>
         /// CONCAT
@@ -96,6 +109,8 @@ namespace QuickstartIdentityServer.DBManager
         private void PrivateCheckDoWork()
         {
             var entries = ChangeTracker.Entries().Where(e => e.State != EntityState.Unchanged).ToArray();
+            if (entries.Length == 0) return;
+            SetUserInfo();//设置当前用户
             var tsnow = GetUnixTimestamp();
             foreach (var entry in entries)
             {
@@ -134,6 +149,18 @@ namespace QuickstartIdentityServer.DBManager
             }
         }
 
+        /// <summary>
+        /// 设置当前用户
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        private void SetUserInfo()
+        {
+            var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
+            var httpContext = httpContextAccessor?.HttpContext;
+            var subid = httpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            int.TryParse(subid, out int userid);
+            UserId = userid;
+        }
         private long GetUnixTimestamp()
         {
             var utcTime = DateTime.UtcNow;
