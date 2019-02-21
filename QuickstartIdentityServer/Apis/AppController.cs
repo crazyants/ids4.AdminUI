@@ -82,7 +82,7 @@ namespace QuickstartIdentityServer.Apis
         /// <summary>
         /// 删除系统
         /// </summary>
-        /// <param name="code">系统编码</param>
+        /// <param name="codes">系统编码</param>
         [HttpPost]
         public async Task Delete([FromBody]string[] codes)
         {
