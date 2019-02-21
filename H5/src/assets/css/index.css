@@ -42,7 +42,13 @@ html ,body {
 .el-table--mini td, .el-table--mini th{
     padding: 3px;
 }
-/* 表单错误提示 */
+/* 表单 */
+.el-form{
+    padding-bottom: 10px;
+}
+.el-form-item{
+    margin-bottom: 0;
+}
 .el-form-item__error{
     display: inline-block;
     margin-left: 10px;
@@ -51,6 +57,7 @@ html ,body {
 .el-form-item__label{
     margin-left: 20px;
 }
+
 
 .flex{
     display: box;              /* OLD - Android 4.4- */

@@ -1,41 +1,22 @@
 <template>
     <el-scrollbar wrap-class="scrollbar-wrapper-y">
         <div>
-            <el-row class='role_title'>
-                <el-col :span="2">
-                    <div>
-                        <h3 class='role_title_text'>角色管理</h3>
-                    </div>
-                </el-col>
-                <el-col :span="5" :offset="17">
-                    <div>
-                        <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='eduitNameRole("")'>创建角色
-                        </el-button>
-                        <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除角色</el-button>
-                    </div>
-                </el-col>
-            </el-row>
-            <el-row class='role_system'>
-                <el-col :span="2">
-                    <span class='role_system_select'>选择系统 :</span>
-                </el-col>
-                <el-col :span="3">
-                    <el-select size="mini" v-model='systemSelect' placeholder="请选择系统">
+            <div class="flex">
+                <!-- <span>选择系统 :</span>
+                <el-select size="mini" v-model='systemSelect' placeholder="请选择系统">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-
-                </el-col>
-                <el-col :span="4" :offset="14">
-                    <el-input
-                            v-model="search"
-                            size="mini"
-                            placeholder="输入关键字搜索"/>
-                </el-col>
-            </el-row>
+                </el-select> -->
+                <span>用户名称:</span>
+                <el-input v-model="keyword" size="mini" @keyup.enter.native="currentPage=1;flush();" placeholder="输入关键字搜索"/>
+                <el-button type="primary" size="mini" @click='currentPage=1;flush();'>查询</el-button>
+                <div class="flex1"></div>
+                <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='eduitNameRole()'>创建用户</el-button>
+                <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除用户</el-button>
+            </div>
             <el-table
                     ref="multipleTable"
-                    :data="roleData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                    :data="roleData"
                     tooltip-effect="dark"
                     border
                     align='center'
@@ -49,20 +30,22 @@
                 >
                 </el-table-column>
                 <el-table-column
-                        type="index"
-                        width="50"
+                        width="80"
                         align='center'
                         label="序号">
+                    <template slot-scope="scope">
+                        {{(currentPage - 1 ) * pageSize + scope.$index  + 1}}
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="id"
-                        label="权限ID"
+                        prop="account"
+                        label="账号"
                         align='center'
                 >
                 </el-table-column>
                 <el-table-column
                         prop="name"
-                        label="角色名称"
+                        label="用户名称"
                         align='center'
                 >
                 </el-table-column>
@@ -79,57 +62,50 @@
                 >
                     <template slot-scope="scope">
                         <el-button type="text" size="small" @click='eduitNameRole(scope.row)'>编辑</el-button>
-                        <el-button @click="roleCheck(scope.row)" type="text" size="small">权限组分配</el-button>
                     </template>
                 </el-table-column>
             </el-table>
-            <el-row class='page_footer'>
-                <el-col :span='24'>
-                    <el-pagination
+            <el-pagination
                             class='page_footer_box'
-                            @size-change="handleSizeChange"
-                            @current-change="handleCurrentChange"
-                            :current-page.sync="currentPage3"
-                            :page-size="100"
-                            layout="prev, pager, next, jumper"
-                            :total="1000">
-                    </el-pagination>
-                </el-col>
-            </el-row>
+                            @size-change="currentPage=1;flush();"
+                            @current-change="flush"
+                            :current-page.sync="currentPage"
+                            :page-sizes="[10, 20, 30, 50]"
+                            :page-size.sync="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="total">
+            </el-pagination>
+            
         </div>
-        <RoleEduit :is-show.sync='show' @close-dailog="RoleEduitDilagHide" :dialog-tittle='dialogTittle'
-                   :role-info='roleInfo'></RoleEduit>
-
-        <RoleNameEduit :is-show.sync='RoleNameEduitShow' @close-dailog="RoleEduitDilagHide" :dialog-tittle='RoleNameEduitTitle'
-                       :role-info='roleInfo'></RoleNameEduit>
+        <PeopleEduit :config="config" @close="flush" ></PeopleEduit>
     </el-scrollbar>
 </template>
 
 <script>
-    import RoleEduit from '../../components/dialog/RoleEduit'
-    import RoleNameEduit from '../../components/dialog/RoleNameEduit'
+    import PeopleEduit from '../../components/dialog/PeopleEduit'
 
     export default {
 
         components: {
-            'RoleEduit': RoleEduit,
-            'RoleNameEduit': RoleNameEduit,
+           PeopleEduit
         },
         data() {
             return {
                 roleData: [],
-                multipleSelection: [],
-                search: '',
+                keyword: '',
                 systemSelect: '',
-                // 对话框
-                dialogTittle: '',
                 show: false,
-                roleInfo: {},
-                // 角色名称编辑
-                RoleNameEduitShow:false,
-                RoleNameEduitTitle:'',
                 // 分页
-                currentPage3: 5,
+                currentPage: 1,
+                pageSize:10,
+                total:0,
+                config:{
+                    show:false,
+                    width:500,
+                    title:"",
+                    isadd:false,
+                    data:{}
+                }
             }
         },
         mounted() {
@@ -137,94 +113,60 @@
         },
         methods: {
             async flush() {
-                this.roleData = await this.$http.post("/base/api/Role/Query", {"pageIndex": 1, "pageSize": 10});
-
+                let result = await this.$http.post("/base/api/User/Query", {"pageIndex": this.currentPage, "pageSize": this.pageSize,name:this.keyword});
+                this.roleData = result.list;
+                this.total = result.totalCount;
             },
             handleSelectionChange(val) {
-                this.multipleSelection = val;
+                this.selectitems = val;
             },
-
-            delRole() {
-                // if (this.multipleSelection.length < 1) {
-                //     this.$message({
-                //         message: '请选择需要删除的角色!',
-                //         type: 'warning'
-                //     });
-                //     return
-                // }
-                this.$confirm('确认删除所选角色?', '删除', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
+            async delRole() {
+                //this.$refs.multipleTable.clearSelection()
+                //this.$refs.multipleTable.toggleRowSelection(row) this.$refs.multipleTable.selection
+                if(this.selectitems&&this.selectitems.length){
+                    await this.$confirm('确认删除所选用户?', '删除', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    });
+                    const ids = this.selectitems.map(item=>item.id);
+                    await this.$http.post("/base/api/Role/Delete",ids);
+                    if(this.roleData.length==ids.length) this.currentPage--;//全部删除返回上一页
+                    this.flush();
                     this.$message({
+                        showClose: true,
                         type: 'success',
                         message: '删除成功!'
                     });
-                }).catch(() => {
+                }
+                else{
                     this.$message({
-                        type: 'info',
-                        message: '已取消删除'
+                        showClose: true,
+                        type: 'warning',
+                        message: '请选择要删除的用户'
                     });
-                });
+                }
             },
-            roleCheck(row) {
-                console.log(row);
-            },
-
-            // 角色名编辑
+            // 用户名编辑
             eduitNameRole(row) {
                 if(row){
-                    this.RoleNameEduitTitle='编辑角色名称';
-                    this.roleInfo = row
+                    this.config.isadd = false;
+                    this.config.title='编辑用户名称';
+                    this.config.data = Object.assign({},row);
                 }else {
-                    this.RoleNameEduitTitle='创建角色名称';
-                    this.roleInfo = {}
+                    this.config.isadd = true;
+                    this.config.title='创建用户名称';
+                    this.config.data = {}
                 }
-                this.RoleNameEduitShow = true
-            },
-
-            RoleEduitDilagHide() {
-                this.roleInfo = {}
-                this.show = false
-            },
-            // 分页
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
-            },
+                this.config.show = true
+            }
         }
     }
 </script>
 
 <style lang='scss' scoped>
-    .role_title {
-        padding: 4px 0;
-        border-bottom: 1px solid #ccc;
-        .role_title_text {
-            line-height: 28px;
-            text-indent: 1em;
-        }
-
-    }
-
-    .role_system {
-        padding: 4px 0;
-        border-bottom: 2px solid #e50a10;
-        .role_system_select {
-            line-height: 30px;
-            display: inline-block;
-            text-indent: 1.5em;
-        }
-    }
-
-    .page_footer {
-        margin-top: 10px;
-    }
-
     .page_footer_box {
         float: right;
+        margin: 3px 10px;
     }
 </style>

@@ -83,14 +83,12 @@
 </template>
 
 <script>
-    import RoleEduit from '../../components/dialog/RoleEduit'
     import RoleNameEduit from '../../components/dialog/RoleNameEduit'
 
     export default {
 
         components: {
-            'RoleEduit': RoleEduit,
-            'RoleNameEduit': RoleNameEduit,
+            RoleNameEduit,
         },
         data() {
             return {
@@ -168,13 +166,6 @@
 </script>
 
 <style lang='scss' scoped>
-   
-
-
-    .page_footer {
-        margin-top: 10px;
-    }
-
     .page_footer_box {
         float: right;
         margin: 3px 10px;

@@ -3,8 +3,14 @@
         <div slot="header">{{config.title}}</div>
         <div class="dialog_publish_main" slot="main">
             <el-form ref="form" :model="config.data" :rules="rules" label-width="80px">
-                <el-form-item label="角色名称" prop='name'>
+                <el-form-item label="账号" prop='account'>
+                    <el-input size='mini' v-model="config.data.account"></el-input>
+                </el-form-item>
+                <el-form-item label="用户名称" prop='name'>
                     <el-input size='mini' v-model="config.data.name"></el-input>
+                </el-form-item>
+                <el-form-item v-if="config.isadd" label="密码" prop='pwd'>
+                    <el-input type="password" size='mini' v-model="config.data.pwd"></el-input>
                 </el-form-item>
             </el-form>
         </div>
@@ -29,6 +35,7 @@ import { promised } from 'q';
                     show:false,
                     width:800,
                     title:"",
+                    isadd:false,
                     data:{}
                 }
             }
@@ -37,7 +44,13 @@ import { promised } from 'q';
             return {
                 rules: {
                     name: [
-                        {required: true, message: '请输入角色名称', trigger: 'blur'},
+                        {required: true, message: '请输入名称', trigger: 'blur'}
+                    ],
+                    account: [
+                        {required: true, message: '请输入账号', trigger: 'blur'}
+                    ],
+                    pwd: [
+                        {required: true, message: '请输入密码', trigger: 'blur'}
                     ],
                 }
             }
@@ -50,8 +63,8 @@ import { promised } from 'q';
             onSubmit() {
                 this.$refs.form.validate(async(valid) => {
                     if (valid) {
-                       if(this.config.data.id) await this.$http.post("/base/api/Role/Update", this.config.data);
-                       else await this.$http.post("/base/api/Role/Create", this.config.data);
+                       if(this.config.data.id) await this.$http.post("/base/api/User/Update", this.config.data);
+                       else await this.$http.post("/base/api/User/Create", this.config.data);
                        this.close(true);
                     }
                 })

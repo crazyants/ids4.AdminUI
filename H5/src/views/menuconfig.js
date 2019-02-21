@@ -16,7 +16,8 @@ var menus = [
     },
     {
         icon:"el-icon-location",
-        title:"人员管理"
+        title:"人员管理",
+        fullPath:'/home/people'
     }
 ];
 

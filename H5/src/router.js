@@ -44,8 +44,14 @@ export default new Router({
           name: 'home.role',
           meta :{title:"角色管理"},//此处为规则配置页面 title为Tab显示的标题
           // component: () => import(/* webpackChunkName: "about" */ './views/Tabs/HasParam.vue'),
-          component: resolve => require(['./views/Tabs/RoleManagement.vue'],resolve),
-          props:true
+          component: resolve => require(['./views/Tabs/RoleManagement.vue'],resolve)
+        },
+        {
+          path: '/home/people',
+          name: 'home.people',
+          meta :{title:"人员管理"},//此处为规则配置页面 title为Tab显示的标题
+          // component: () => import(/* webpackChunkName: "about" */ './views/Tabs/HasParam.vue'),
+          component: resolve => require(['./views/Tabs/PeopleManagement.vue'],resolve)
         }
       ]
     },
