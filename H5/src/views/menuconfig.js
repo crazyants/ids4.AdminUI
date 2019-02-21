@@ -5,10 +5,15 @@ var menus = [
         title:"权限管理",
         children:[
             {title:"系统配置",fullPath:'/home/app'},
-            {title:"模块配置"},
-            {title:"权限配置",fullPath:'/home/test'}
+            // {title:"模块配置"},
+            // {title:"权限配置",fullPath:'/home/test'}
         ]
     },
+    // {
+    //     icon:"el-icon-menu",
+    //     title:"系统配置",
+    //     fullPath:'/home/app'
+    // },
     {
         icon:"el-icon-document",
         title:"角色管理",

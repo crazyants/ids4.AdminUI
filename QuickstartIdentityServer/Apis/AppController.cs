@@ -72,7 +72,7 @@ namespace QuickstartIdentityServer.Apis
         [HttpPost]
         public async Task Update([FromBody]AppDTO input)
         {
-            var app = await pcontext.App.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Code == input.Code);
+            var app = await pcontext.App.FirstOrDefaultAsync(u => u.Code == input.Code);
             if (app == null) throw new Exception("系统信息不存在");
             app.Name = input.Name;
             await pcontext.SaveChangesAsync();
@@ -81,11 +81,11 @@ namespace QuickstartIdentityServer.Apis
         /// <summary>
         /// 删除系统
         /// </summary>
-        /// <param name="id">用户id</param>
+        /// <param name="code">系统编码</param>
         [HttpGet]
-        public async Task Delete([FromQuery]int id)
+        public async Task Delete([FromQuery]string code)
         {
-            var app = await pcontext.App.FirstOrDefaultAsync(u => u.Id == id);
+            var app = await pcontext.App.FirstOrDefaultAsync(u => u.Code == code);
             if (app == null) throw new Exception("系统信息不存在");
             app.IsDeleted = true;
             await pcontext.SaveChangesAsync();

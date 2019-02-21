@@ -11,7 +11,7 @@
                 <el-input v-model="keyword" size="mini" @keyup.enter.native="currentPage=1;flush();" placeholder="输入关键字搜索"/>
                 <el-button type="primary" size="mini" @click='currentPage=1;flush();'>查询</el-button>
                 <div class="flex1"></div>
-                <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='edit("")'>创建系统</el-button>
+                <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='edit(0)'>创建系统</el-button>
                 <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除系统</el-button>
             </div>
             <el-table
@@ -61,8 +61,8 @@
                         width='160'
                 >
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click='edit(scope.row)'>编辑</el-button>
-                        <el-button @click="roleCheck(scope.row)" type="text" size="small">权限组分配</el-button>
+                        <el-button type="text" size="small" @click='edit(1,scope.row)'>编辑名称</el-button>
+                        <el-button @click="roleCheck(scope.row)" type="text" size="small">编辑权限</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -78,17 +78,17 @@
             </el-pagination>
             
         </div>
-        <RoleNameEduit :config="config" @close="flush" ></RoleNameEduit>
+        <AppNameEdit :config="config" @close="flush" ></AppNameEdit>
     </el-scrollbar>
 </template>
 
 <script>
-    import RoleNameEduit from '../../components/dialog/RoleNameEduit'
+    import AppNameEdit from '../../components/dialog/AppNameEdit'
 
     export default {
 
         components: {
-            RoleNameEduit,
+            AppNameEdit,
         },
         data() {
             return {
@@ -104,6 +104,7 @@
                     show:false,
                     width:500,
                     title:"",
+                    type:0,//0 创建，1 修改名称
                     data:{}
                 }
             }
@@ -151,15 +152,15 @@
                 console.log(row);
             },
             // 系统编辑
-            edit(row) {
-                if(row){
-                    this.config.title='编辑系统';
-                    this.config.data = Object.assign({},row);
-                }else {
-                    this.config.title='创建系统';
-                    this.config.data = {}
+            edit(type,row) {
+                this.config.type = type;
+                switch(type){
+                    case 0:
+                        this.config.title='创建系统';this.config.data = {};break;
+                    case 1:
+                        this.config.title='编辑系统';this.config.data = {name:row.name};break;
                 }
-                this.config.show = true
+                this.config.show = true;
             }
         }
     }
