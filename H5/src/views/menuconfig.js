@@ -5,7 +5,7 @@ var menus = [
         title:"权限管理",
         children:[
             {title:"系统配置",fullPath:'/home/app'},
-            // {title:"模块配置"},
+            {title:"模块配置",fullPath:'/home/module'},
             // {title:"权限配置",fullPath:'/home/test'}
         ]
     },

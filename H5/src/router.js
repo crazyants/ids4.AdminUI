@@ -53,6 +53,12 @@ export default new Router({
           name: 'home.app',
           meta :{title:"系统配置"},//此处为规则配置页面 title为Tab显示的标题
           component: resolve => require(['./views/Tabs/AppManagement.vue'],resolve)
+        },
+        {
+          path: '/home/module',
+          name: 'home.module',
+          meta :{title:"模块配置"},//此处为规则配置页面 title为Tab显示的标题
+          component: resolve => require(['./views/Tabs/ModuleManagement.vue'],resolve)
         }
       ]
     },
