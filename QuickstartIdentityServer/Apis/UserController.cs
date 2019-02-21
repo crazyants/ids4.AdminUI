@@ -49,7 +49,7 @@ namespace QuickstartIdentityServer.Apis
         {
             string likevalue = $"%{input.Name}%";
             string likeaccount = $"%{input.Account}%";
-            var query = pcontext.User.Where(u=>!u.IsSystemAdmin).Where(u => EF.Functions.Like(u.Name, likevalue)).Where(u => EF.Functions.Like(u.Name, likeaccount))
+            var query = pcontext.User.Where(u=>!u.IsSystemAdmin).Where(u => EF.Functions.Like(u.Name, likevalue)).Where(u => EF.Functions.Like(u.Account, likeaccount))
                 .Select(u => new UserResponseDTO
                 {
                     Id = u.Id,
