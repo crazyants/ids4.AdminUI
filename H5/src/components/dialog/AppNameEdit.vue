@@ -3,8 +3,8 @@
         <div slot="header">{{config.title}}</div>
         <div class="dialog_publish_main" slot="main">
             <el-form ref="form" :model="config.data" :rules="rules" label-width="80px">
-                <el-form-item v-if="config.type==0" label="编号" prop='account'>
-                    <el-input size='mini' v-model="config.data.account"></el-input>
+                <el-form-item v-if="config.type==0" label="编号" prop='code'>
+                    <el-input size='mini' v-model="config.data.code"></el-input>
                 </el-form-item>
                 <el-form-item label="系统名称" prop='name'>
                     <el-input size='mini' v-model="config.data.name"></el-input>
@@ -39,7 +39,7 @@
         data() {
             return {
                 rules: {
-                    account: [
+                    code: [
                         {required: true, message: '请输入系统编号', trigger: 'blur'},
                     ],
                     name: [

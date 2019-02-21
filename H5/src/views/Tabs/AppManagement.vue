@@ -158,7 +158,7 @@
                     case 0:
                         this.config.title='创建系统';this.config.data = {};break;
                     case 1:
-                        this.config.title='编辑系统';this.config.data = {name:row.name};break;
+                        this.config.title='编辑系统';this.config.data = {name:row.name,code:row.code};break;
                 }
                 this.config.show = true;
             }

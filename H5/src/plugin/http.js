@@ -94,6 +94,9 @@ const handleResult = (res) => {
     else if (res.status === 403) {
         Message.error({ showClose: true, message: "您无权限访问！"})
     }
+    else if (res.status === 404) {
+        Message.error({ showClose: true, message: "请求接口地址不存在，请检查！"})
+    }
     else if(res.status === 400){
         if(res.data&&res.data.hasOwnProperty('error_description')){
             Message.error({ showClose: true, message: res.data.error_description });

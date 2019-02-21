@@ -83,12 +83,11 @@ namespace QuickstartIdentityServer.Apis
         /// 删除系统
         /// </summary>
         /// <param name="code">系统编码</param>
-        [HttpGet]
-        public async Task Delete([FromQuery]string code)
+        [HttpPost]
+        public async Task Delete([FromBody]string[] codes)
         {
-            var app = await pcontext.App.FirstOrDefaultAsync(u => u.Code == code);
-            if (app == null) throw new Exception("系统信息不存在");
-            app.IsDeleted = true;
+            var apps = await pcontext.App.Where(u => codes.Contains(u.Code)).ToListAsync();
+            apps.ForEach(r => r.IsDeleted = true);
             await pcontext.SaveChangesAsync();
         }
 
