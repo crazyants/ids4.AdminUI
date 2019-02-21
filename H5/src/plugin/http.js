@@ -68,24 +68,25 @@ axios.interceptors.response.use(response => {
         return Promise.reject(error.response)
     }
 );
-
-const handleResult = (res) => {
-    if (res.status == 200||res.status == 500) {
-        if(res.data.hasOwnProperty('result')){
-            if(res.data.result) return res.data.data;
-            else {
-                Message.error({
-                    showClose: true,
-                    message: res.data.message
-                  })
-                throw res.data;
-            }
-        }
-        else {
-            return res.data;
-        }
+const handleCommonResult =(res)=>{//正常业务结果
+    if(res.data.result) return res.data.data;
+    else {
+        Message.error({
+            showClose: true,
+            message: res.data.message
+          })
+        throw res.data;
     }
-    if (res.status === 401||res.status === 400) {
+}
+const handleResult = (res) => {
+    if (res.status == 200) {
+        if(res.data&&res.data.hasOwnProperty('result')) return handleCommonResult(res);
+        else return res.data; 
+    }
+    else if(res.status == 500){
+        if(res.data&&res.data.hasOwnProperty('result')) return handleCommonResult(res);
+    }
+    if (res.status === 401||res.status === 400||res.status === 403) {
         router.push("/login")
     }
     else{

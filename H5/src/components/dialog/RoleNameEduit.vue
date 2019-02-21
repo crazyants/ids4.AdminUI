@@ -59,6 +59,8 @@ import { promised } from 'q';
         }
     }
 </script>
-<style>
-
+<style lang="scss" scoped>
+    .dialog_publish_main{
+        padding-bottom: 10px;
+    }
 </style>
