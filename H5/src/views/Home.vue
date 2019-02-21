@@ -7,7 +7,7 @@
       <el-scrollbar wrap-class="scrollbar-wrapper-y">
         <el-aside width="auto">
           <el-menu
-            default-active="1-4-1"
+            :default-active="activemenu"
             class="el-menu-vertical-demo"
             @select="openTab"
             :collapse="isCollapse"
@@ -79,6 +79,7 @@ export default {
   data: function() {
     return {
       isCollapse: false,
+      activemenu:"",
       mainboxH: 0,
         menus:[]
     };
@@ -87,12 +88,23 @@ export default {
     TabView,
     HeaderBar
   },
-    created(){
-      setTimeout( () => {
-          this.menus.push(...menus)
-      },100)
-    },
-  mounted() {},
+  mounted() {
+    this.menus.push(...menus);
+    const fullpath = this.$route.fullPath;
+    this.menus.forEach((menu1,index1)=>{
+      if(menu1.children){
+        menu1.children.forEach((menu2,index2)=>{
+            if(menu2.children){
+                menu2.children.forEach((menu3,index3)=>{
+                    if(menu3.fullPath==fullpath) this.activemenu = menu3.index;
+                })
+            }
+            else if(menu2.fullPath==fullpath) this.activemenu = menu2.index;
+        })
+      }
+      else if(menu1.fullPath==fullpath) this.activemenu = menu1.index;
+    })
+  },
   methods: {
       ...mapActions("tab", ["reflush"]),
     handleOpen(key, keyPath) {

@@ -38,6 +38,7 @@ namespace QuickstartIdentityServer.Apis
                 {
                     Id = u.Id,
                     Name = u.Name,
+                    Code = u.Code,
                     CreateTime = u.CreateTime
                 });
             var count = await query.CountAsync();

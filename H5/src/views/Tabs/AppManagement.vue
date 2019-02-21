@@ -38,7 +38,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="id"
+                        prop="code"
                         label="系统编码"
                         align='center'
                 >
@@ -61,8 +61,8 @@
                         width='160'
                 >
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click='edit(1,scope.row)'>编辑名称</el-button>
-                        <el-button @click="roleCheck(scope.row)" type="text" size="small">编辑权限</el-button>
+                        <el-button type="text" size="small" @click='edit(1,scope.row)'>修改名称</el-button>
+                        <el-button @click="roleCheck(scope.row)" type="text" size="small">模块管理</el-button>
                     </template>
                 </el-table-column>
             </el-table>
