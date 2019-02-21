@@ -37,6 +37,7 @@ namespace QuickstartIdentityServer.Apis
                 .Select(u => new UserResponseDTO
                 {
                     Id = u.Id,
+                    Account = u.Account,
                     Name = u.Name,
                     CreateTime = u.CreateTime
                 });
@@ -67,17 +68,28 @@ namespace QuickstartIdentityServer.Apis
         }
 
         /// <summary>
-        /// 修改用户
+        /// 修改用户名称
         /// </summary>
         /// <param name="input">用户信息</param>
         [HttpPost]
-        public async Task Update([FromBody]UserDTO input)
+        public async Task UpdateName([FromBody]UserDTO input)
         {
             var user = await pcontext.User.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == input.Id);
             if(user==null) throw new Exception("用户信息不存在");
             user.Name = input.Name;
+            await pcontext.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 重置用户密码
+        /// </summary>
+        /// <param name="input">用户信息</param>
+        [HttpPost]
+        public async Task UpdatePwd([FromBody]UserDTO input)
+        {
+            var user = await pcontext.User.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == input.Id);
+            if (user == null) throw new Exception("用户信息不存在");
             user.Pwd = EncryptUtil.GetMd5(input.Pwd);
-            user.IsDeleted = false;
             await pcontext.SaveChangesAsync();
         }
 
