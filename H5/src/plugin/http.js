@@ -87,8 +87,14 @@ const handleResult = (res) => {
     else if(res.status == 500){
         if(res.data&&res.data.hasOwnProperty('result')) return handleCommonResult(res);
     }
-    if (res.status === 401||res.status === 400||res.status === 403) {
+    
+    if (res.status === 401||res.status === 403) {
         router.push("/login")
+    }
+    else if(res.status === 400){
+        if(res.data&&res.data.hasOwnProperty('error_description')){
+            Message.error({ showClose: true, message: res.data.error_description });
+        } 
     }
     else{
         Message.error({

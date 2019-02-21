@@ -63,8 +63,14 @@ import { promised } from 'q';
             onSubmit() {
                 this.$refs.form.validate(async(valid) => {
                     if (valid) {
-                       if(this.config.data.id) await this.$http.post("/base/api/User/UpdateName", this.config.data);
-                       else await this.$http.post("/base/api/User/Create", this.config.data);
+                        switch(this.config.type){
+                            case 0:
+                                await this.$http.post("/base/api/User/Create", this.config.data);break;
+                            case 1:
+                                await this.$http.post("/base/api/User/UpdateName", this.config.data);break;
+                            case 2:
+                                await this.$http.post("/base/api/User/UpdatePwd", this.config.data);break;
+                        }
                        this.close(true);
                     }
                 })

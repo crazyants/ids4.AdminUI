@@ -157,7 +157,7 @@
                     case 1:
                         this.config.title='修改用户名称';this.config.data = {name:row.name};break;
                     case 2:
-                        this.config.title='重置密码';this.config.data = {id:row.id};break;
+                        this.config.title=`重置密码(用户：${row.name})`;this.config.data = {id:row.id};break;
                 }
                 this.config.show = true;
             }
