@@ -21,21 +21,18 @@ export default new Router({
           path: '/home/index',
           name: 'home.index',
           meta :{title:"首页"},
-          // component: () => import(/* webpackChunkName: "about" */ './views/Tabs/Index.vue')
           component:  resolve => require(['./views/Tabs/Index.vue'],resolve),
         },
         {
           path: '/home/test',
           name: 'home.test',
           meta :{title:"测试tab"},//此处为规则配置页面 title为Tab显示的标题
-          // component: () => import(/* webpackChunkName: "about" */ './views/Tabs/Test.vue')
           component:  resolve => require(['./views/Tabs/Test.vue'],resolve),
         },
         {
           path: '/home/hasparam/:name',
           name: 'home.hasparam',
           meta :{title:"带参数"},//此处为规则配置页面 title为Tab显示的标题
-          // component: () => import(/* webpackChunkName: "about" */ './views/Tabs/HasParam.vue'),
           component: resolve => require(['./views/Tabs/HasParam.vue'],resolve),
           props:true
         },
@@ -43,15 +40,19 @@ export default new Router({
           path: '/home/role',
           name: 'home.role',
           meta :{title:"角色管理"},//此处为规则配置页面 title为Tab显示的标题
-          // component: () => import(/* webpackChunkName: "about" */ './views/Tabs/HasParam.vue'),
           component: resolve => require(['./views/Tabs/RoleManagement.vue'],resolve)
         },
         {
           path: '/home/people',
           name: 'home.people',
           meta :{title:"人员管理"},//此处为规则配置页面 title为Tab显示的标题
-          // component: () => import(/* webpackChunkName: "about" */ './views/Tabs/HasParam.vue'),
           component: resolve => require(['./views/Tabs/PeopleManagement.vue'],resolve)
+        },
+        {
+          path: '/home/app',
+          name: 'home.app',
+          meta :{title:"系统配置"},//此处为规则配置页面 title为Tab显示的标题
+          component: resolve => require(['./views/Tabs/AppManagement.vue'],resolve)
         }
       ]
     },
