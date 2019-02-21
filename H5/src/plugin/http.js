@@ -88,8 +88,11 @@ const handleResult = (res) => {
         if(res.data&&res.data.hasOwnProperty('result')) return handleCommonResult(res);
     }
     
-    if (res.status === 401||res.status === 403) {
+    if (res.status === 401) {
         router.push("/login")
+    }
+    else if (res.status === 403) {
+        Message.error({ showClose: true, message: "您无权限访问！"})
     }
     else if(res.status === 400){
         if(res.data&&res.data.hasOwnProperty('error_description')){
@@ -97,10 +100,7 @@ const handleResult = (res) => {
         } 
     }
     else{
-        Message.error({
-            showClose: true,
-            message: "网络异常！"
-          })
+        Message.error({ showClose: true, message: "网络异常！"})
     }
     throw res
 }

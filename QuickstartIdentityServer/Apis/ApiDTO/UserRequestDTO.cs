@@ -12,6 +12,10 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
     public class UserRequestDTO: PageRequest
     {
         /// <summary>
+        /// 用户账号(支持模糊匹配)
+        /// </summary>
+        public string Account { get; set; }
+        /// <summary>
         /// 用户名(支持模糊匹配)
         /// </summary>
         public string Name { get; set; }

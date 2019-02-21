@@ -2,11 +2,8 @@
     <el-scrollbar wrap-class="scrollbar-wrapper-y">
         <div>
             <div class="flex">
-                <!-- <span>选择系统 :</span>
-                <el-select size="mini" v-model='systemSelect' placeholder="请选择系统">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                </el-select> -->
+                <span>用户账号:</span>
+                <el-input v-model="account" size="mini" @keyup.enter.native="currentPage=1;flush();" placeholder="输入关键字搜索"/>
                 <span>用户名称:</span>
                 <el-input v-model="keyword" size="mini" @keyup.enter.native="currentPage=1;flush();" placeholder="输入关键字搜索"/>
                 <el-button type="primary" size="mini" @click='currentPage=1;flush();'>查询</el-button>

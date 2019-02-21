@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,6 +24,20 @@ namespace QuickstartIdentityServer.Apis
         {
             this.pcontext = pcontext;
         }
+        /// <summary>
+        /// 获取当前登入用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<UserNameDTO> Current()
+        {
+           var subid =  User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+           int.TryParse(subid, out int userid);
+           var user = await pcontext.User.Where(u => u.Id == userid).Select(u=>new UserNameDTO {
+               Name = u.Name
+           }).FirstOrDefaultAsync();
+            return user;
+        }
 
         /// <summary>
         /// 查询用户
@@ -33,7 +48,8 @@ namespace QuickstartIdentityServer.Apis
         public async Task<PageResult<UserResponseDTO>> Query([FromBody]UserRequestDTO input)
         {
             string likevalue = $"%{input.Name}%";
-            var query = pcontext.User.Where(u=>!u.IsSystemAdmin).Where(u => EF.Functions.Like(u.Name, likevalue))
+            string likeaccount = $"%{input.Account}%";
+            var query = pcontext.User.Where(u=>!u.IsSystemAdmin).Where(u => EF.Functions.Like(u.Name, likevalue)).Where(u => EF.Functions.Like(u.Name, likeaccount))
                 .Select(u => new UserResponseDTO
                 {
                     Id = u.Id,
