@@ -130,9 +130,9 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     });
-                    const ids = this.selectitems.map(item=>item.id);
-                    await this.$http.post("/base/api/App/Delete",ids);
-                    if(this.items.length==ids.length) this.currentPage--;//全部删除返回上一页
+                    const codes = this.selectitems.map(item=>item.code);
+                    await this.$http.post("/base/api/App/Delete",codes);
+                    if(this.items.length==codes.length) this.currentPage--;//全部删除返回上一页
                     this.flush();
                     this.$message({
                         showClose: true,
