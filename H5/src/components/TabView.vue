@@ -20,7 +20,7 @@
     </el-scrollbar>
       <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
           <li @click="reflush">刷新(F5)</li>
-          <li @click="DelTab(selectedTagIndex)">关闭当前(Esc)</li>
+          <li @click="DelTab(selectedTagIndex,$event)">关闭当前(Esc)</li>
           <li @click="DelRight(selectedTagIndex)">关闭右侧标签</li>
           <!-- <li @click="Fixed(selectedTagIndex);updatescroll();">固定/取消</li> -->
           <li @click="DelOther(selectedTagIndex)">关闭其他标签</li>

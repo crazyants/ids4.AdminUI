@@ -91,7 +91,7 @@ export default {
             item.title = tab.title;
         },
         DelTab(state, index) {
-            removecomponent(state.Tabs[index].component);//删除缓存和销毁组件
+            if(state.Tabs[index].component) removecomponent(state.Tabs[index].component);//删除缓存和销毁组件
             state.Tabs.splice(index, 1);
             if (state.CurTabIndex === index) {
                 if(state.CurTabIndex===0){

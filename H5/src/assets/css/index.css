@@ -51,6 +51,7 @@ html ,body {
 .el-form-item__label{
     margin-left: 20px;
 }
+
 .flex{
     display: box;              /* OLD - Android 4.4- */
     display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
