@@ -71,10 +71,11 @@ axios.interceptors.response.use(response => {
 const handleCommonResult =(res)=>{//正常业务结果
     if(res.data.result) return res.data.data;
     else {
-        Message.error({
-            showClose: true,
-            message: res.data.message
-          })
+        if (res.data.hasOwnProperty('message'))
+            Message.error({ showClose: true, message: res.data.message });
+        else if (res.data.hasOwnProperty('data')){
+            Message.error({ showClose: true, message: JSON.stringify(res.data.data) });
+        }
         throw res.data;
     }
 }

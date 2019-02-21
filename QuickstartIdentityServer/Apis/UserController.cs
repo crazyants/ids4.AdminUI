@@ -33,7 +33,7 @@ namespace QuickstartIdentityServer.Apis
         public async Task<PageResult<UserResponseDTO>> Query([FromBody]UserRequestDTO input)
         {
             string likevalue = $"%{input.Name}%";
-            var query = pcontext.User.Where(u => EF.Functions.Like(u.Name, likevalue))
+            var query = pcontext.User.Where(u=>!u.IsSystemAdmin).Where(u => EF.Functions.Like(u.Name, likevalue))
                 .Select(u => new UserResponseDTO
                 {
                     Id = u.Id,
@@ -72,7 +72,7 @@ namespace QuickstartIdentityServer.Apis
         /// </summary>
         /// <param name="input">用户信息</param>
         [HttpPost]
-        public async Task UpdateName([FromBody]UserDTO input)
+        public async Task UpdateName([FromBody]UserNameDTO input)
         {
             var user = await pcontext.User.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == input.Id);
             if(user==null) throw new Exception("用户信息不存在");
@@ -85,7 +85,7 @@ namespace QuickstartIdentityServer.Apis
         /// </summary>
         /// <param name="input">用户信息</param>
         [HttpPost]
-        public async Task UpdatePwd([FromBody]UserDTO input)
+        public async Task UpdatePwd([FromBody]UserPwdDTO input)
         {
             var user = await pcontext.User.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == input.Id);
             if (user == null) throw new Exception("用户信息不存在");

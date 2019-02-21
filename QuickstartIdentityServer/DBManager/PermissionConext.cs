@@ -58,7 +58,6 @@ namespace QuickstartIdentityServer.DBManager
             modelBuilder.ApplyConfiguration(new PermissionConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
-            base.OnModelCreating(modelBuilder);
             modelBuilder.HasDbFunction(() => Concat(default(string), default(string))).HasName("CONCAT");
             modelBuilder.HasDbFunction(() => Concat(default(string), default(string), default(string))).HasName("CONCAT");
 
@@ -72,6 +71,7 @@ namespace QuickstartIdentityServer.DBManager
                    modelBuilder.Entity(et).HasQueryFilter(Expression.Lambda(body, parameter));
                 }
             }
+            base.OnModelCreating(modelBuilder);
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

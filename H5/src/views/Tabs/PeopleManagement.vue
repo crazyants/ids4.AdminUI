@@ -11,7 +11,7 @@
                 <el-input v-model="keyword" size="mini" @keyup.enter.native="currentPage=1;flush();" placeholder="输入关键字搜索"/>
                 <el-button type="primary" size="mini" @click='currentPage=1;flush();'>查询</el-button>
                 <div class="flex1"></div>
-                <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='eduitNameRole()'>创建用户</el-button>
+                <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='edit(0)'>创建用户</el-button>
                 <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除用户</el-button>
             </div>
             <el-table
@@ -61,7 +61,8 @@
                         width='160'
                 >
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click='eduitNameRole(scope.row)'>编辑</el-button>
+                        <el-button type="text" size="small" @click='edit(1,scope.row)'>修改名称</el-button>
+                        <el-button type="text" size="small" @click='edit(2,scope.row)'>重置密码</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -101,9 +102,9 @@
                 total:0,
                 config:{
                     show:false,
-                    width:500,
+                    width:400,
                     title:"",
-                    isadd:false,
+                    type:0,//0 创建，1 修改名称，2 重置密码
                     data:{}
                 }
             }
@@ -130,7 +131,7 @@
                         type: 'warning'
                     });
                     const ids = this.selectitems.map(item=>item.id);
-                    await this.$http.post("/base/api/Role/Delete",ids);
+                    await this.$http.post("/base/api/User/Delete",ids);
                     if(this.roleData.length==ids.length) this.currentPage--;//全部删除返回上一页
                     this.flush();
                     this.$message({
@@ -148,17 +149,17 @@
                 }
             },
             // 用户名编辑
-            eduitNameRole(row) {
-                if(row){
-                    this.config.isadd = false;
-                    this.config.title='编辑用户名称';
-                    this.config.data = Object.assign({},row);
-                }else {
-                    this.config.isadd = true;
-                    this.config.title='创建用户名称';
-                    this.config.data = {}
+            edit(type,row){
+                this.config.type = type;
+                switch(type){
+                    case 0:
+                        this.config.title='创建用户';this.config.data = {};break;
+                    case 1:
+                        this.config.title='修改用户名称';this.config.data = {name:row.name};break;
+                    case 2:
+                        this.config.title='重置密码';this.config.data = {id:row.id};break;
                 }
-                this.config.show = true
+                this.config.show = true;
             }
         }
     }
