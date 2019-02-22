@@ -31,5 +31,9 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
         /// 模块Id
         /// </summary>
         public int ModuleId { get; set; }
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Order { get; set; }
     }
 }

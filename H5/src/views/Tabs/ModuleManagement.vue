@@ -56,7 +56,6 @@
                 >
                 </el-table-column>
                 <el-table-column
-                        width="80"
                         align='center'
                         label="权限">
                     <template slot-scope="scope">
@@ -75,7 +74,7 @@
                         width='160'
                 >
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click='addPermission(scope.row)'>添加权限</el-button>
+                        <el-button type="text" size="small" @click='addPermission(0,scope.row)'>添加权限</el-button>
                         <el-button @click="edit(1,scope.row)" type="text" size="small">修改模块</el-button>
                     </template>
                 </el-table-column>
@@ -93,16 +92,19 @@
             
         </div>
         <ModuleEdit :config="config" @close="flush" ></ModuleEdit>
+        <AddPermission :config="config2" @close="flush" ></AddPermission>
     </el-scrollbar>
 </template>
 
 <script>
     import ModuleEdit from '../../components/dialog/ModuleEdit'
+    import AddPermission from '../../components/dialog/AddPermission'
 
     export default {
 
         components: {
             ModuleEdit,
+            AddPermission
         },
         data() {
             return {
@@ -116,6 +118,12 @@
                 pageSize:10,
                 total:0,
                 config:{
+                    show:false,
+                    width:500,
+                    title:"",
+                    data:{}
+                },
+                config2:{
                     show:false,
                     width:500,
                     title:"",
@@ -165,8 +173,15 @@
                     });
                 }
             },
-            addPermission(row) {
-                console.log(row);
+            addPermission(type,row) {
+                this.config2.type = type;
+                switch(type){
+                    case 0:
+                        this.config2.title=`添加权限 (${row.appName}-${row.name})`;this.config2.data = {moduleId:row.id};break;
+                    case 1:
+                        this.config2.title=`修改权限 (${row.appName}-${row.name})`;this.config2.data = {name:row.name,code:row.code,id:row.id};break;
+                }
+                this.config2.show = true;
             },
             edit(type,row) {
                 this.config.type = type;

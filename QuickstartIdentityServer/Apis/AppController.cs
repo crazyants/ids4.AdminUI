@@ -42,7 +42,7 @@ namespace QuickstartIdentityServer.Apis
                     CreateTime = u.CreateTime
                 });
             var count = await query.CountAsync();
-            var data = await query.Skip((input.PageIndex - 1) * input.PageSize).Take(input.PageSize)
+            var data = await query.OrderBy(o => o.Name).Skip((input.PageIndex - 1) * input.PageSize).Take(input.PageSize)
                  .ToListAsync();
             return new PageResult<AppResponseDTO>(count, data);
         }
@@ -117,7 +117,7 @@ namespace QuickstartIdentityServer.Apis
                             CreateTime = u.CreateTime
                         };
             var count = await query.CountAsync();
-            query = query.Skip((input.PageIndex - 1) * input.PageSize).Take(input.PageSize);
+            query = query.OrderBy(o=>o.AppName).ThenBy(o=>o.Name).Skip((input.PageIndex - 1) * input.PageSize).Take(input.PageSize);
             var resultquery = from m in query
                               join pt in pcontext.Permission on m.Id equals pt.ModuleId into l1
                               from p in l1.DefaultIfEmpty()
@@ -205,8 +205,27 @@ namespace QuickstartIdentityServer.Apis
                 ModuleId = input.ModuleId,
                 ControllerName = input.ControllerName.ToLower(),
                 ActionName = input.ActionName.ToLower(),
-                Url =input.Url.ToLower()
+                Url =input.Url.ToLower(),
+                Order = input.Order
             });
+            await pcontext.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 修改权限
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task UpdatePermission([FromBody]PermissionDTO input)
+        {
+            var p = await pcontext.Permission.FirstOrDefaultAsync(u => u.Id == input.Id);
+            if (p == null) throw new Exception("权限信息不存在");
+            p.Name = input.Name;
+            p.ControllerName = input.ControllerName;
+            p.ActionName = input.ActionName;
+            p.Url = input.Url;
+            p.Order = input.Order;
             await pcontext.SaveChangesAsync();
         }
 
