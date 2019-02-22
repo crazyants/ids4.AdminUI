@@ -75,5 +75,17 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
         /// 权限名称
         /// </summary>
         public string Name { set; get; }
+        /// <summary>
+        /// 控制器名称
+        /// </summary>
+        public string ControllerName { get; set; }
+        /// <summary>
+        /// MVC  Action
+        /// </summary>
+        public string ActionName { get; set; }
+        /// <summary>
+        /// api url
+        /// </summary>
+        public string Url { get; set; }
     }
 }

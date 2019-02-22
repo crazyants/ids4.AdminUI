@@ -132,7 +132,7 @@
                     });
                     const codes = this.selectitems.map(item=>item.code);
                     await this.$http.post("/base/api/App/Delete",codes);
-                    if(this.items.length==codes.length) this.currentPage--;//全部删除返回上一页
+                    if(this.items.length==codes.length&&this.currentPage) this.currentPage--;//全部删除返回上一页
                     this.flush();
                     this.$message({
                         showClose: true,

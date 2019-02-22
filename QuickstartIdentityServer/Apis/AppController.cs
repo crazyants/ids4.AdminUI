@@ -127,7 +127,10 @@ namespace QuickstartIdentityServer.Apis
                                   p = p == null ? null : new PermissionDetaiDTO
                                   {
                                       Id = p.Id,
-                                      Name = p.Name
+                                      Name = p.Name,
+                                      ControllerName = p.ControllerName,
+                                      ActionName = p.ActionName,
+                                      Url = p.Url
                                   }
                               };
             var temp1 = await query.ToListAsync();
@@ -162,19 +165,30 @@ namespace QuickstartIdentityServer.Apis
         }
 
         /// <summary>
+        /// 修改模块
+        /// </summary>
+        /// <param name="input">模块信息</param>
+        [HttpPost]
+        public async Task UpdateModule([FromBody]ModuleUpdateDTO input)
+        {
+            var module = await pcontext.Module.FirstOrDefaultAsync(u => u.Id == input.Id);
+            if (module == null) throw new Exception("模块信息不存在");
+            module.Name = input.Name;
+            module.Code = input.Code;
+            await pcontext.SaveChangesAsync();
+        }
+
+        /// <summary>
         /// 删除模块
         /// </summary>
-        /// <param name="id">模块id</param>
+        /// <param name="ids">模块id数组</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task DelModule([FromQuery]int id)
+        public async Task DelModule([FromQuery]int[] ids)
         {
-            var del = new ModuleEntity
-            {
-                Id = id
-            };
-            pcontext.Entry(del).State = EntityState.Deleted;
-            await pcontext.SaveChangesAsync();
+            var modules = await pcontext.Module.Where(u => ids.Contains(u.Id)).ToListAsync();
+            modules.ForEach(r => r.IsDeleted = true);
+            await pcontext.SaveChangesAsync();;
         }
 
         /// <summary>
