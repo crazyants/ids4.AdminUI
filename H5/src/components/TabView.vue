@@ -309,7 +309,7 @@ export default {
   }
 }
 .tab_box {
-  background-color: #f1f1f1;
+  background-color: #fafafa;
   &:after{
     content: '';
     display: inline-block;
@@ -330,7 +330,7 @@ export default {
     border-bottom: none;
     border-left: none;
     color: #475059;
-    background: #f1f1f1;
+    background: #fafafa;
     padding: 0 10px;
     font-size: 12px;
     border-radius: 0;
