@@ -184,7 +184,7 @@ namespace QuickstartIdentityServer.Apis
         /// <param name="ids">模块id数组</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task DelModule([FromQuery]int[] ids)
+        public async Task DelModule([FromBody]int[] ids)
         {
             var modules = await pcontext.Module.Where(u => ids.Contains(u.Id)).ToListAsync();
             modules.ForEach(r => r.IsDeleted = true);
