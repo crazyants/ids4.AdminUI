@@ -55,11 +55,11 @@
                 <el-table-column
                         label="操作"
                         align='center'
-                        width='160'
+                        width='240'
                 >
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click='edit(1,scope.row)'>修改名称</el-button>
-                        <el-button type="text" size="small" @click='edit(2,scope.row)'>重置密码</el-button>
+                        <el-button type="primary" size="mini" @click='edit(1,scope.row)'>修改名称</el-button>
+                        <el-button type="primary" size="mini" @click='edit(2,scope.row)'>重置密码</el-button>
                     </template>
                 </el-table-column>
             </el-table>

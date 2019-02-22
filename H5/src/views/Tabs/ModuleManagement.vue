@@ -56,10 +56,19 @@
                 >
                 </el-table-column>
                 <el-table-column
+                        width="300"
                         align='center'
                         label="权限">
                     <template slot-scope="scope">
-                        <span v-for="p in scope.row.permissions" :key="p.id" >{{p.name}}</span>
+                        <div style="text-align:left">
+                            <span class="el-tag el-tag--info el-tag--medium"
+                                v-for="p in scope.row.permissions"
+                                :key="p.id"
+                                @click="addPermission(1,scope.row,p)" >
+                                {{p.name}} <i @click.stop="delPermission(scope.row,p)" class="el-tag__close el-icon-close"></i>
+                            </span>
+                            <span class="el-tag el-tag--medium" @click='addPermission(0,scope.row)'>添加</span>
+                        </div>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -74,8 +83,8 @@
                         width='160'
                 >
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click='addPermission(0,scope.row)'>添加权限</el-button>
-                        <el-button @click="edit(1,scope.row)" type="text" size="small">修改模块</el-button>
+                        <!-- <el-button type="text" size="small" @click='addPermission(0,scope.row)'>添加权限</el-button> -->
+                        <el-button type="primary" @click="edit(1,scope.row)" size="mini">修改模块</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -173,15 +182,30 @@
                     });
                 }
             },
-            addPermission(type,row) {
+            addPermission(type,row,p) {
                 this.config2.type = type;
                 switch(type){
                     case 0:
                         this.config2.title=`添加权限 (${row.appName}-${row.name})`;this.config2.data = {moduleId:row.id};break;
                     case 1:
-                        this.config2.title=`修改权限 (${row.appName}-${row.name})`;this.config2.data = {name:row.name,code:row.code,id:row.id};break;
+                        this.config2.title=`修改权限 (${row.appName}-${row.name})`;
+                        this.config2.data = {name:p.name,controllerName:p.controllerName,actionName:p.actionName,url:p.url,id:p.id};break;
                 }
                 this.config2.show = true;
+            },
+            async delPermission(row,p){
+                await this.$confirm(`确认删除所选权限(${p.name})?`, '删除', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    });
+                await this.$http.post(`/base/api/App/DelPermission?id=${p.id}`);
+                this.flush();
+                    this.$message({
+                        showClose: true,
+                        type: 'success',
+                        message: '删除成功!'
+                    });
             },
             edit(type,row) {
                 this.config.type = type;
@@ -201,6 +225,17 @@
 </script>
 
 <style lang='scss' scoped>
+    .el-tag{
+       margin: 0 3px;
+       padding: 0 5px;
+       .el-icon-close{
+            width: 16px;
+            right: 0;
+       }
+    }
+    .el-tag:hover{
+        cursor: pointer;
+    }
     .page_footer_box {
         float: right;
         margin: 3px 10px;

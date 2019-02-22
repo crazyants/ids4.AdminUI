@@ -58,11 +58,11 @@
                 <el-table-column
                         label="操作"
                         align='center'
-                        width='160'
+                        width='200'
                 >
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click='eduitNameRole(scope.row)'>编辑</el-button>
-                        <el-button @click="roleCheck(scope.row)" type="text" size="small">权限组分配</el-button>
+                        <el-button type="primary" size="mini" @click='eduitNameRole(scope.row)'>编辑</el-button>
+                        <el-button @click="roleCheck(scope.row)" type="primary" size="mini">权限分配</el-button>
                     </template>
                 </el-table-column>
             </el-table>

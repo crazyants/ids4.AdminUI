@@ -72,7 +72,7 @@
                             case 0:
                                 await this.$http.post("/base/api/App/AddPermission", this.config.data);break;
                             case 1:
-                                await this.$http.post("/base/api/App/UpdateModule", this.config.data);break;
+                                await this.$http.post("/base/api/App/UpdatePermission", this.config.data);break;
                         }
                        this.close(true);
                     }
