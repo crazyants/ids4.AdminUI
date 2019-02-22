@@ -78,7 +78,7 @@ namespace QuickstartIdentityServer.Apis
             app.Name = input.Name;
             await pcontext.SaveChangesAsync();
         }
-
+       
         /// <summary>
         /// 删除系统
         /// </summary>
@@ -92,6 +92,59 @@ namespace QuickstartIdentityServer.Apis
         }
 
         /// <summary>
+        /// 查询模块
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<PageResult<ModuleDetailDTO>> QueryModule([FromBody]ModuleRequestDTO input)
+        {
+            var tempquery = pcontext.Module.AsNoTracking();
+            if (!string.IsNullOrEmpty(input.Name))
+            {
+                string likevalue = $"%{input.Name}%";
+                tempquery = tempquery.Where(u => EF.Functions.Like(u.Name, likevalue));
+            }
+            if (!string.IsNullOrEmpty(input.Code)) tempquery = tempquery.Where(p => p.AppCode == input.Code);
+            var query = from u in tempquery
+                        join a in pcontext.App on u.AppCode equals a.Code
+                        select new ModuleDetailDTO
+                        {
+                            Id = u.Id,
+                            Name = u.Name,
+                            Code = u.Code,
+                            AppName = a.Name,
+                            CreateTime = u.CreateTime
+                        };
+            var count = await query.CountAsync();
+            query = query.Skip((input.PageIndex - 1) * input.PageSize).Take(input.PageSize);
+            var resultquery = from m in query
+                              join pt in pcontext.Permission on m.Id equals pt.ModuleId into l1
+                              from p in l1.DefaultIfEmpty()
+                              select new
+                              {
+                                  mid = m.Id,
+                                  p = p == null ? null : new PermissionDetaiDTO
+                                  {
+                                      Id = p.Id,
+                                      Name = p.Name
+                                  }
+                              };
+            var temp1 = await query.ToListAsync();
+            var temp2 = await resultquery.ToListAsync();
+            var temp3 = temp2.GroupBy(t => t.mid).Select(t => new
+            {
+                Id = t.Key,
+                children = t.Where(kv => kv.p != null).Select(kv => kv.p).ToList()
+            }).ToDictionary(t => t.Id, t => t.children);
+            temp1.ForEach(t =>
+            {
+                t.Permissions = temp3[t.Id];
+            });
+            return new PageResult<ModuleDetailDTO>(count, temp1);
+        }
+
+        /// <summary>
         /// 新建模块
         /// </summary>
         /// <param name="input"></param>
@@ -102,7 +155,8 @@ namespace QuickstartIdentityServer.Apis
             pcontext.Module.Add(new ModuleEntity
             {
                 Name = input.Name,
-                Code = input.Code
+                Code = input.Code,
+                AppCode = input.AppCode
             });
             await pcontext.SaveChangesAsync();
         }
@@ -143,7 +197,7 @@ namespace QuickstartIdentityServer.Apis
         }
 
         /// <summary>
-        /// 删除模块
+        /// 删除权限
         /// </summary>
         /// <param name="id">权限id</param>
         /// <returns></returns>
@@ -166,13 +220,14 @@ namespace QuickstartIdentityServer.Apis
         public async Task<List<AppDetaiDTO>> AppDeatil()
         {
             var apps = await (from a in pcontext.App
-                       join b in pcontext.Module on a.Code equals b.Code
+                       join b in pcontext.Module on a.Code equals b.AppCode
                        join c in pcontext.Permission on b.Id equals c.ModuleId
                        select new
                        {
                            a.Code,
                            a.Name,
-                           Mid = b.Id,
+                           Id = b.Id,
+                           Mid = b.Code,
                            MName = b.Name,
                            Pid = c.Id,
                            PName = c.Name
@@ -181,9 +236,10 @@ namespace QuickstartIdentityServer.Apis
             {
                 Code = kv.Key.Code,
                 Name = kv.Key.Name,
-                Modules = kv.GroupBy(m=>new {m.Mid,m.MName }).Select(mkv => new ModuleDetailDTO
+                Modules = kv.GroupBy(m=>new {m.Id, m.Mid,m.MName }).Select(mkv => new ModuleDetailDTO
                 {
-                    Id = mkv.Key.Mid,
+                    Id = mkv.Key.Id,
+                    Code = mkv.Key.Mid,
                     Name = mkv.Key.MName,
                     Permissions = mkv.Select(pkv=>new PermissionDetaiDTO {
                         Id = pkv.Pid,

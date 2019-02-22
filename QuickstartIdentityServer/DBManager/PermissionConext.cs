@@ -31,6 +31,7 @@ namespace QuickstartIdentityServer.DBManager
         public DbSet<UserRoleMap> UserRoleMap { get; set; }
         public DbSet<RolePermissionMap> RolePermissionMap { get; set; }
         public DbSet<RoleAppAdmin> RoleAppAdmin { get; set; }
+        public DbSet<RoleModuleMap> RoleModuleMap { get; set; }
 
         /// <summary>
         /// </summary>
@@ -71,6 +72,9 @@ namespace QuickstartIdentityServer.DBManager
             modelBuilder.ApplyConfiguration(new PermissionConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleAppConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleModuleMapConfiguration());
+            modelBuilder.ApplyConfiguration(new RolePermissionMapConfiguration());
             modelBuilder.HasDbFunction(() => Concat(default(string), default(string))).HasName("CONCAT");
             modelBuilder.HasDbFunction(() => Concat(default(string), default(string), default(string))).HasName("CONCAT");
 
@@ -133,7 +137,7 @@ namespace QuickstartIdentityServer.DBManager
                         }
                         if (entry.Entity is BaseKey<string> add)
                         {
-                            add.Id = Guid.NewGuid().ToString();
+                            if(string.IsNullOrEmpty(add.Id)) add.Id = Guid.NewGuid().ToString();
                         }
                         break;
                     case EntityState.Deleted:

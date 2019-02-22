@@ -19,9 +19,13 @@ namespace QuickstartIdentityServer.DBManager
         /// </summary>
         public string Name { set; get; }
         /// <summary>
-        /// 系统Id
+        /// 模块编码
         /// </summary>
         public string Code { get; set; }
+        /// <summary>
+        /// 系统Code
+        /// </summary>
+        public string AppCode { get; set; }
         /// <summary>
         /// 排序
         /// </summary>
@@ -36,7 +40,9 @@ namespace QuickstartIdentityServer.DBManager
         public void Configure(EntityTypeBuilder<ModuleEntity> builder)
         {
             builder.Property(u => u.Name).HasMaxLength(30);
-            builder.HasIndex(u => u.Code);
+            builder.HasIndex(u => u.AppCode);
+            builder.Property(u => u.Code).HasMaxLength(8);
+            builder.Property(u => u.AppCode).HasMaxLength(8);
         }
     }
 }

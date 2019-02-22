@@ -132,8 +132,8 @@ namespace QuickstartIdentityServer.Apis
             var adds =  pids.Where(pid => !maps.Any(m => m.PermissionId == pid)).ToList();
             var dic = await (from pm in pcontext.Permission.Where(p => adds.Contains(p.Id))
              join m in pcontext.Module on pm.ModuleId equals m.Id
-             select new { pm.Id, m.Code }
-            ).ToDictionaryAsync(a => a.Id, a => a.Code);
+             select new { pm.Id, m.AppCode }
+            ).ToDictionaryAsync(a => a.Id, a => a.AppCode);
             adds.ForEach(pid =>
             {
                 pcontext.RolePermissionMap.Add(new RolePermissionMap

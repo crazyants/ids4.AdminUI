@@ -3,21 +3,21 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QuickstartIdentityServer.DBManager.BaseData;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace QuickstartIdentityServer.DBManager
 {
-    /// <summary>
-    /// 角色对应系统管理员
-    /// </summary>
-    public class RoleAppAdmin : BaseKey<int>
+    public class RoleModuleMap : BaseKey<int>
     {
         /// <summary>
         /// 系统Code
         /// </summary>
-        public string Code { get; set; }
+        public string AppCode { get; set; }
+        /// <summary>
+        /// 模块Id
+        /// </summary>
+        public int ModuleId { get; set; }
         /// <summary>
         /// 角色Id
         /// </summary>
@@ -27,13 +27,14 @@ namespace QuickstartIdentityServer.DBManager
     /// <summary>
     /// 
     /// </summary>
-    public class RoleAppConfiguration : IEntityTypeConfiguration<RoleAppAdmin>
+    public class RoleModuleMapConfiguration : IEntityTypeConfiguration<RoleModuleMap>
     {
-        public void Configure(EntityTypeBuilder<RoleAppAdmin> builder)
+        public void Configure(EntityTypeBuilder<RoleModuleMap> builder)
         {
-            builder.HasIndex(u => u.Code);
+            builder.HasIndex(u => u.AppCode);
             builder.HasIndex(u => u.RoleId);
-            builder.Property(u => u.Code).HasMaxLength(8);
+            builder.HasIndex(u => u.ModuleId);
+            builder.Property(u => u.AppCode).HasMaxLength(8);
         }
     }
 }

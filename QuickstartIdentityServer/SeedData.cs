@@ -54,17 +54,17 @@ namespace QuickstartIdentityServer
                 });
                 context.Module.Add(new ModuleEntity
                 {
-                    Code = "base",
+                    AppCode = "base",
                     Name = "人员管理"
                 });
                 context.Module.Add(new ModuleEntity
                 {
-                    Code = "base",
+                    AppCode = "base",
                     Name = "系统管理"
                 });
                 context.Module.Add(new ModuleEntity
                 {
-                    Code = "base",
+                    AppCode = "base",
                     Name = "角色管理"
                 });
                 context.SaveChanges();

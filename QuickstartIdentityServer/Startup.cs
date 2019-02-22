@@ -92,7 +92,7 @@ namespace QuickstartIdentityServer
             
             string url = Configuration["Ids4_Authority"];
             if (string.IsNullOrEmpty(url)) url = Configuration["ASPNETCORE_URLS"];
-            if (string.IsNullOrEmpty(url)) throw new Exception("未配置Ids4_Authority");
+            //if (string.IsNullOrEmpty(url)) throw new Exception("未配置Ids4_Authority");
             Console.WriteLine($"url;{url}");
             //添加身份认证服务
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

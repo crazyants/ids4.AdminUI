@@ -40,10 +40,15 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
     /// </summary>
     public class ModuleDetailDTO
     {
+        public int Id { set; get; }
         /// <summary>
         /// 模块 id
         /// </summary>
-        public int Id { set; get; }
+        public string Code { set; get; }
+        /// <summary>
+        /// 系统名称
+        /// </summary>
+        public string AppName { set; get; }
         /// <summary>
         /// 模块名称
         /// </summary>
@@ -52,6 +57,10 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
         /// 权限
         /// </summary>
         public List<PermissionDetaiDTO> Permissions { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime? CreateTime { get;  set; }
     }
     /// <summary>
     /// 权限详细信息
