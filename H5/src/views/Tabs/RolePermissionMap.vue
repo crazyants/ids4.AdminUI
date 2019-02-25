@@ -17,7 +17,7 @@
       <el-collapse v-model="activecodes">
         <el-collapse-item v-for="app in apps" :key="app.code" title="一致性 Consistency" :name="app.code">
             <template slot="title">
-                <el-checkbox v-model="app.checked"></el-checkbox>{{app.name}}
+                <el-checkbox v-model="app.checked"></el-checkbox> <span>{{app.name}}</span>
             </template>
             <div class="collapse-content">
               <el-checkbox v-model="app.checked">模块名称:</el-checkbox>
@@ -76,6 +76,9 @@ export default {
       .el-collapse-item__content{
           padding: 5px 0;
       }
+      .el-collapse-item__header{
+          color: #606266;
+      }
   }
 }
 
@@ -90,7 +93,7 @@ export default {
         /deep/ {
             .el-checkbox__label{
                 padding-left: 3px;
-                color: #303133;
+                color: #606266;
                 font-size: 12px;
             }
         }
