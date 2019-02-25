@@ -22,7 +22,7 @@
                     </el-row>
                 </div>
                 <div id="dialog_main" ref="dialogMain">
-                    <el-scrollbar wrap-class="scrollbar-wrapper-y">
+                    <el-scrollbar ref="scrollbar" wrap-class="scrollbar-wrapper-y">
                         <slot name="main">弹窗内容</slot>
                     </el-scrollbar>
                 </div>
@@ -74,6 +74,7 @@
                     this.$refs.dialogMain.style.height = "auto";
                     this.$refs.dialogContentBox.style.top = (windowHeight - this.dialogMainHeight) / 2 + 'px'
                 }
+                this.$refs.scrollbar.update();
             }
         },
         destroyed() {
