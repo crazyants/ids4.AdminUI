@@ -20,7 +20,8 @@
                 <el-checkbox v-model="app.checked"></el-checkbox>{{app.name}}
             </template>
             <div class="collapse-content">
-              <span>模块名称:</span>
+              <el-checkbox v-model="app.checked">模块名称:</el-checkbox>
+              <el-checkbox v-model="app.checked">haha</el-checkbox>
             </div>
         </el-collapse-item>
       </el-collapse>
@@ -84,5 +85,15 @@ export default {
 
 .collapse-content{
     padding-left: 22px;
+    .el-checkbox{
+        margin-left: 6px;
+        /deep/ {
+            .el-checkbox__label{
+                padding-left: 3px;
+                color: #303133;
+                font-size: 12px;
+            }
+        }
+    }
 }
 </style>
