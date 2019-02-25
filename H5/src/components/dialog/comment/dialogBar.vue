@@ -90,7 +90,6 @@
         right: 0;
         bottom: 0;
         color: #2e2c2d;
-        text-align: center;
         font-size: 16px;
         z-index: 222;
     }
@@ -108,12 +107,14 @@
 
     // 内容层 z-index要比遮罩大，否则会被遮盖，
     .dialog-content {
-        position: relative;
+        position: absolute;
         background-color: #fff;
         z-index: 300;
         border-radius: 4px;
         display: inline-block;
-        margin: 0 auto;
+        margin: auto;
+        left: 0;
+        right: 0;
     }
 
     .dialog_head {
