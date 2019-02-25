@@ -203,9 +203,9 @@ namespace QuickstartIdentityServer.Apis
             {
                 Name = input.Name,
                 ModuleId = input.ModuleId,
-                ControllerName = input.ControllerName.ToLower(),
-                ActionName = input.ActionName.ToLower(),
-                Url =input.Url.ToLower(),
+                ControllerName = input.ControllerName,
+                ActionName = input.ActionName,
+                Url =input.Url,
                 Order = input.Order
             });
             await pcontext.SaveChangesAsync();

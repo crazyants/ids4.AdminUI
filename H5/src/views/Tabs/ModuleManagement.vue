@@ -56,7 +56,7 @@
                 >
                 </el-table-column>
                 <el-table-column
-                        width="300"
+                        width="400"
                         align='center'
                         label="权限">
                     <template slot-scope="scope">
@@ -128,13 +128,13 @@
                 total:0,
                 config:{
                     show:false,
-                    width:500,
+                    width:450,
                     title:"",
                     data:{}
                 },
                 config2:{
                     show:false,
-                    width:500,
+                    width:450,
                     title:"",
                     data:{}
                 }
@@ -226,7 +226,7 @@
 
 <style lang='scss' scoped>
     .el-tag{
-       margin: 0 3px;
+       margin: 1px 3px;
        padding: 0 5px;
        .el-icon-close{
             width: 16px;

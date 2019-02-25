@@ -57,7 +57,11 @@ html ,body {
 .el-form-item__label{
     margin-left: 20px;
 }
-
+/* 手风琴 */
+.el-collapse-item__header{
+    height: 28px;
+    line-height: 28px;
+}
 
 .flex{
     display: box;              /* OLD - Android 4.4- */

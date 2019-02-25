@@ -148,6 +148,7 @@
                 }
             },
             roleCheck(row) {
+                this.$router.push("/home/rolemap/" + row.id);
                 console.log(row);
             },
             // 角色名编辑

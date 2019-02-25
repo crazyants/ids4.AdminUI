@@ -50,6 +50,7 @@
                     ],
                     controllerName: [
                         {required: true, message: '请输入控制器名称', trigger: 'blur'},
+                        { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
                     ],
                     actionName: [
                         {required: true, message: '请输入Action名称', trigger: 'blur'},
