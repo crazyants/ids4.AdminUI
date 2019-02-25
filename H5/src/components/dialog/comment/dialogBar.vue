@@ -1,11 +1,11 @@
 <template>
+    <transition name="msgbox-fade">
     <div class="dialog">
         <!--外层的遮罩 点击事件用来关闭弹窗，isShow控制弹窗显示 隐藏的props-->
         <div class="dialog-cover back" @click="closeMyself"></div>
         <!-- transition 这里可以加一些简单的动画效果 -->
-        <transition name="drop">
             <!--style 通过props 控制内容的样式 -->
-            <div class="dialog-content" ref='dialogContentBox' :style="{width:dialogWidth+'px',margin: '0 auto'}">
+            <div class="dialog-content" ref='dialogContentBox' :style="{width:dialogWidth+'px'}">
 
                 <div class="dialog_head back" ref='header'>
                     <!--弹窗头部 title-->
@@ -20,14 +20,12 @@
                             </el-button>
                         </el-col>
                     </el-row>
-
                 </div>
                 <div id="dialog_main" ref="dialogMain">
                     <el-scrollbar wrap-class="scrollbar-wrapper-y">
                         <slot name="main">弹窗内容</slot>
                     </el-scrollbar>
                 </div>
-
                 <!--<div class="dialog_main" ref="dialogMain">-->
                 <!--&lt;!&ndash;弹窗的内容&ndash;&gt;-->
                 <!--<slot name="main">弹窗内容</slot>-->
@@ -37,8 +35,8 @@
                     <slot name="footer">按钮区域</slot>
                 </div>
             </div>
-        </transition>
     </div>
+    </transition>
 </template>
 <script>
     export default {
@@ -86,9 +84,15 @@
 <style lang="scss" scoped>
     // 最外层 设置position定位
     .dialog {
-        position: relative;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         color: #2e2c2d;
+        text-align: center;
         font-size: 16px;
+        z-index: 222;
     }
 
     // 遮罩 设置背景层，z-index值要足够大确保能覆盖，高度 宽度设置满 做到全屏遮罩
@@ -104,13 +108,12 @@
 
     // 内容层 z-index要比遮罩大，否则会被遮盖，
     .dialog-content {
-        position: fixed;
-        top: 10px;
-        right: 0;
-        left: 0;
+        position: relative;
         background-color: #fff;
         z-index: 300;
         border-radius: 4px;
+        display: inline-block;
+        margin: 0 auto;
     }
 
     .dialog_head {
@@ -128,7 +131,6 @@
 
     #dialog_main {
         padding: 10px 15px ;
-        // overflow-y: auto;
     }
 
     .el-message-box__btns {
