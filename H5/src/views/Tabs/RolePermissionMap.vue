@@ -15,12 +15,12 @@
         </el-select>
       </div>
       <el-collapse v-model="activecodes">
-        <el-collapse-item title="一致性 Consistency" name="1">
+        <el-collapse-item v-for="app in apps" :key="app.code" title="一致性 Consistency" :name="app.code">
             <template slot="title">
-                <el-checkbox v-model="checked"></el-checkbox>一致性 Consistency
+                <el-checkbox v-model="app.checked"></el-checkbox>{{app.name}}
             </template>
-            <div>
-              <sapn>模块名称:</sapn>
+            <div class="collapse-content">
+              <span>模块名称:</span>
             </div>
         </el-collapse-item>
       </el-collapse>
@@ -45,6 +45,7 @@ export default {
       .post("/base/api/App/Query", { pageIndex: 1, pageSize: 9999 })
       .then(result => {
         this.apps.push(...result.list);
+        this.activecodes = result.list.map(item=>item.code);
       });
     this.flush();
   },
@@ -69,16 +70,19 @@ export default {
 }
 
 .el-collapse{
-    margin: 8px 15px;
-    color: #666;
+    margin: 8px 30px;
     /deep/ {
       .el-collapse-item__content{
-          padding-bottom: 5px;
+          padding: 5px 0;
       }
   }
 }
 
 .el-checkbox{
     padding: 0 4px;
+}
+
+.collapse-content{
+    padding-left: 22px;
 }
 </style>
