@@ -13,9 +13,12 @@
           <el-option label="全部" value></el-option>
           <el-option v-for="app in apps" :key="app.code" :label="app.name" :value="app.code"></el-option>
         </el-select>
+        <div class="flex1"></div>
+        <el-button type="danger" size="mini">返回</el-button>
+        <el-button type="success" size="mini">保存</el-button>
       </div>
       <el-collapse v-model="activecodes">
-        <el-collapse-item v-for="app in apps" :key="app.code" title="一致性 Consistency" :name="app.code">
+        <el-collapse-item v-for="app in apps" :key="app.code" :name="app.code">
             <template slot="title">
                 <el-checkbox v-model="app.checked"></el-checkbox> <span>{{app.name}}</span>
             </template>
@@ -98,5 +101,12 @@ export default {
             }
         }
     }
+}
+
+.flex>.el-button{
+    margin: 0 8px;
+}
+.flex>.el-button:last-child{
+    margin-right: 20px;
 }
 </style>
