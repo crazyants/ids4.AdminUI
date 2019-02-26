@@ -253,31 +253,36 @@ namespace QuickstartIdentityServer.Apis
         public async Task<List<AppDetaiDTO>> AppDeatil()
         {
             var apps = await (from a in pcontext.App
-                       join b in pcontext.Module on a.Code equals b.AppCode
-                       join c in pcontext.Permission on b.Id equals c.ModuleId
+                       join b1 in pcontext.Module on a.Code equals b1.AppCode into t1
+                       from b in t1.DefaultIfEmpty()
+                       join c1 in pcontext.Permission on b.Id equals c1.ModuleId into t2
+                       from c in t2.DefaultIfEmpty()
                        select new
                        {
                            a.Code,
                            a.Name,
-                           Id = b.Id,
-                           Mid = b.Code,
-                           MName = b.Name,
-                           Pid = c.Id,
-                           PName = c.Name
+                           module = b == null? null: new
+                           {
+                               Id= b.Id,
+                               Code = b.Code,
+                               Name = b.Name,
+                               permission = c == null ? null : new PermissionDetaiDTO
+                               {
+                                   Id = c.Id,
+                                   Name = c.Name
+                               }
+                           }
                        }).ToListAsync();
             return apps.GroupBy(a => new { a.Code, a.Name }).Select(kv => new AppDetaiDTO
             {
                 Code = kv.Key.Code,
                 Name = kv.Key.Name,
-                Modules = kv.GroupBy(m=>new {m.Id, m.Mid,m.MName }).Select(mkv => new ModuleDetailDTO
+                Modules = kv.Where(t=>t.module!=null).Select(t=>t.module).GroupBy(t=>new {t.Id,t.Code,t.Name }).Select(mkv => new ModuleDetailDTO
                 {
                     Id = mkv.Key.Id,
-                    Code = mkv.Key.Mid,
-                    Name = mkv.Key.MName,
-                    Permissions = mkv.Select(pkv=>new PermissionDetaiDTO {
-                        Id = pkv.Pid,
-                        Name = pkv.PName
-                    }).ToList()
+                    Code = mkv.Key.Code,
+                    Name = mkv.Key.Name,
+                    Permissions = mkv.Where(t=>t.permission!=null).Select(t => t.permission).ToList()
                 }).ToList()
             }).ToList();
         }

@@ -116,34 +116,56 @@ namespace QuickstartIdentityServer.Apis
         }
 
         /// <summary>
-        /// 分配权限
+        /// 获取权限
         /// </summary>
-        /// <param name="id">用户id</param>
-        /// <param name="pids">系统id集合</param>
+        /// <param name="id">角色id</param>
         /// <returns></returns>
-        [HttpPost]
-        public async Task SetPermission([FromQuery]int id, [FromBody] int[] pids)
+        [HttpGet]
+        public async Task<List<PermissionGroupDTO>> GetPermission([FromQuery]int id)
         {
-            var maps = await pcontext.RolePermissionMap.Where(map => map.RoleId == id).ToListAsync();
-            maps.ForEach(map =>
-            {
-                if (!pids.Contains(map.PermissionId)) pcontext.Entry(map).State = EntityState.Deleted;
-            });
-            var adds =  pids.Where(pid => !maps.Any(m => m.PermissionId == pid)).ToList();
-            var dic = await (from pm in pcontext.Permission.Where(p => adds.Contains(p.Id))
-             join m in pcontext.Module on pm.ModuleId equals m.Id
-             select new { pm.Id, m.AppCode }
-            ).ToDictionaryAsync(a => a.Id, a => a.AppCode);
-            adds.ForEach(pid =>
-            {
-                pcontext.RolePermissionMap.Add(new RolePermissionMap
-                {
-                    RoleId = id,
-                    PermissionId = pid,
-                    Code = dic[pid]
-                });
-            });
-            await pcontext.SaveChangesAsync();
+            var result = (await (from a in pcontext.RoleAppAdmin.Where(map => map.RoleId == id)
+                         join m1 in pcontext.RoleModuleMap.Where(map => map.RoleId == id) on a.Code equals m1.AppCode into t1
+                         from m in t1.DefaultIfEmpty()
+                         select new
+                         {
+                             a.Code,
+                             mid = (int?)m.Id
+                         }).ToListAsync()).GroupBy(a=>a.Code).Select(a=>new PermissionGroupDTO {
+                            Code = a.Key,
+                            Modules = a.Where(b => b.mid.HasValue).Select(b => new ModuleGroupDTO { ModuleId = b.mid.Value }).ToList()
+                         }).ToList();
+            var pids = (await (from a in pcontext.RoleAppAdmin.Where(map => map.RoleId == id)
+                         join p in pcontext.RolePermissionMap.Where(map => map.RoleId == id) on a.Code equals p.Code 
+                         join m  in pcontext.Permission on p.PermissionId equals m.Id 
+                         select new
+                         {
+                             mid = m.ModuleId,
+                             pid = p.Id
+                         }).ToListAsync()).GroupBy(a => a.mid).ToDictionary(a => a.Key, a => a.Select(b => b.pid).ToArray());
+            result.ForEach(m => m.Modules.ForEach(i=> i.PermissionIds = pids[i.ModuleId]) );
+            return result;
         }
+
+        ///// <summary>
+        ///// 分配权限
+        ///// </summary>
+        ///// <param name="id">角色id</param>
+        ///// <param name="apps">系统权限集合</param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public async Task SetPermission([FromQuery]int id, [FromBody]List<PermissionGroupDTO> apps)
+        //{
+        //    //var olds = await GetPermission(id);
+        //    //olds.ForEach(app =>
+        //    //{
+        //    //    var nowapp = apps.FirstOrDefault(a => a.Code == nowapp);
+        //    //    if (nowapp != null)
+        //    //    {
+        //    //        app.Modules.ForEach()
+        //    //    }
+        //    //    else pcontext.Entry(app).State = EntityState.Deleted;
+        //    //});
+        //    //await pcontext.SaveChangesAsync();
+        //}
     }
 }

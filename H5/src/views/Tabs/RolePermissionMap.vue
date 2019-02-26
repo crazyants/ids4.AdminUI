@@ -44,14 +44,15 @@ export default {
       systemSelect: ""
     };
   },
-  mounted() {
-    this.$http
-      .post("/base/api/App/Query", { pageIndex: 1, pageSize: 9999 })
-      .then(result => {
-        this.apps.push(...result.list);
-        this.activecodes = result.list.map(item=>item.code);
-      });
-    this.flush();
+  async mounted() {
+    // const get this.$http.post("/base/api/App/Query", { pageIndex: 1, pageSize: 9999 })
+    //   .then(result => {
+        
+    //   });
+    const getapps = this.$http.get("/base/api/App/AppDeatil");
+    const apps = await getapps;
+    this.apps.push(...apps);
+    this.activecodes = apps.map(item=>item.code);
   },
   methods: {
     async flush() {

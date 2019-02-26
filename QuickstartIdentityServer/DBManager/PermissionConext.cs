@@ -171,5 +171,35 @@ namespace QuickstartIdentityServer.DBManager
             var dt1970 = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return (utcTime.Ticks - dt1970.Ticks) / 10000000;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="work"></param>
+        /// <returns></returns>
+        public async Task New<T>(Func<PermissionConext, Task> work)
+        {
+            using (var scope = provider.CreateScope())
+            {
+                var p = scope.ServiceProvider.GetService<PermissionConext>();
+                await work(p);
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="work"></param>
+        /// <returns></returns>
+        public async Task<TResult> New<TResult>(Func<PermissionConext,Task<TResult>> work)
+        {
+            using (var scope = provider.CreateScope())
+            {
+                var p = scope.ServiceProvider.GetService<PermissionConext>();
+                var result = await work(p);
+                return result;
+            }
+        }
     }
 }

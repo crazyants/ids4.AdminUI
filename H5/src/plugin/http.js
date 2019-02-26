@@ -121,6 +121,13 @@ const format_object= (body)=>{//处理post数据
     return body;
 }
 
+var nocache ={
+    'X-Requested-With': 'XMLHttpRequest',
+    'If-Modified-Since': 'Mon, 26 Jul 1997 05:00:00 GMT',
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache'
+}
+
 var http = {
     header : {
         //    _token:"Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjI0YTIxOGM0Mzg4NjlhNmQ2Mzg0Yzg1YzY4MDczOTgxIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDcxNzM2NjYsImV4cCI6MTU0NzIwMjQ2NiwiaXNzIjoiaHR0cDovLzE3Mi4xNi4wLjE0ODo5MDAyIiwiYXVkIjpbImh0dHA6Ly8xNzIuMTYuMC4xNDg6OTAwMi9yZXNvdXJjZXMiLCJxa2FwaSJdLCJjbGllbnRfaWQiOiJxazM2NS5jb20uYXBpIiwic3ViIjoiY2FvaGFvIiwiYXV0aF90aW1lIjoxNTQ3MTczNjY2LCJpZHAiOiJsb2NhbCIsInVzZXJpbmZvIjoiQ0tURjRnUVNCdWFidWVhMXFSb1hNakF4T1Mwd01TMHhNU0F3T1RvME1qbzBOaTR3TURBcUFUZEE4UVJTQnpBeU1EQXhOekZhQ3pFNE5qVXhNVGd4TnpjeGFnY0tCVEF3TVRReSIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJxa2FwaSJdLCJhbXIiOlsiY3VzdG9tIl19.JURUDrZSd3Hb7e2TwyTLYyLiqWVV3dDbNEz76nE5fx3VBKJ91BvWLJ1qdfeyTHleH2HwxItAlNkZrR8vZRJhS_N_-36MJ-zwIeCWUSpMdr4gdJnDGKaLzmr30BAjuVJ8dKoR1cs30B_zbSgddkEG4UfUhLsA9H8G2MdOQFcD54sxGIMNdNN3LwgQ0rcbtLBLVpvrnotlajBdONkefBil-FbE1v68MLHk24GFzmiEdswGgZRylSPQmjoRoMbSu78cw6J9MZ7soNZ3390r5pWhYgxC4_8YVY7BEbEQiJr2ClF7xN-S7lZAcLR3cGy8DzUxwPX96PvLPIz7nD-mGIG0Dg",
@@ -144,7 +151,7 @@ var http = {
     },
     async get(url) {
         this.block();
-        const res = await axios.get(url, { headers: this.header }).catch(res => res);
+        const res = await axios.get(url, { headers: Object.assign(nocache,this.header) }).catch(res => res);
         this.unblock();
         return handleResult(res);
 
