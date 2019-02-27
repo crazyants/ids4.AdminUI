@@ -57,7 +57,7 @@ namespace QuickstartIdentityServer.Filters
             else if (ex is NullReferenceException)
             {
                 result.Code = "1003";
-                result.Message = "不好啦!一个对象某攻城狮忘记实现了,请联系管理员!";
+                result.Message = "未将对象引用实例!(参数是否为空,程序里有null)";
                 log.LogError(ex, $"对象未实例化异常,Request={requestparam};");
             }
             else if (ex is DllNotFoundException)

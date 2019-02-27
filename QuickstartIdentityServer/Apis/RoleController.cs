@@ -144,7 +144,10 @@ namespace QuickstartIdentityServer.Apis
                              mid = m.ModuleId,
                              p = new PermissionGroupDTO { MapId = p.Id,PermissionId = p.PermissionId}
                          }).ToListAsync()).GroupBy(a => a.mid).ToDictionary(a => a.Key, a => a.Select(b => b.p).ToList());
-            result.ForEach(m => m.Modules.ForEach(i=> i.Permission = pids[i.ModuleId]) );
+            result.ForEach(m => m.Modules.ForEach(i =>
+            {
+               if(pids.ContainsKey(i.ModuleId))  i.Permissions = pids[i.ModuleId];
+            }));
             return result;
         }
 
@@ -168,16 +171,16 @@ namespace QuickstartIdentityServer.Apis
                         var nowm = nowapp.Modules.FirstOrDefault(a => a.ModuleId == m.ModuleId);
                         if (nowm != null)
                         {
-                            m.Permission.ForEach(p =>//找出删除的Permission
+                            m.Permissions.ForEach(p =>//找出删除的Permission
                             {
-                                var nowp = nowm.Permission.FirstOrDefault(a => a.PermissionId == p.PermissionId);
+                                var nowp = nowm.Permissions.FirstOrDefault(a => a.PermissionId == p.PermissionId);
                                 if (nowp == null) pcontext.Entry(new RolePermissionMap { Id = p.MapId }).State = EntityState.Deleted;
                             });
                         }
                         else
                         {
                             pcontext.Entry(new RoleModuleMap { Id = m.MapId }).State = EntityState.Deleted;
-                            m.Permission.ForEach(p =>
+                            m.Permissions.ForEach(p =>
                             {
                                 pcontext.Entry(new RolePermissionMap { Id = p.MapId }).State = EntityState.Deleted;
                             });
@@ -189,7 +192,7 @@ namespace QuickstartIdentityServer.Apis
                     app.Modules.ForEach(m =>
                     {
                         pcontext.Entry(new RoleModuleMap { Id = m.MapId}).State = EntityState.Deleted;
-                        m.Permission.ForEach(p =>
+                        m.Permissions.ForEach(p =>
                         {
                             pcontext.Entry(new RolePermissionMap { Id = p.MapId }).State = EntityState.Deleted;
                         });
@@ -206,18 +209,18 @@ namespace QuickstartIdentityServer.Apis
                         var oldm = oldapp.Modules.FirstOrDefault(a => a.ModuleId == m.ModuleId);
                         if (oldm != null)
                         {
-                            m.Permission.ForEach(p =>//找出新增的Permission
+                            m.Permissions.ForEach(p =>//找出新增的Permission
                             {
-                                var oldp = oldm.Permission.FirstOrDefault(a => a.PermissionId == p.PermissionId);
-                                if (oldp == null) pcontext.RolePermissionMap.Add(new RolePermissionMap { PermissionId = p.PermissionId, RoleId = id });
+                                var oldp = oldm.Permissions.FirstOrDefault(a => a.PermissionId == p.PermissionId);
+                                if (oldp == null) pcontext.RolePermissionMap.Add(new RolePermissionMap { PermissionId = p.PermissionId, RoleId = id ,Code = app.AppCode});
                             });
                         }
                         else
                         {
-                            pcontext.RoleModuleMap.Add(new RoleModuleMap { ModuleId = m.ModuleId, RoleId = id });
-                            m.Permission.ForEach(p =>
+                            pcontext.RoleModuleMap.Add(new RoleModuleMap { ModuleId = m.ModuleId, RoleId = id, AppCode = app.AppCode });
+                            m.Permissions.ForEach(p =>
                             {
-                                pcontext.RolePermissionMap.Add(new RolePermissionMap { PermissionId = p.PermissionId, RoleId = id });
+                                pcontext.RolePermissionMap.Add(new RolePermissionMap { PermissionId = p.PermissionId, RoleId = id, Code = app.AppCode });
                             });
                         }
                     });
@@ -227,10 +230,10 @@ namespace QuickstartIdentityServer.Apis
                     pcontext.RoleAppAdmin.Add(new RoleAppAdmin { Code = app.AppCode ,RoleId = id });
                     app.Modules.ForEach(m =>
                     {
-                        pcontext.RoleModuleMap.Add(new RoleModuleMap { ModuleId = m.ModuleId, RoleId = id });
-                        m.Permission.ForEach(p =>
+                        pcontext.RoleModuleMap.Add(new RoleModuleMap { ModuleId = m.ModuleId, RoleId = id, AppCode = app.AppCode });
+                        m.Permissions.ForEach(p =>
                         {
-                            pcontext.RolePermissionMap.Add(new RolePermissionMap { PermissionId = p.PermissionId, RoleId = id });
+                            pcontext.RolePermissionMap.Add(new RolePermissionMap { PermissionId = p.PermissionId, RoleId = id, Code = app.AppCode });
                         });
                     });
                 }

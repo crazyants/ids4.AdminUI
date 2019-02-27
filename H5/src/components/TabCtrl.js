@@ -108,6 +108,18 @@ export default {
                 if (index < state.CurTabIndex) state.CurTabIndex--;
             }
         },
+        DelCurTab(state){//关闭当前页
+            if(state.Tabs[state.CurTabIndex].component) removecomponent(state.Tabs[state.CurTabIndex].component);//删除缓存和销毁组件
+            state.Tabs.splice(state.CurTabIndex, 1);
+            if(state.CurTabIndex===0){
+                if(!state.Tabs.length){ router.push('/');return;}
+            }
+            else{
+                if(state.Tabs.length===1||state.CurTabIndex!==1)
+                    state.CurTabIndex--;
+            }
+            router.push(state.Tabs[state.CurTabIndex].fullPath);//页面跳转
+        },
         DelCache(state,fullPath){
             const item = state.Tabs.find(t => t.fullPath == fullPath);
             if(item&&item.component) removecomponent(item.component);

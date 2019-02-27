@@ -21,7 +21,7 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
         /// <summary>
         /// 模块集合
         /// </summary>
-        public List<ModuleGroupDTO> Modules { get; set; }
+        public List<ModuleGroupDTO> Modules { get; set; } = new List<ModuleGroupDTO>();
     }
 
     public class ModuleGroupDTO
@@ -37,7 +37,7 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
         /// <summary>
         /// 权限集合
         /// </summary>
-        public List<PermissionGroupDTO> Permission { get; set; }
+        public List<PermissionGroupDTO> Permissions { get; set; } = new List<PermissionGroupDTO>();
     }
 
     public class PermissionGroupDTO
