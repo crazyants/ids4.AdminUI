@@ -57,7 +57,7 @@ namespace QuickstartIdentityServer
             });
 
             //const string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer4.Quickstart.EntityFramework-2.0.0;trusted_connection=yes;";
-            const string connectionString = @"Data Source=192.168.103.251;port=3306;Initial Catalog=IdentityServer4.Quickstart;user id=root;password=123456;Character Set=utf8;";
+            const string connectionString = @"Data Source=127.0.0.1;port=3306;Initial Catalog=IdentityServer4.Quickstart;user id=root;password=123456;Character Set=utf8;";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             // configure identity server with in-memory stores, keys, clients and scopes
