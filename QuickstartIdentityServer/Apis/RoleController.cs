@@ -121,18 +121,20 @@ namespace QuickstartIdentityServer.Apis
         /// <param name="id">角色id</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<List<PermissionGroupDTO>> GetPermission([FromQuery]int id)
+        public async Task<List<AppGroupDTO>> GetPermission([FromQuery]int id)
         {
             var result = (await (from a in pcontext.RoleAppAdmin.Where(map => map.RoleId == id)
                          join m1 in pcontext.RoleModuleMap.Where(map => map.RoleId == id) on a.Code equals m1.AppCode into t1
                          from m in t1.DefaultIfEmpty()
                          select new
                          {
+                             a.Id,
                              a.Code,
-                             mid = (int?)m.Id
-                         }).ToListAsync()).GroupBy(a=>a.Code).Select(a=>new PermissionGroupDTO {
-                            Code = a.Key,
-                            Modules = a.Where(b => b.mid.HasValue).Select(b => new ModuleGroupDTO { ModuleId = b.mid.Value }).ToList()
+                             m = m==null?null:new ModuleGroupDTO { MapId = m.Id,ModuleId = m.ModuleId}
+                         }).ToListAsync()).GroupBy(a=> new { a.Id, a.Code }).Select(a=>new AppGroupDTO {
+                            MapId = a.Key.Id,
+                            AppCode = a.Key.Code,
+                             Modules = a.Where(b => b.m!=null).Select(b => b.m).ToList()
                          }).ToList();
             var pids = (await (from a in pcontext.RoleAppAdmin.Where(map => map.RoleId == id)
                          join p in pcontext.RolePermissionMap.Where(map => map.RoleId == id) on a.Code equals p.Code 
@@ -140,32 +142,100 @@ namespace QuickstartIdentityServer.Apis
                          select new
                          {
                              mid = m.ModuleId,
-                             pid = p.Id
-                         }).ToListAsync()).GroupBy(a => a.mid).ToDictionary(a => a.Key, a => a.Select(b => b.pid).ToArray());
-            result.ForEach(m => m.Modules.ForEach(i=> i.PermissionIds = pids[i.ModuleId]) );
+                             p = new PermissionGroupDTO { MapId = p.Id,PermissionId = p.PermissionId}
+                         }).ToListAsync()).GroupBy(a => a.mid).ToDictionary(a => a.Key, a => a.Select(b => b.p).ToList());
+            result.ForEach(m => m.Modules.ForEach(i=> i.Permission = pids[i.ModuleId]) );
             return result;
         }
 
-        ///// <summary>
-        ///// 分配权限
-        ///// </summary>
-        ///// <param name="id">角色id</param>
-        ///// <param name="apps">系统权限集合</param>
-        ///// <returns></returns>
-        //[HttpPost]
-        //public async Task SetPermission([FromQuery]int id, [FromBody]List<PermissionGroupDTO> apps)
-        //{
-        //    //var olds = await GetPermission(id);
-        //    //olds.ForEach(app =>
-        //    //{
-        //    //    var nowapp = apps.FirstOrDefault(a => a.Code == nowapp);
-        //    //    if (nowapp != null)
-        //    //    {
-        //    //        app.Modules.ForEach()
-        //    //    }
-        //    //    else pcontext.Entry(app).State = EntityState.Deleted;
-        //    //});
-        //    //await pcontext.SaveChangesAsync();
-        //}
+        /// <summary>
+        /// 分配权限
+        /// </summary>
+        /// <param name="id">角色id</param>
+        /// <param name="apps">系统权限集合</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task SetPermission([FromQuery]int id, [FromBody]List<AppGroupDTO> apps)
+        {
+            var olds = await GetPermission(id);
+            olds.ForEach(app => //找出删除的AppMap
+            {
+                var nowapp = apps.FirstOrDefault(a => a.AppCode == app.AppCode);
+                if (nowapp != null)
+                {
+                    app.Modules.ForEach(m =>//找出删除的ModlueMap
+                    {
+                        var nowm = nowapp.Modules.FirstOrDefault(a => a.ModuleId == m.ModuleId);
+                        if (nowm != null)
+                        {
+                            m.Permission.ForEach(p =>//找出删除的Permission
+                            {
+                                var nowp = nowm.Permission.FirstOrDefault(a => a.PermissionId == p.PermissionId);
+                                if (nowp == null) pcontext.Entry(new RolePermissionMap { Id = p.MapId }).State = EntityState.Deleted;
+                            });
+                        }
+                        else
+                        {
+                            pcontext.Entry(new RoleModuleMap { Id = m.MapId }).State = EntityState.Deleted;
+                            m.Permission.ForEach(p =>
+                            {
+                                pcontext.Entry(new RolePermissionMap { Id = p.MapId }).State = EntityState.Deleted;
+                            });
+                        }
+                    });
+                }
+                else {
+                    pcontext.Entry(new RoleAppAdmin {Id = app.MapId  }).State = EntityState.Deleted;
+                    app.Modules.ForEach(m =>
+                    {
+                        pcontext.Entry(new RoleModuleMap { Id = m.MapId}).State = EntityState.Deleted;
+                        m.Permission.ForEach(p =>
+                        {
+                            pcontext.Entry(new RolePermissionMap { Id = p.MapId }).State = EntityState.Deleted;
+                        });
+                    });
+                } 
+            });
+            apps.ForEach(app => //找出新增的AppMap
+            {
+                var oldapp = olds.FirstOrDefault(a => a.AppCode == app.AppCode);
+                if (oldapp != null)
+                {
+                    app.Modules.ForEach(m => //找出新增的ModlueMap
+                    {
+                        var oldm = oldapp.Modules.FirstOrDefault(a => a.ModuleId == m.ModuleId);
+                        if (oldm != null)
+                        {
+                            m.Permission.ForEach(p =>//找出新增的Permission
+                            {
+                                var oldp = oldm.Permission.FirstOrDefault(a => a.PermissionId == p.PermissionId);
+                                if (oldp == null) pcontext.RolePermissionMap.Add(new RolePermissionMap { PermissionId = p.PermissionId, RoleId = id });
+                            });
+                        }
+                        else
+                        {
+                            pcontext.RoleModuleMap.Add(new RoleModuleMap { ModuleId = m.ModuleId, RoleId = id });
+                            m.Permission.ForEach(p =>
+                            {
+                                pcontext.RolePermissionMap.Add(new RolePermissionMap { PermissionId = p.PermissionId, RoleId = id });
+                            });
+                        }
+                    });
+                }
+                else
+                {
+                    pcontext.RoleAppAdmin.Add(new RoleAppAdmin { Code = app.AppCode ,RoleId = id });
+                    app.Modules.ForEach(m =>
+                    {
+                        pcontext.RoleModuleMap.Add(new RoleModuleMap { ModuleId = m.ModuleId, RoleId = id });
+                        m.Permission.ForEach(p =>
+                        {
+                            pcontext.RolePermissionMap.Add(new RolePermissionMap { PermissionId = p.PermissionId, RoleId = id });
+                        });
+                    });
+                }
+            });
+            await pcontext.SaveChangesAsync();
+        }
     }
 }

@@ -8,12 +8,16 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
     /// <summary>
     /// 
     /// </summary>
-    public class PermissionGroupDTO
+    public class AppGroupDTO
     {
+        /// <summary>
+        /// RoleAppMapId
+        /// </summary>
+        public int MapId { get; set; }
         /// <summary>
         /// 系统code
         /// </summary>
-        public string Code { get; set; }
+        public string AppCode { get; set; }
         /// <summary>
         /// 模块集合
         /// </summary>
@@ -23,12 +27,28 @@ namespace QuickstartIdentityServer.Apis.ApiDTO
     public class ModuleGroupDTO
     {
         /// <summary>
+        /// RoleModuleMapId
+        /// </summary>
+        public int MapId { get; set; }
+        /// <summary>
         /// 模块id
         /// </summary>
         public int ModuleId { get; set; }
         /// <summary>
         /// 权限集合
         /// </summary>
-        public int[] PermissionIds { get; set; }
+        public List<PermissionGroupDTO> Permission { get; set; }
+    }
+
+    public class PermissionGroupDTO
+    {
+        /// <summary>
+        /// RolePermissionMapId
+        /// </summary>
+        public int MapId { get; set; }
+        /// <summary>
+        /// 权限id
+        /// </summary>
+        public int PermissionId { get; set; }
     }
 }
