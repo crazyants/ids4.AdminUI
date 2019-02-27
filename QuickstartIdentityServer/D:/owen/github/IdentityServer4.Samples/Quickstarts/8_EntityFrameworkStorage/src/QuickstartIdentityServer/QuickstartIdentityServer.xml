@@ -1,0 +1,1140 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QuickstartIdentityServer</name>
+    </assembly>
+    <members>
+        <member name="T:QuickstartIdentityServer.Apis.ApiDTO.AppDTO">
+            <summary>
+            系统信息
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.AppDTO.Name">
+            <summary>
+            系统名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.AppDTO.Code">
+            <summary>
+            系统编号
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.Apis.ApiDTO.AppDetaiDTO">
+            <summary>
+            系统详细信息
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.AppDetaiDTO.Modules">
+            <summary>
+            模块
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.Apis.ApiDTO.ModuleDetailDTO">
+            <summary>
+            模块详细信息
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleDetailDTO.Code">
+            <summary>
+            模块 id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleDetailDTO.AppName">
+            <summary>
+            系统名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleDetailDTO.Name">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleDetailDTO.Permissions">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleDetailDTO.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.Apis.ApiDTO.PermissionDetaiDTO">
+            <summary>
+            权限详细信息
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDetaiDTO.Id">
+            <summary>
+            权限 id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDetaiDTO.Name">
+            <summary>
+            权限名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDetaiDTO.ControllerName">
+            <summary>
+            控制器名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDetaiDTO.ActionName">
+            <summary>
+            MVC  Action
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDetaiDTO.Url">
+            <summary>
+            api url
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.AppRequestDTO.Name">
+            <summary>
+            系统名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleRequestDTO.Code">
+            <summary>
+            系统编码
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleRequestDTO.Name">
+            <summary>
+            系统名称
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.Apis.ApiDTO.ModuleDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleDTO.Id">
+            <summary>
+            模块 id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleDTO.Name">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleDTO.Code">
+            <summary>
+            模块Code
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleDTO.AppCode">
+            <summary>
+            系统Code
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.Apis.ApiDTO.ModuleUpdateDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleUpdateDTO.Id">
+            <summary>
+            模块 id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleUpdateDTO.Name">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleUpdateDTO.Code">
+            <summary>
+            模块Code
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDTO.Id">
+            <summary>
+            权限 id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDTO.Name">
+            <summary>
+            权限名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDTO.ControllerName">
+            <summary>
+            控制器名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDTO.ActionName">
+            <summary>
+            MVC  Action
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDTO.Url">
+            <summary>
+            api url
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDTO.ModuleId">
+            <summary>
+            模块Id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionDTO.Order">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.Apis.ApiDTO.AppGroupDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.AppGroupDTO.MapId">
+            <summary>
+            RoleAppMapId
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.AppGroupDTO.AppCode">
+            <summary>
+            系统code
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.AppGroupDTO.Modules">
+            <summary>
+            模块集合
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleGroupDTO.MapId">
+            <summary>
+            RoleModuleMapId
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleGroupDTO.ModuleId">
+            <summary>
+            模块id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ModuleGroupDTO.Permissions">
+            <summary>
+            权限集合
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionGroupDTO.MapId">
+            <summary>
+            RolePermissionMapId
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.PermissionGroupDTO.PermissionId">
+            <summary>
+            权限id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.RoleDTO.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.RoleDTO.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.RolePermissionDTO.PermisionIds">
+            <summary>
+            权限id
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.Apis.ApiDTO.UserDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserDTO.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserDTO.Account">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserDTO.Name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserDTO.Pwd">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserNameDTO.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserNameDTO.Name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserPwdDTO.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserPwdDTO.Pwd">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserPermissionDTO.Admin">
+            <summary>
+            权限中心管理员
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserPermissionDTO.Apps">
+            <summary>
+            系统app
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.App.Admin">
+            <summary>
+            App管理员
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.App.Pms">
+            <summary>
+            权限 Control Action
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.Apis.ApiDTO.UserRequestDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserRequestDTO.Account">
+            <summary>
+            用户账号(支持模糊匹配)
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserRequestDTO.Name">
+            <summary>
+            用户名(支持模糊匹配)
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserResponseDTO.Account">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserResponseDTO.Name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.UserResponseDTO.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ValidatePermissionDTO.UserId">
+            <summary>
+            用户id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ValidatePermissionDTO.Code">
+            <summary>
+            系统code
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ValidatePermissionDTO.Controller">
+            <summary>
+            控制器
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ValidatePermissionDTO.Action">
+            <summary>
+            操作
+            </summary>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.Query(QuickstartIdentityServer.Apis.ApiDTO.AppRequestDTO)">
+            <summary>
+            查询系统
+            </summary>
+            <param name="input">查询参数</param>
+            <returns>返回用户列表</returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.Create(QuickstartIdentityServer.Apis.ApiDTO.AppDTO)">
+            <summary>
+            创建系统
+            </summary>
+            <param name="input">用户信息</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.Update(QuickstartIdentityServer.Apis.ApiDTO.AppDTO)">
+            <summary>
+            修改系统
+            </summary>
+            <param name="input">用户信息</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.Delete(System.String[])">
+            <summary>
+            删除系统
+            </summary>
+            <param name="codes">系统编码</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.QueryModule(QuickstartIdentityServer.Apis.ApiDTO.ModuleRequestDTO)">
+            <summary>
+            查询模块
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.AddModule(QuickstartIdentityServer.Apis.ApiDTO.ModuleDTO)">
+            <summary>
+            新建模块
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.UpdateModule(QuickstartIdentityServer.Apis.ApiDTO.ModuleUpdateDTO)">
+            <summary>
+            修改模块
+            </summary>
+            <param name="input">模块信息</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.DelModule(System.Int32[])">
+            <summary>
+            删除模块
+            </summary>
+            <param name="ids">模块id数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.AddPermission(QuickstartIdentityServer.Apis.ApiDTO.PermissionDTO)">
+            <summary>
+            新建权限
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.UpdatePermission(QuickstartIdentityServer.Apis.ApiDTO.PermissionDTO)">
+            <summary>
+            修改权限
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.DelPermission(System.Int32)">
+            <summary>
+            删除权限
+            </summary>
+            <param name="id">权限id</param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.AppController.AppDeatil">
+            <summary>
+            所有App模块权限信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.RoleController.Query(QuickstartIdentityServer.Apis.ApiDTO.RoleRequestDTO)">
+            <summary>
+            查询角色
+            </summary>
+            <param name="input">查询参数</param>
+            <returns>返回用户列表</returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.RoleController.Create(QuickstartIdentityServer.Apis.ApiDTO.RoleDTO)">
+            <summary>
+            创建角色
+            </summary>
+            <param name="input">角色信息</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.RoleController.Update(QuickstartIdentityServer.Apis.ApiDTO.RoleDTO)">
+            <summary>
+            修改角色
+            </summary>
+            <param name="input">角色信息</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.RoleController.Delete(System.Int32[])">
+            <summary>
+            删除角色
+            </summary>
+            <param name="ids">角色id集合</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.RoleController.SetAdmin(System.Int32,System.String[])">
+            <summary>
+            分配系统管理员
+            </summary>
+            <param name="id">用户id</param>
+            <param name="appcodes">系统id集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.RoleController.GetPermission(System.Int32)">
+            <summary>
+            获取权限
+            </summary>
+            <param name="id">角色id</param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.RoleController.SetPermission(System.Int32,System.Collections.Generic.List{QuickstartIdentityServer.Apis.ApiDTO.AppGroupDTO})">
+            <summary>
+            分配权限
+            </summary>
+            <param name="id">角色id</param>
+            <param name="apps">系统权限集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.UserController.Current">
+            <summary>
+            获取当前登入用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.UserController.Query(QuickstartIdentityServer.Apis.ApiDTO.UserRequestDTO)">
+            <summary>
+            查询用户
+            </summary>
+            <param name="input">查询参数</param>
+            <returns>返回用户列表</returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.UserController.Create(QuickstartIdentityServer.Apis.ApiDTO.UserDTO)">
+            <summary>
+            创建用户
+            </summary>
+            <param name="input">用户信息</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.UserController.UpdateName(QuickstartIdentityServer.Apis.ApiDTO.UserNameDTO)">
+            <summary>
+            修改用户名称
+            </summary>
+            <param name="input">用户信息</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.UserController.UpdatePwd(QuickstartIdentityServer.Apis.ApiDTO.UserPwdDTO)">
+            <summary>
+            重置用户密码
+            </summary>
+            <param name="input">用户信息</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.UserController.Delete(System.Int32[])">
+            <summary>
+            删除用户
+            </summary>
+            <param name="ids">用户id集合</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.UserController.SetRole(System.Int32,System.Int32[])">
+            <summary>
+            分配角色
+            </summary>
+            <param name="id">用户id</param>
+            <param name="roleids">角色id集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.UserController.Validate(QuickstartIdentityServer.Apis.ApiDTO.ValidatePermissionDTO)">
+            <summary>
+            是否有权限
+            </summary>
+            <param name="input">验证权限的信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.UserController.Permission(System.Int32)">
+            <summary>
+            角色已有权限
+            </summary>
+            <param name="roleid">角色id</param>
+            <returns></returns>
+        </member>
+        <member name="T:QuickstartIdentityServer.CommonDTO.BaseResult">
+            <summary>
+            返回结果基类
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.CommonDTO.BaseResult.Result">
+            <summary>
+            业务处理是否成功
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.CommonDTO.DataResult`1">
+            <summary>
+            通用数据结果
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:QuickstartIdentityServer.CommonDTO.DataResult`1.Data">
+            <summary>
+            结果
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.CommonDTO.ErrorResult.Code">
+            <summary>
+            错误编码
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.CommonDTO.ErrorResult.Message">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.CommonDTO.ErrorResult.Detail">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.CommonDTO.PageRequest">
+            <summary>
+            分页查询参数
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.CommonDTO.PageRequest.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.CommonDTO.PageRequest.PageSize">
+            <summary>
+            每页数量
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.CommonDTO.PageResult`1">
+            <summary>
+            分页结果
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:QuickstartIdentityServer.CommonDTO.PageResult`1.#ctor(System.Int32,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            
+            </summary>
+            <param name="count"></param>
+            <param name="data"></param>
+        </member>
+        <member name="P:QuickstartIdentityServer.CommonDTO.PageResult`1.List">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.CommonDTO.PageResult`1.TotalCount">
+            <summary>
+            总数量
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.AppEntity">
+            <summary>
+            系统
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.AppEntity.Code">
+            <summary>
+            系统编号
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.AppEntity.Name">
+            <summary>
+            系统名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.AppEntity.Order">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.AppConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.BaseData.BaseKey`1">
+             <summary>
+            可持久到数据库的领域模型的基类。
+             </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.BaseData.BaseKey`1.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.BaseData.BaseEnity`1">
+            <summary>
+            对象基类
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.BaseData.BaseEnity`1.Ts">
+            <summary>
+            时间戳 datediff(second,'1970-01-01',GETUTCDATE())
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.BaseData.BaseEnity`1.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.BaseData.BaseEnity`1.CreateId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.BaseData.BaseEnity`1.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.BaseData.BaseEnity`1.UpdateId">
+            <summary>
+            更新人
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.BaseData.BaseEnity`1.UpdateTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.BaseData.EntityConst">
+            <summary>
+            常量
+            </summary>
+        </member>
+        <member name="F:QuickstartIdentityServer.DBManager.BaseData.EntityConst.ID">
+            <summary>
+            代表主键
+            </summary>
+        </member>
+        <member name="F:QuickstartIdentityServer.DBManager.BaseData.EntityConst.IsDeleted">
+            <summary>
+            删除标记
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.BaseData.ICreateOperation.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.BaseData.ITimeStamp">
+            <summary>
+            功能描述    ：时间戳  
+            创 建 者    ：shenl
+            创建日期    ：2017-11-15 13:11:56 
+            最后修改者  ：shenl
+            最后修改日期：2017-11-15 13:11:56 
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.BaseData.ITimeStamp.Ts">
+            <summary>
+            时间戳 datediff(second,'1970-01-01',GETUTCDATE())
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.BaseData.IUpdateOperation.UpdateTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.ModuleEntity">
+            <summary>
+            模块
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.ModuleEntity.Name">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.ModuleEntity.Code">
+            <summary>
+            模块编码
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.ModuleEntity.AppCode">
+            <summary>
+            系统Code
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.ModuleEntity.Order">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.ModuleConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.PermissionConext.UserId">
+            <summary>
+            登录人userid
+            </summary>
+        </member>
+        <member name="M:QuickstartIdentityServer.DBManager.PermissionConext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{QuickstartIdentityServer.DBManager.PermissionConext})">
+            <summary>
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:QuickstartIdentityServer.DBManager.PermissionConext.Concat(System.String,System.String)">
+            <summary>
+            CONCAT
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.DBManager.PermissionConext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="M:QuickstartIdentityServer.DBManager.PermissionConext.SetUserInfo">
+            <summary>
+            设置当前用户
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:QuickstartIdentityServer.DBManager.PermissionConext.New``1(System.Func{QuickstartIdentityServer.DBManager.PermissionConext,System.Threading.Tasks.Task})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="work"></param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.DBManager.PermissionConext.New``1(System.Func{QuickstartIdentityServer.DBManager.PermissionConext,System.Threading.Tasks.Task{``0}})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="work"></param>
+            <returns></returns>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.PermissionEntity">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.PermissionEntity.Name">
+            <summary>
+            权限名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.PermissionEntity.ControllerName">
+            <summary>
+            控制器名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.PermissionEntity.ActionName">
+            <summary>
+            MVC  Action
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.PermissionEntity.Url">
+            <summary>
+            api url
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.PermissionEntity.ModuleId">
+            <summary>
+            模块Id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.PermissionEntity.Order">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.PermissionConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.RoleAppAdmin">
+            <summary>
+            角色对应系统管理员
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.RoleAppAdmin.Code">
+            <summary>
+            系统Code
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.RoleAppAdmin.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.RoleAppConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.RoleEntity">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.RoleEntity.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.RoleConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.RoleModuleMap.AppCode">
+            <summary>
+            系统Code
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.RoleModuleMap.ModuleId">
+            <summary>
+            模块Id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.RoleModuleMap.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.RoleModuleMapConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.RolePermissionMap">
+            <summary>
+            角色对应权限
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.RolePermissionMap.Code">
+            <summary>
+            系统Code
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.RolePermissionMap.PermissionId">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.RolePermissionMap.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.RolePermissionMapConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.UserEntity">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.UserEntity.Account">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.UserEntity.Name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.UserEntity.Pwd">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.UserEntity.IsSystemAdmin">
+            <summary>
+            是否是系统所有者
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.UserConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.DBManager.UserRoleMap">
+            <summary>
+            用户对应角色
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.UserRoleMap.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.UserRoleMap.User">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.UserRoleMap.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.DBManager.UserRoleMap.Role">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:QuickstartIdentityServer.Filters.PostCacheAttribute">
+            <summary>
+            Post 缓存开启
+            </summary>
+        </member>
+        <member name="M:QuickstartIdentityServer.Filters.PostCacheAttribute.#ctor(System.Int32)">
+            <summary>
+            缓存时间  单位秒
+            </summary>
+            <param name="expiry"></param>
+        </member>
+        <member name="T:QuickstartIdentityServer.Filters.EncryptUtil">
+            <summary>
+            加密帮助类
+            </summary>
+        </member>
+        <member name="M:QuickstartIdentityServer.Filters.EncryptUtil.Rsa(System.String)">
+            <summary>
+            RSA 加密
+            </summary>
+            <param name="source">待加密字段</param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Filters.EncryptUtil.UnRsa(System.String)">
+            <summary>
+            RSA解密
+            </summary>
+            <param name="source">待解密字段</param>
+            <returns></returns>
+        </member>
+        <member name="M:QuickstartIdentityServer.Filters.EncryptUtil.GetMd5(System.String)">
+            <summary>
+            获取字符串的MD5
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:QuickstartIdentityServer.Filters.WebApiExceptionFilterAttribute">
+            <summary>
+            应用级别异常处理
+            </summary>
+        </member>
+        <member name="M:QuickstartIdentityServer.Filters.WebApiExceptionFilterAttribute.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            重写基类的异常处理方法
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:QuickstartIdentityServer.IdsAuthorization.PasswordValidator.#ctor(QuickstartIdentityServer.DBManager.PermissionConext,Microsoft.Extensions.Logging.ILogger{QuickstartIdentityServer.IdsAuthorization.PasswordValidator})">
+            <summary>
+            
+            </summary>
+            <param name="db"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="T:QuickstartIdentityServer.IdsAuthorization.ClaimsIdentityName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:QuickstartIdentityServer.IdsAuthorization.ClaimsIdentityName.Admin">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:QuickstartIdentityServer.IdsAuthorization.ClaimsIdentityName.Custom">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:QuickstartIdentityServer.IdsAuthorization.ClaimsIdentityName.Role">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:QuickstartIdentityServer.Startup.GetXmlCommentsPath(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions,System.String)">
+            <summary>
+            获取api文档xml文件的路径
+            </summary>
+            <param name="c"></param>
+            <param name="name"></param>
+        </member>
+        <member name="T:IdentityServer4.Quickstart.UI.AccountController">
+            <summary>
+            This sample controller implements a typical login/logout/provision workflow for local and external accounts.
+            The login service encapsulates the interactions with the user data store. This data store is in-memory only and cannot be used for production!
+            The interaction service provides a way for the UI to communicate with identityserver for validation and context retrieval
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.AccountController.Login(System.String)">
+            <summary>
+            Show login page
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.AccountController.Login(IdentityServer4.Quickstart.UI.LoginInputModel,System.String)">
+            <summary>
+            Handle postback from username/password login
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.AccountController.ExternalLogin(System.String,System.String)">
+            <summary>
+            initiate roundtrip to external authentication provider
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.AccountController.ExternalLoginCallback">
+            <summary>
+            Post processing of external authentication
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.AccountController.Logout(System.String)">
+            <summary>
+            Show logout page
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.AccountController.Logout(IdentityServer4.Quickstart.UI.LogoutInputModel)">
+            <summary>
+            Handle logout page postback
+            </summary>
+        </member>
+        <member name="T:IdentityServer4.Quickstart.UI.ConsentController">
+            <summary>
+            This controller processes the consent UI
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.ConsentController.Index(System.String)">
+            <summary>
+            Shows the consent screen
+            </summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.ConsentController.Index(IdentityServer4.Quickstart.UI.ConsentInputModel)">
+            <summary>
+            Handles the consent screen postback
+            </summary>
+        </member>
+        <member name="T:IdentityServer4.Quickstart.UI.GrantsController">
+            <summary>
+            This sample controller allows a user to revoke grants given to clients
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.GrantsController.Index">
+            <summary>
+            Show list of grants
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.GrantsController.Revoke(System.String)">
+            <summary>
+            Handle postback to revoke a client
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Quickstart.UI.HomeController.Error(System.String)">
+            <summary>
+            Shows the error page
+            </summary>
+        </member>
+    </members>
+</doc>

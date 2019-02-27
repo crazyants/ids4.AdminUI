@@ -304,7 +304,7 @@ export default {
       }
     }
     .el-scrollbar__wrap {
-      height: 53px;
+      height: 36px;
     }
   }
 }

@@ -161,6 +161,7 @@ namespace QuickstartIdentityServer.DBManager
         {
             var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
             var httpContext = httpContextAccessor?.HttpContext;
+            if (httpContext == null) return;
             var subid = httpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             int.TryParse(subid, out int userid);
             UserId = userid;

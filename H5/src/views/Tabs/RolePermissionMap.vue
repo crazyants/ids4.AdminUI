@@ -197,6 +197,7 @@ export default {
 
 .el-checkbox{
     padding: 0 4px;
+    margin-right: 0;
 }
 
 .collapse-content{
