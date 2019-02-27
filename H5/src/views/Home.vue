@@ -147,11 +147,13 @@ export default {
   line-height: 50px;
   height: 50px !important;
   padding: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 .aside_box {
-  height: 100%;
   background-color: #2e4050;
   color: #333;
+  flex: 1;
 }
 .aside_box>.el-scrollbar{
   flex-grow: 0;/* 不索取父容器空间 默认0 */
@@ -167,5 +169,8 @@ export default {
   height: 100%;
   padding: 0;
   position: relative;
+}
+.el-menu{
+  overflow: hidden;
 }
 </style>
