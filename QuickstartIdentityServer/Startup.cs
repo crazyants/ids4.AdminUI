@@ -20,6 +20,7 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using QuickstartIdentityServer.DBManager;
 using QuickstartIdentityServer.Filters;
 using QuickstartIdentityServer.IdsAuthorization;
+using QuickstartIdentityServer.UserApp;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace QuickstartIdentityServer
@@ -64,7 +65,8 @@ namespace QuickstartIdentityServer
             // configure identity server with in-memory stores, keys, clients and scopes
             services.AddIdentityServer(options => options.Authentication.CookieAuthenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddDeveloperSigningCredential()
-                .AddResourceOwnerValidator<PasswordValidator>()
+                .AddAppUsers()
+                //.AddResourceOwnerValidator<PasswordValidator>()
                 //.AddTestUsers(Config.GetUsers())
                 // this adds the config data from DB (clients, resources)
                 .AddConfigurationStore(options =>
