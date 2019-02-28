@@ -294,7 +294,7 @@ export default {
 }
 .scroll-container {
   width: 100%;
-  height: auto;
+  height: 36px;
   white-space: nowrap;
   /deep/ {
     .el-scrollbar__bar {
@@ -303,9 +303,9 @@ export default {
         display: none;
       }
     }
-    .el-scrollbar__wrap {
-      height: 36px;
-    }
+    // .el-scrollbar__wrap {
+    //    height: 36px;
+    // }
   }
 }
 .tab_box {
