@@ -17,6 +17,7 @@ Vue.use(ElementUI);
 Vue.use(http);
 
 import './mixin'
+import './plugin/oidc'
 new Vue({
   router,
   store,
