@@ -66,8 +66,12 @@ namespace QuickstartIdentityServer
             services.AddIdentityServer(options => options.Authentication.CookieAuthenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddDeveloperSigningCredential()
                 .AddAppUsers()
+                //.AddInMemoryIdentityResources(Config.GetIdentityResources())
+                //.AddInMemoryApiResources(Config.GetApiResources())
+                //.AddInMemoryClients(Config.GetClients())
                 //.AddResourceOwnerValidator<PasswordValidator>()
                 //.AddTestUsers(Config.GetUsers())
+
                 // this adds the config data from DB (clients, resources)
                 .AddConfigurationStore(options =>
                 {
@@ -92,27 +96,7 @@ namespace QuickstartIdentityServer
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;
                 });
-            
-            string url = Configuration["Ids4_Authority"];
-            if (string.IsNullOrEmpty(url)) url = Configuration["ASPNETCORE_URLS"];
-            //if (string.IsNullOrEmpty(url)) throw new Exception("未配置Ids4_Authority");
-            Console.WriteLine($"url;{url}");
-            //添加身份认证服务
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-                 {
-                     options.TokenValidationParameters = new TokenValidationParameters();
-                     options.RequireHttpsMetadata = false;
-                     options.Audience = "api1";//api范围
-                     options.Authority = url;//IdentityServer地址
-                 });
 
-            //添加自定义的权限验证
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(IdsAuthAttribute.policy, policy => policy.AddRequirements(new IdsAuthPermissionHandler("base")));
-            });
 
             #region context
             services.AddDbContext<PermissionConext>(options =>
@@ -131,33 +115,34 @@ namespace QuickstartIdentityServer
                 //}
             }, ServiceLifetime.Scoped, ServiceLifetime.Singleton);
             #endregion
-            //services.AddAuthentication()
-            //    .AddGoogle("Google", options =>
-            //    {
-            //        options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
+                //.AddGoogle("Google", options =>
+                //{
+                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-            //        options.ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com";
-            //        options.ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo";
-            //    })
-            //    .AddOpenIdConnect("oidc", "OpenID Connect", options =>
-            //    {
-            //        options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-            //        options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+                //    options.ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com";
+                //    options.ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo";
+                //})
+                //.AddOpenIdConnect("oidc", "OpenID Connect", options =>
+                //{
+                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                //    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
 
-            //        options.Authority = "https://demo.identityserver.io/";
-            //        options.ClientId = "implicit";
+                //    options.Authority = "https://demo.identityserver.io/";
+                //    options.ClientId = "implicit";
 
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            NameClaimType = "name",
-            //            RoleClaimType = "role"
-            //        };
-            //    });
+                //    options.TokenValidationParameters = new TokenValidationParameters
+                //    {
+                //        NameClaimType = "name",
+                //        RoleClaimType = "role"
+                //    };
+                //});
 
             #region swagger
             //if (Env.IsDevelopment())
             //{
-                services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
                     var security = new Dictionary<string, IEnumerable<string>> { { "Bearer", new string[] { } }, };

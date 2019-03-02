@@ -25,7 +25,7 @@ namespace QuickstartIdentityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("api1", "My API")
+                new ApiResource("base", "My API")
             };
         }
 
@@ -44,7 +44,7 @@ namespace QuickstartIdentityServer
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "base" }
                 },
 
                 // resource owner password grant client
@@ -57,7 +57,7 @@ namespace QuickstartIdentityServer
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "base" }
                 },
 
                 // OpenID Connect hybrid flow and client credentials client (MVC)
@@ -79,7 +79,7 @@ namespace QuickstartIdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "api1"
+                        "base"
                     },
                     AllowOfflineAccess = true
                 },
@@ -100,8 +100,26 @@ namespace QuickstartIdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "api1"
+                        "base"
                     },
+                },
+                new Client
+                {
+                    ClientId = "base",
+                    ClientName = "base JavaScript Client",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { "http://localhost:8080" },
+                    PostLogoutRedirectUris = { "http://localhost:8080" },
+                    AllowedCorsOrigins = { "http://localhost:8080" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "base"
+                    }
                 }
             };
         }

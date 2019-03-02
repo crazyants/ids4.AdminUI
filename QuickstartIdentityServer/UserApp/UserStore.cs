@@ -53,7 +53,19 @@ namespace QuickstartIdentityServer.UserApp
         /// <returns></returns>
         public UserAppDto FindBySubjectId(string subjectId)
         {
-            return _users.FirstOrDefault(x => x.SubjectId == subjectId);
+            var user = _users.FirstOrDefault(u => u.SubjectId == subjectId);
+            if (user == null)
+            {
+                var userid = Convert.ToInt32(subjectId);
+                user = db.User.Where(u => u.Id == userid).Select(u => new UserAppDto
+                {
+                    Username = u.Account,
+                    Password = u.Pwd,
+                    SubjectId = u.Id.ToString()
+                }).FirstOrDefault();
+                _users.Add(user);
+            }
+            return user;
         }
 
         /// <summary>
@@ -72,7 +84,7 @@ namespace QuickstartIdentityServer.UserApp
                     Password = u.Pwd,
                     SubjectId = u.Id.ToString()
                 }).FirstOrDefault();
-                if (!_users.Any(u => u.Username == username)) _users.Add(user);
+               _users.Add(user);
             }
             return user;
         }

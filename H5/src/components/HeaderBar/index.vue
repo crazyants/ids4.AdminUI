@@ -32,7 +32,7 @@
 </template>
 
 <script>
-
+    import mgr from '../../plugin/oidc'
     export default {
         name: "home",
         props: {
@@ -58,7 +58,7 @@
         },
         methods: {
             handleCommand(item){
-                if(item=="logOut") this.logOut();
+                if(item=="logOut") mgr.signoutRedirect() //this.logOut();
             },
             logOut(){
                 this.$http.setheader(null);

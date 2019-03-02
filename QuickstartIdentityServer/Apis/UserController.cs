@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace QuickstartIdentityServer.Apis
         [HttpGet]
         public async Task<UserNameDTO> Current()
         {
-           var subid =  User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+           var subid =  User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub).Value;
            int.TryParse(subid, out int userid);
            var user = await pcontext.User.Where(u => u.Id == userid).Select(u=>new UserNameDTO {
                Name = u.Name

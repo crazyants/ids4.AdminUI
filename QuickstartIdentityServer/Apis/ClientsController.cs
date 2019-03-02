@@ -24,7 +24,6 @@ namespace QuickstartIdentityServer.Apis
             this.context = context;
         }
         [HttpGet]
-        [IdsAuth]
         public Task<List<Client>> List()
         {
            return context.Clients.Select(c=>new Client

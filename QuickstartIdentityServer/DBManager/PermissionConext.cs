@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using QuickstartIdentityServer.DBManager.BaseData;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Claims;
@@ -162,7 +163,7 @@ namespace QuickstartIdentityServer.DBManager
             var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
             var httpContext = httpContextAccessor?.HttpContext;
             if (httpContext == null) return;
-            var subid = httpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var subid = httpContext.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub).Value;
             int.TryParse(subid, out int userid);
             UserId = userid;
         }

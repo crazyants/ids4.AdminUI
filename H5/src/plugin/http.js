@@ -89,7 +89,7 @@ const handleResult = (res) => {
     }
     
     if (res.status === 401) {
-        router.push("/login")
+        // router.push("/login")
     }
     else if (res.status === 403) {
         Message.error({ showClose: true, message: "您无权限访问！"})

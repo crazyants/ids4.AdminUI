@@ -15,7 +15,10 @@ module.exports = {
       },
       '/base': {
         target: 'http://localhost:5000'
-      }
+      },
+      '/.well-known': {
+        target: 'http://localhost:5000'
+      },
     }
   }
 }

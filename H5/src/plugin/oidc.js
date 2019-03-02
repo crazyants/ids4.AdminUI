@@ -2,30 +2,31 @@ import Oidc from 'oidc-client'
 
 var config = {
   authority: "http://localhost:5000",
-  client_id: "js",
+  client_id: "base",
   redirect_uri: "http://localhost:8080",
   response_type: "id_token token",
-  scope:"openid profile api1",
+  scope:"openid profile base",
   post_logout_redirect_uri : "http://localhost:8080"
 };
 
-new Oidc.UserManager().signinRedirectCallback().then(function () {
-    //window.location = "index.html";
-    console.log("User not logged in");
-}).catch(function (e) {
-    console.error(e);
-});
+// new Oidc.UserManager().signinRedirectCallback().then(function () {
+//     //window.location = "index.html";
+//     console.log("User not logged in");
+// }).catch(function (e) {
+//     console.error(e);
+// });
 
 var mgr = new Oidc.UserManager(config);
 
-mgr.getUser().then(function (user) {
-    if (user) {
-       console.log("User logged in", user.profile);
-    }
-    else {
-        console.log("User not logged in");
-    }
-});
+// mgr.getUser().then(function (user) {
+//     if (user) {
+//        console.log("User logged in", user.profile);
+//     }
+//     else {
+//         login();
+//         console.log("User not logged in");
+//     }
+// });
 
 function login() {
     mgr.signinRedirect();
@@ -48,3 +49,5 @@ function api() {
 function logout() {
     mgr.signoutRedirect();
 }
+
+export default mgr
