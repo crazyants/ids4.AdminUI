@@ -3,7 +3,7 @@ import Oidc from 'oidc-client'
 var config = {
   authority: "http://localhost:5000",
   client_id: "base",
-  redirect_uri: "http://localhost:8080",
+  redirect_uri: "http://localhost:8080/callback.html",
   response_type: "id_token token",
   scope:"openid profile base",
   post_logout_redirect_uri : "http://localhost:8080"

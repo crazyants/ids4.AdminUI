@@ -17,15 +17,10 @@ Vue.use(ElementUI);
 Vue.use(http);
 
 import './mixin'
-import Oidc from 'oidc-client'
 import mgr from './plugin/oidc'
 
 var main = async ()=>{
   var user = await mgr.getUser();
-  if(!user){
-    await (new Oidc.UserManager().signinRedirectCallback().catch(e=>{}));//回调认证
-    user = await mgr.getUser(); //重试
-  } 
   if (user){
     new Vue({
       router,
