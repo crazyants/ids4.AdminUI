@@ -66,7 +66,19 @@ export default new Router({
           name: 'home.rolemap',
           meta :{title:"权限分配"},//此处为规则配置页面 title为Tab显示的标题
           component: resolve => require(['./views/Tabs/RolePermissionMap.vue'],resolve)
-        }
+        },
+        {
+          path: '/home/client',
+          name: 'home.client',
+          meta :{title:"客户端管理"},//此处为规则配置页面 title为Tab显示的标题
+          component: resolve => require(['./views/Tabs/Client.vue'],resolve)
+        },
+        {
+          path: '/home/apiresource',
+          name: 'home.apiresource',
+          meta :{title:"资源管理"},//此处为规则配置页面 title为Tab显示的标题
+          component: resolve => require(['./views/Tabs/ApiResource.vue'],resolve)
+        },
       ]
     },
     {

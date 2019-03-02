@@ -23,6 +23,16 @@ var menus = [
         icon:"el-icon-location",
         title:"人员管理",
         fullPath:'/home/people'
+    },
+    {
+        icon:"el-icon-location",
+        title:"客户端管理",
+        fullPath:'/home/client'
+    },
+    {
+        icon:"el-icon-location",
+        title:"资源管理",
+        fullPath:'/home/apiresource'
     }
 ];
 

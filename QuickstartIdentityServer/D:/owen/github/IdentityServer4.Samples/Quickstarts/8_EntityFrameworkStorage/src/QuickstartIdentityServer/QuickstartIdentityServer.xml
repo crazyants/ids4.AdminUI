@@ -359,6 +359,33 @@
             操作
             </summary>
         </member>
+        <member name="M:QuickstartIdentityServer.Apis.ApiResourceController.#ctor(IdentityServer4.EntityFramework.DbContexts.ConfigurationDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:QuickstartIdentityServer.Apis.ClientsController"/> class.
+            </summary>
+            <param name="context">Context.</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.ApiResourceController.Query(QuickstartIdentityServer.Apis.ApiDTO.AppRequestDTO)">
+            <summary>
+            Query the specified input.
+            </summary>
+            <returns>The query.</returns>
+            <param name="input">Input.</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.ApiResourceController.Create(IdentityServer4.Models.ApiResource)">
+            <summary>
+            Create the specified input.
+            </summary>
+            <returns>The create.</returns>
+            <param name="input">Input.</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.ApiResourceController.Delete(System.String)">
+            <summary>
+            Delete the specified name.
+            </summary>
+            <returns>The delete.</returns>
+            <param name="name">Name.</param>
+        </member>
         <member name="M:QuickstartIdentityServer.Apis.AppController.Query(QuickstartIdentityServer.Apis.ApiDTO.AppRequestDTO)">
             <summary>
             查询系统
@@ -437,6 +464,38 @@
             所有App模块权限信息
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:QuickstartIdentityServer.Apis.ClientController">
+            <summary>
+            Clients controller.
+            </summary>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.ClientController.#ctor(IdentityServer4.EntityFramework.DbContexts.ConfigurationDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:QuickstartIdentityServer.Apis.ClientsController"/> class.
+            </summary>
+            <param name="context">Context.</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.ClientController.Query(QuickstartIdentityServer.Apis.ApiDTO.AppRequestDTO)">
+            <summary>
+            Query the specified input.
+            </summary>
+            <returns>The query.</returns>
+            <param name="input">Input.</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.ClientController.Create(IdentityServer4.Models.Client)">
+            <summary>
+            Create the specified input.
+            </summary>
+            <returns>The create.</returns>
+            <param name="input">Input.</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.ClientController.Delete(System.String)">
+            <summary>
+            Delete the specified clientId.
+            </summary>
+            <returns>The delete.</returns>
+            <param name="clientId">Client identifier.</param>
         </member>
         <member name="M:QuickstartIdentityServer.Apis.RoleController.Query(QuickstartIdentityServer.Apis.ApiDTO.RoleRequestDTO)">
             <summary>
