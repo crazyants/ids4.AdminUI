@@ -154,7 +154,7 @@
             edit(type,row) {
                 switch(type){
                     case 0:
-                        this.$router.push("/home/client/add?id=0");break;
+                        this.$router.push("/home/client/add");break;
                     case 1:
                         this.$router.push("/home/client/update?id="+row.clientId);break;
                     case 2:

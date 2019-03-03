@@ -25,15 +25,15 @@ var menus = [
         fullPath:'/home/people'
     },
     {
+        icon:"icon-id navicon icon-resource_icon",
+        title:"资源管理",
+        fullPath:'/home/apiresource'
+    },
+    {
         icon:"icon-id navicon icon-kehu",
         title:"客户端管理",
         fullPath:'/home/client'
     },
-    {
-        icon:"icon-id navicon icon-resource_icon",
-        title:"资源管理",
-        fullPath:'/home/apiresource'
-    }
 ];
 
 menus.forEach((menu1,index1)=>{
