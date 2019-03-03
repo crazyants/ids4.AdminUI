@@ -74,6 +74,18 @@ export default new Router({
           component: resolve => require(['./views/Tabs/Client.vue'],resolve)
         },
         {
+          path: '/home/client/add',
+          name: 'home.client.add',
+          meta :{title:"新增客户端"},//此处为规则配置页面 title为Tab显示的标题
+          component: resolve => require(['./views/Tabs/ClientEdit.vue'],resolve)
+        },
+        {
+          path: '/home/client/update',
+          name: 'home.client.update',
+          meta :{title:"修改客户端"},//此处为规则配置页面 title为Tab显示的标题
+          component: resolve => require(['./views/Tabs/ClientEdit.vue'],resolve)
+        },
+        {
           path: '/home/apiresource',
           name: 'home.apiresource',
           meta :{title:"资源管理"},//此处为规则配置页面 title为Tab显示的标题

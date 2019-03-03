@@ -15,22 +15,22 @@ var menus = [
     //     fullPath:'/home/app'
     // },
     {
-        icon:"el-icon-document",
+        icon:"icon-id navicon icon-role",
         title:"角色管理",
         fullPath:'/home/role'
     },
     {
-        icon:"el-icon-location",
+        icon:"icon-id navicon icon-user",
         title:"人员管理",
         fullPath:'/home/people'
     },
     {
-        icon:"el-icon-location",
+        icon:"icon-id navicon icon-kehu",
         title:"客户端管理",
         fullPath:'/home/client'
     },
     {
-        icon:"el-icon-location",
+        icon:"icon-id navicon icon-resource_icon",
         title:"资源管理",
         fullPath:'/home/apiresource'
     }

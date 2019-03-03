@@ -25,6 +25,7 @@
                 >
                 </el-table-column>
                 <el-table-column
+                        width="100"
                         prop="clientId"
                         label="客户端id"
                         align='center'
@@ -37,7 +38,7 @@
                 >
                 </el-table-column>
                 <el-table-column
-                        width="400"
+                        width="200"
                         align='center'
                         label="授权类型">
                     <template slot-scope="scope">
@@ -51,12 +52,27 @@
                     </template>
                 </el-table-column>
                 <el-table-column
+                        width="300"
+                        align='center'
+                        label="访问资源">
+                    <template slot-scope="scope">
+                        <div style="text-align:left">
+                            <span class="el-tag el-tag--info el-tag--medium"
+                                v-for="p in scope.row.allowedScopes"
+                                :key="p">
+                                {{p}} 
+                            </span>
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
                         label="操作"
                         align='center'
-                        width='160'
+                        width='240'
                 >
                     <template slot-scope="scope">
                         <el-button type="primary" size="mini" @click='edit(1,scope.row)'>编辑</el-button>
+                        <el-button type="primary" size="mini" @click='edit(2,scope.row)'>复制新增</el-button>
                         <!-- <el-button @click="roleCheck(scope.row)" type="text" size="small">模块管理</el-button> -->
                     </template>
                 </el-table-column>
@@ -136,7 +152,14 @@
             },
             // 客户端编辑
             edit(type,row) {
-                
+                switch(type){
+                    case 0:
+                        this.$router.push("/home/client/add?id=0");break;
+                    case 1:
+                        this.$router.push("/home/client/update?id="+row.clientId);break;
+                    case 2:
+                        this.$router.push("/home/client/add?id="+row.clientId);break;
+                }
             }
         }
     }

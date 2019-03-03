@@ -483,7 +483,21 @@
             <returns>The query.</returns>
             <param name="input">Input.</param>
         </member>
+        <member name="M:QuickstartIdentityServer.Apis.ClientController.Query(System.String)">
+            <summary>
+            Query the specified clientid.
+            </summary>
+            <returns>The query.</returns>
+            <param name="clientid">Clientid.</param>
+        </member>
         <member name="M:QuickstartIdentityServer.Apis.ClientController.Create(IdentityServer4.Models.Client)">
+            <summary>
+            Create the specified input.
+            </summary>
+            <returns>The create.</returns>
+            <param name="input">Input.</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.ClientController.Update(IdentityServer4.Models.Client)">
             <summary>
             Create the specified input.
             </summary>

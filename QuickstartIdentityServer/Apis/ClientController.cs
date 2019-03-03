@@ -63,6 +63,28 @@ namespace QuickstartIdentityServer.Apis
         }
 
         /// <summary>
+        /// Query the specified clientid.
+        /// </summary>
+        /// <returns>The query.</returns>
+        /// <param name="clientid">Clientid.</param>
+        [HttpGet]
+        public async Task<Client> Query(string clientid)
+        {
+            var client = await context.Clients.AsNoTracking()
+                .Include(x => x.AllowedGrantTypes)
+                .Include(x => x.RedirectUris)
+                .Include(x => x.PostLogoutRedirectUris)
+                .Include(x => x.AllowedScopes)
+                .Include(x => x.ClientSecrets)
+                .Include(x => x.Claims)
+                .Include(x => x.IdentityProviderRestrictions)
+                .Include(x => x.AllowedCorsOrigins)
+                .Include(x => x.Properties)
+                .FirstOrDefaultAsync(x => x.ClientId == clientid);
+            return client.ToModel();
+        }
+
+        /// <summary>
         /// Create the specified input.
         /// </summary>
         /// <returns>The create.</returns>
@@ -70,9 +92,27 @@ namespace QuickstartIdentityServer.Apis
         [HttpPost]
         public async Task Create([FromBody]Client input)
         {
+            if (await context.Clients.AnyAsync(x => x.ClientId == input.ClientId))
+                throw new Exception("已存在相同id的客户端");
             var add = input.ToEntity();
             context.Clients.Add(add);
             await  context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Create the specified input.
+        /// </summary>
+        /// <returns>The create.</returns>
+        /// <param name="input">Input.</param>
+        [HttpPost]
+        public async Task Update([FromBody]Client input)
+        {
+            var client = await context.Clients.FirstOrDefaultAsync(x => x.ClientId == input.ClientId);
+            if(client==null) throw new Exception("不存在此客户端");
+            context.Entry(client).State = EntityState.Deleted;
+            var add = input.ToEntity();
+            context.Clients.Add(add);
+            await context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -83,8 +123,8 @@ namespace QuickstartIdentityServer.Apis
         [HttpPost]
         public async Task Delete(string clientId)
         {
-            var client = context.Clients.FirstOrDefaultAsync(c => c.ClientId == clientId);
-            context.Entry(client).State = EntityState.Deleted;
+            var client = await context.Clients.FirstOrDefaultAsync(c => c.ClientId == clientId);
+            client.Enabled = false;
             await context.SaveChangesAsync();
         }
     }
