@@ -1,7 +1,7 @@
 import Oidc from 'oidc-client'
 
 var config = {
-  authority: "http://192.168.103.251:5000",
+  authority: "http://192.168.103.251:6006",
   client_id: "base",
   redirect_uri: "http://localhost:8080/callback.html",
   response_type: "id_token token",

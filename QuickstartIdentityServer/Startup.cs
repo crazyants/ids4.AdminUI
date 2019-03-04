@@ -190,6 +190,8 @@ namespace QuickstartIdentityServer
             app.UseIdentityServer();
 
             app.UseStaticFiles();
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:8080"));
             app.UseMvcWithDefaultRoute();
         }
     }
