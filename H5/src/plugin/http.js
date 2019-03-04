@@ -2,11 +2,6 @@ import axios from 'axios'
 import router from '../router'
 import { Loading } from 'element-ui';
 import { Message } from 'element-ui';
-
-axios.defaults.withCredentials = true
-// document.cookie="name=value;domain=192.168.103.251";
-// document.domain = 'http://192.168.103.251';  
-// console.log(Storage)
 /**
          * 请求拦截器
          * 
@@ -155,9 +150,8 @@ var http = {
        else this.header.Authorization = null;
     },
     async get(url) {
-        console.log(document.cookie)
         this.block();
-        const res = await axios.get("http://192.168.103.251:6006"+url).catch(res => res);
+        const res = await axios.get(url).catch(res => res);
         this.unblock();
         return handleResult(res);
 
@@ -166,7 +160,7 @@ var http = {
         if (data && Object.prototype.toString.call(data) === '[object Object]') data = format_object(data);//处理post数据 去空
         this.block();
         if(!config) config = { headers: this.header };
-        const res = await axios.post("http://192.168.103.251:6006"+url, data).catch(res => res);
+        const res = await axios.post(url, data).catch(res => res);
         this.unblock();
         return handleResult(res);
     },
