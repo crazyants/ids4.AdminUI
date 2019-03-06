@@ -12,7 +12,6 @@
                 <el-button type="primary" size="mini" @click='currentPage=1;flush();'>查询</el-button>
                 <div class="flex1"></div>
                 <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='edit(0)'>创建资源</el-button>
-                <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除资源</el-button>
             </div>
             <el-table
                     ref="multipleTable"
@@ -39,29 +38,25 @@
                 </el-table-column>
                 <el-table-column
                         prop="name"
-                        label="资源名称"
+                        label="名称"
                         align='center'
                 >
                 </el-table-column>
                 <el-table-column
                         prop="displayName"
-                        label="资源名称"
+                        label="描述"
                         align='center'
                 >
                 </el-table-column>
-                <el-table-column
-                        prop="createTime"
-                        label="创建时间"
-                        align='center'
-                        show-overflow-tooltip>
-                </el-table-column>
+               
                 <el-table-column
                         label="操作"
                         align='center'
-                        width='160'
+                        width='240'
                 >
                     <template slot-scope="scope">
                         <el-button type="primary" size="mini" @click='edit(1,scope.row)'>编辑</el-button>
+                        <el-button type="warning" size="mini" @click='enable(scope.row)'>{{scope.row.enabled|enable}}</el-button>
                         <!-- <el-button @click="roleCheck(scope.row)" type="text" size="small">模块管理</el-button> -->
                     </template>
                 </el-table-column>
@@ -78,17 +73,16 @@
             </el-pagination>
             
         </div>
-        <AppNameEdit :config="config" @close="flush" ></AppNameEdit>
+        <ApiResourceEdit :config="config" @close="flush" ></ApiResourceEdit>
     </el-scrollbar>
 </template>
 
 <script>
-    import AppNameEdit from '../../components/dialog/AppNameEdit'
+    import ApiResourceEdit from '../../components/dialog/ApiResourceEdit'
 
     export default {
-
         components: {
-            AppNameEdit,
+            ApiResourceEdit,
         },
         data() {
             return {
@@ -109,6 +103,12 @@
                 }
             }
         },
+        filters:{
+            enable(value){
+                if(value) return "停用";
+                else return "启用";
+            }
+        },
         mounted() {
             this.flush();
         },
@@ -121,33 +121,6 @@
             handleSelectionChange(val) {
                 this.selectitems = val;
             },
-            async delRole() {
-                //this.$refs.multipleTable.clearSelection()
-                //this.$refs.multipleTable.toggleRowSelection(row) this.$refs.multipleTable.selection
-                if(this.selectitems&&this.selectitems.length){
-                    await this.$confirm('确认删除所选资源?', '删除', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    });
-                    const codes = this.selectitems.map(item=>item.code);
-                    await this.$http.post("/base/api/App/Delete",codes);
-                    if(this.items.length==codes.length&&this.currentPage) this.currentPage--;//全部删除返回上一页
-                    this.flush();
-                    this.$message({
-                        showClose: true,
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                }
-                else{
-                    this.$message({
-                        showClose: true,
-                        type: 'warning',
-                        message: '请选择要删除的资源'
-                    });
-                }
-            },
             roleCheck(row) {
                 console.log(row);
             },
@@ -158,9 +131,13 @@
                     case 0:
                         this.config.title='创建资源';this.config.data = {};break;
                     case 1:
-                        this.config.title='编辑资源';this.config.data = {name:row.name,code:row.code};break;
+                        this.config.title='编辑资源';this.config.data = {name:row.name,displayName:row.displayName};break;
                 }
                 this.config.show = true;
+            },
+            async enable(row){
+                await this.$http.post(`/base/api/ApiResource/Enabled?name=${row.name}`);
+                this.flush();
             }
         }
     }

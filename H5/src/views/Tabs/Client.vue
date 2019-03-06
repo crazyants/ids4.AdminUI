@@ -7,7 +7,6 @@
                 <el-button type="primary" size="mini" @click='currentPage=1;flush();'>查询</el-button>
                 <div class="flex1"></div>
                 <el-button type="success" size="mini" icon='el-icon-circle-plus' @click='edit(0)'>创建客户端</el-button>
-                <el-button type="danger" size="mini" icon='el-icon-delete' @click='delRole'>删除客户端</el-button>
             </div>
             <el-table
                     ref="multipleTable"
@@ -68,11 +67,12 @@
                 <el-table-column
                         label="操作"
                         align='center'
-                        width='240'
+                        width='280'
                 >
                     <template slot-scope="scope">
                         <el-button type="primary" size="mini" @click='edit(1,scope.row)'>编辑</el-button>
-                        <el-button type="primary" size="mini" @click='edit(2,scope.row)'>复制新增</el-button>
+                        <el-button type="success" size="mini" @click='edit(2,scope.row)'>复制新增</el-button>
+                        <el-button type="warning" size="mini" @click='enable(scope.row)'>{{scope.row.enabled|enable}}</el-button>
                         <!-- <el-button @click="roleCheck(scope.row)" type="text" size="small">模块管理</el-button> -->
                     </template>
                 </el-table-column>
@@ -106,6 +106,12 @@
                 currentPage: 1,
                 pageSize:10,
                 total:0
+            }
+        },
+        filters:{
+            enable(value){
+                if(value) return "停用";
+                else return "启用";
             }
         },
         mounted() {
@@ -160,6 +166,10 @@
                     case 2:
                         this.$router.push("/home/client/add?id="+row.clientId);break;
                 }
+            },
+            async enable(row){
+                await this.$http.post(`/base/api/Client/Enabled?clientId=${row.clientId}`);
+                this.flush();
             }
         }
     }

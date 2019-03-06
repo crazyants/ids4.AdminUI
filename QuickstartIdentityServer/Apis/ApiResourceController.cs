@@ -60,9 +60,27 @@ namespace QuickstartIdentityServer.Apis
         /// <returns>The create.</returns>
         /// <param name="input">Input.</param>
         [HttpPost]
-        public async Task Create([FromBody]ApiResource input)
+        public async Task Create([FromBody]ApiResourceDTO input)
         {
-            var add = input.ToEntity();
+            if (await context.ApiResources.AnyAsync(x => x.Name == input.Name))
+                throw new Exception("已存在相同名称的资端");
+            var add = (new ApiResource(input.Name, input.DisplayName)).ToEntity();
+            context.ApiResources.Add(add);
+            await context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Update the specified input.
+        /// </summary>
+        /// <returns>The update.</returns>
+        /// <param name="input">Input.</param>
+        [HttpPost]
+        public async Task Update([FromBody]ApiResourceDTO input)
+        {
+            var apiresource = await context.ApiResources.FirstOrDefaultAsync(x => x.Name == input.Name);
+            if (apiresource == null) throw new Exception("不存在该资源");
+            context.Entry(apiresource).State = EntityState.Deleted;
+            var add = (new ApiResource(input.Name,input.DisplayName)).ToEntity();
             context.ApiResources.Add(add);
             await context.SaveChangesAsync();
         }
@@ -73,10 +91,10 @@ namespace QuickstartIdentityServer.Apis
         /// <returns>The delete.</returns>
         /// <param name="name">Name.</param>
         [HttpPost]
-        public async Task Delete(string name)
+        public async Task Enabled(string name)
         {
-            var client = context.ApiResources.FirstOrDefaultAsync(c => c.Name == name);
-            context.Entry(client).State = EntityState.Deleted;
+            var apiresource = await context.ApiResources.FirstOrDefaultAsync(c => c.Name == name);
+            apiresource.Enabled = !apiresource.Enabled;
             await context.SaveChangesAsync();
         }
     }

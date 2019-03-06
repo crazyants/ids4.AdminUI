@@ -121,10 +121,10 @@ namespace QuickstartIdentityServer.Apis
         /// <returns>The delete.</returns>
         /// <param name="clientId">Client identifier.</param>
         [HttpPost]
-        public async Task Delete(string clientId)
+        public async Task Enabled(string clientId)
         {
             var client = await context.Clients.FirstOrDefaultAsync(c => c.ClientId == clientId);
-            client.Enabled = false;
+            client.Enabled = !client.Enabled;
             await context.SaveChangesAsync();
         }
     }

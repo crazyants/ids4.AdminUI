@@ -4,6 +4,23 @@
         <name>QuickstartIdentityServer</name>
     </assembly>
     <members>
+        <member name="T:QuickstartIdentityServer.Apis.ApiDTO.ApiResourceDTO">
+            <summary>
+            资源名称
+            </summary>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ApiResourceDTO.Name">
+            <summary>
+            名称.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:QuickstartIdentityServer.Apis.ApiDTO.ApiResourceDTO.DisplayName">
+            <summary>
+            描述.
+            </summary>
+            <value>The display name.</value>
+        </member>
         <member name="T:QuickstartIdentityServer.Apis.ApiDTO.AppDTO">
             <summary>
             系统信息
@@ -372,14 +389,21 @@
             <returns>The query.</returns>
             <param name="input">Input.</param>
         </member>
-        <member name="M:QuickstartIdentityServer.Apis.ApiResourceController.Create(IdentityServer4.Models.ApiResource)">
+        <member name="M:QuickstartIdentityServer.Apis.ApiResourceController.Create(QuickstartIdentityServer.Apis.ApiDTO.ApiResourceDTO)">
             <summary>
             Create the specified input.
             </summary>
             <returns>The create.</returns>
             <param name="input">Input.</param>
         </member>
-        <member name="M:QuickstartIdentityServer.Apis.ApiResourceController.Delete(System.String)">
+        <member name="M:QuickstartIdentityServer.Apis.ApiResourceController.Update(QuickstartIdentityServer.Apis.ApiDTO.ApiResourceDTO)">
+            <summary>
+            Update the specified input.
+            </summary>
+            <returns>The update.</returns>
+            <param name="input">Input.</param>
+        </member>
+        <member name="M:QuickstartIdentityServer.Apis.ApiResourceController.Enabled(System.String)">
             <summary>
             Delete the specified name.
             </summary>
@@ -504,7 +528,7 @@
             <returns>The create.</returns>
             <param name="input">Input.</param>
         </member>
-        <member name="M:QuickstartIdentityServer.Apis.ClientController.Delete(System.String)">
+        <member name="M:QuickstartIdentityServer.Apis.ClientController.Enabled(System.String)">
             <summary>
             Delete the specified clientId.
             </summary>
