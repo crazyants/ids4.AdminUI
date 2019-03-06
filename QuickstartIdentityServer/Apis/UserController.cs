@@ -125,13 +125,13 @@ namespace QuickstartIdentityServer.Apis
         /// <summary>
         /// 分配角色
         /// </summary>
-        /// <param name="id">用户id</param>
+        /// <param name="userid">用户id</param>
         /// <param name="roleids">角色id集合</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task SetRole([FromQuery]int id,[FromBody] int[] roleids)
+        public async Task SetRole([FromQuery]int userid, [FromBody] int[] roleids)
         {
-            var maps = await pcontext.UserRoleMap.Where(map => map.UserId==id).ToListAsync();
+            var maps = await pcontext.UserRoleMap.Where(map => map.UserId== userid).ToListAsync();
             maps.ForEach(map =>
             {
                 if (!roleids.Contains(map.RoleId)) pcontext.Entry(map).State = EntityState.Deleted;
@@ -140,7 +140,7 @@ namespace QuickstartIdentityServer.Apis
             {
                 if (!maps.Any(m => m.RoleId == roleid)) pcontext.UserRoleMap.Add(new UserRoleMap
                 {
-                    UserId = id,
+                    UserId = userid,
                     RoleId = roleid
                 });
             }
@@ -171,12 +171,12 @@ namespace QuickstartIdentityServer.Apis
         /// <summary>
         /// 角色已有权限
         /// </summary>
-        /// <param name="roleid">角色id</param>
+        /// <param name="userid">用户id</param>
         /// <returns></returns>
         [HttpPost]
-        public Task<int[]> Permission([FromQuery]int roleid)
+        public Task<int[]> Permission([FromQuery]int userid)
         {
-            return  pcontext.RolePermissionMap.Where(m => m.RoleId == roleid).Select(m => m.PermissionId).ToArrayAsync();
+            return  pcontext.UserRoleMap.Where(m => m.UserId == userid).Select(m => m.RoleId).ToArrayAsync();
         }
     }
 }

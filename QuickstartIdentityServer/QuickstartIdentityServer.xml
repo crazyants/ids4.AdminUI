@@ -600,7 +600,7 @@
             <summary>
             分配角色
             </summary>
-            <param name="id">用户id</param>
+            <param name="userid">用户id</param>
             <param name="roleids">角色id集合</param>
             <returns></returns>
         </member>
@@ -615,7 +615,7 @@
             <summary>
             角色已有权限
             </summary>
-            <param name="roleid">角色id</param>
+            <param name="userid">用户id</param>
             <returns></returns>
         </member>
         <member name="T:QuickstartIdentityServer.CommonDTO.BaseResult">

@@ -16,7 +16,6 @@
 </template>
 <script>
     import dialogBar from './comment/dialogBar'
-import { promised } from 'q';
 
     export default {
         components: {

@@ -55,11 +55,12 @@
                 <el-table-column
                         label="操作"
                         align='center'
-                        width='240'
+                        width='300'
                 >
                     <template slot-scope="scope">
                         <el-button type="primary" size="mini" @click='edit(1,scope.row)'>修改名称</el-button>
                         <el-button type="primary" size="mini" @click='edit(2,scope.row)'>重置密码</el-button>
+                        <el-button type="primary" size="mini" @click='edit(3,scope.row)'>分配角色</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -76,16 +77,19 @@
             
         </div>
         <PeopleEduit :config="config" @close="flush" ></PeopleEduit>
+        <PeopleRoleMap ref="dlg2" :config="config2" @close="flush" ></PeopleRoleMap>
     </el-scrollbar>
 </template>
 
 <script>
     import PeopleEduit from '../../components/dialog/PeopleEduit'
+    import PeopleRoleMap from '../../components/dialog/PeopleRoleMap'
 
     export default {
 
         components: {
-           PeopleEduit
+           PeopleEduit,
+           PeopleRoleMap
         },
         data() {
             return {
@@ -101,6 +105,13 @@
                 config:{
                     show:false,
                     width:400,
+                    title:"",
+                    type:0,//0 创建，1 修改名称，2 重置密码
+                    data:{}
+                },
+                config2:{
+                    show:false,
+                    width:600,
                     title:"",
                     type:0,//0 创建，1 修改名称，2 重置密码
                     data:{}
@@ -147,17 +158,20 @@
                 }
             },
             // 用户名编辑
-            edit(type,row){
+            async edit(type,row){
                 this.config.type = type;
                 switch(type){
                     case 0:
-                        this.config.title='创建用户';this.config.data = {};break;
+                        this.config.title='创建用户';this.config.data = {};this.config.show = true;break;
                     case 1:
-                        this.config.title='修改用户名称';this.config.data = {name:row.name};break;
+                        this.config.title='修改用户名称';this.config.data = {name:row.name};this.config.show = true;break;
                     case 2:
-                        this.config.title=`重置密码(用户：${row.name})`;this.config.data = {id:row.id};break;
+                        this.config.title=`重置密码(用户：${row.name})`;this.config.data = {id:row.id};this.config.show = true;break;
+                    case 3:
+                        await this.$refs.dlg2.initdata(row.id);
+                        this.config2.title=`分配角色(用户：${row.name})`;this.config2.show = true; break;
                 }
-                this.config.show = true;
+                
             }
         }
     }
