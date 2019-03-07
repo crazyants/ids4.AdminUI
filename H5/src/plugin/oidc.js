@@ -1,12 +1,12 @@
 import Oidc from 'oidc-client'
 
 var config = {
-  authority: "http://localhost:5000",
+  authority: "http://owenowen.iask.in",
   client_id: "base",
-  redirect_uri: "http://localhost:8080/callback.html",
+  redirect_uri: "http://owenowen.iask.in/callback.html",
   response_type: "id_token token",
   scope:"openid profile base",
-  post_logout_redirect_uri : "http://localhost:8080"
+  post_logout_redirect_uri : "http://owenowen.iask.in/index.html"
 };
 
 // new Oidc.UserManager().signinRedirectCallback().then(function () {
