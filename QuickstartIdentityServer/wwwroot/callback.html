@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,7 +8,7 @@
     <script src="oidc-client.min.js"></script>
     <script>
         new Oidc.UserManager().signinRedirectCallback().then(function () {
-            window.location = "/";
+            window.location = "/index.html";
         }).catch(function (e) {
             console.error(e);
         });
