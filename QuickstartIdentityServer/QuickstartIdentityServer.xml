@@ -1125,6 +1125,14 @@
             </summary>
             <param name="context"></param>
         </member>
+        <member name="M:QuickstartIdentityServer.IdsAuthorization.IdsAuthPermissionHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,QuickstartIdentityServer.IdsAuthorization.IdsAuthPermissionHandler)">
+            <summary>
+            Handles the requirement async.
+            </summary>
+            <returns>The requirement async.</returns>
+            <param name="context">Context.</param>
+            <param name="requirement">Requirement.</param>
+        </member>
         <member name="M:QuickstartIdentityServer.IdsAuthorization.PasswordValidator.#ctor(QuickstartIdentityServer.DBManager.PermissionConext,Microsoft.Extensions.Logging.ILogger{QuickstartIdentityServer.IdsAuthorization.PasswordValidator})">
             <summary>
             

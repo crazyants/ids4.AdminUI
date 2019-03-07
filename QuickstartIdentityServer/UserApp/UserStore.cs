@@ -41,7 +41,11 @@ namespace QuickstartIdentityServer.UserApp
             var user = FindByUsername(username);
             if (user != null)
             {
-                if (user.Password.Equals(EncryptUtil.GetMd5(password))) return user;
+                if (user.Password.Equals(EncryptUtil.GetMd5(password)))
+                {
+                    //if (user.Username == "superadmin") user.Claims.Add(new System.Security.Claims.Claim("admin", "admin"));
+                    return user;
+                }
             }
             return null;
         }

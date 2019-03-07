@@ -117,27 +117,32 @@ namespace QuickstartIdentityServer
             #endregion
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
-                //.AddGoogle("Google", options =>
-                //{
-                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            //.AddGoogle("Google", options =>
+            //{
+            //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-                //    options.ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com";
-                //    options.ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo";
-                //})
-                //.AddOpenIdConnect("oidc", "OpenID Connect", options =>
-                //{
-                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                //    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+            //    options.ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com";
+            //    options.ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo";
+            //})
+            //.AddOpenIdConnect("oidc", "OpenID Connect", options =>
+            //{
+            //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            //    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
 
-                //    options.Authority = "https://demo.identityserver.io/";
-                //    options.ClientId = "implicit";
+            //    options.Authority = "https://demo.identityserver.io/";
+            //    options.ClientId = "implicit";
 
-                //    options.TokenValidationParameters = new TokenValidationParameters
-                //    {
-                //        NameClaimType = "name",
-                //        RoleClaimType = "role"
-                //    };
-                //});
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        NameClaimType = "name",
+            //        RoleClaimType = "role"
+            //    };
+            //});
+            //添加自定义的权限验证
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(IdsAuthAttribute.policy, policy => policy.AddRequirements(new IdsAuthPermissionHandler("base")));
+            });
 
             #region swagger
             //if (Env.IsDevelopment())

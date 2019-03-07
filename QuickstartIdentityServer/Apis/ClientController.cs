@@ -105,6 +105,7 @@ namespace QuickstartIdentityServer.Apis
         /// <returns>The create.</returns>
         /// <param name="input">Input.</param>
         [HttpPost]
+        [IdsAuth]
         public async Task Update([FromBody]Client input)
         {
             var client = await context.Clients.FirstOrDefaultAsync(x => x.ClientId == input.ClientId);
@@ -121,6 +122,7 @@ namespace QuickstartIdentityServer.Apis
         /// <returns>The delete.</returns>
         /// <param name="clientId">Client identifier.</param>
         [HttpPost]
+        [IdsAuth]
         public async Task Enabled(string clientId)
         {
             var client = await context.Clients.FirstOrDefaultAsync(c => c.ClientId == clientId);

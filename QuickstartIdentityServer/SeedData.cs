@@ -55,16 +55,19 @@ namespace QuickstartIdentityServer
                 context.Module.Add(new ModuleEntity
                 {
                     AppCode = "base",
+                    Code = "001",
                     Name = "人员管理"
                 });
                 context.Module.Add(new ModuleEntity
                 {
                     AppCode = "base",
+                    Code = "002",
                     Name = "系统管理"
                 });
                 context.Module.Add(new ModuleEntity
                 {
                     AppCode = "base",
+                    Code = "003",
                     Name = "角色管理"
                 });
                 context.SaveChanges();

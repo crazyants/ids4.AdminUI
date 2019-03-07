@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuickstartIdentityServer.Apis.ApiDTO;
 using QuickstartIdentityServer.CommonDTO;
+using QuickstartIdentityServer.IdsAuthorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -75,6 +76,7 @@ namespace QuickstartIdentityServer.Apis
         /// <returns>The update.</returns>
         /// <param name="input">Input.</param>
         [HttpPost]
+        [IdsAuth]
         public async Task Update([FromBody]ApiResourceDTO input)
         {
             var apiresource = await context.ApiResources.FirstOrDefaultAsync(x => x.Name == input.Name);
@@ -91,6 +93,7 @@ namespace QuickstartIdentityServer.Apis
         /// <returns>The delete.</returns>
         /// <param name="name">Name.</param>
         [HttpPost]
+        [IdsAuth]
         public async Task Enabled(string name)
         {
             var apiresource = await context.ApiResources.FirstOrDefaultAsync(c => c.Name == name);
