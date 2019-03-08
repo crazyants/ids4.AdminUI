@@ -1,20 +1,22 @@
 import Oidc from 'oidc-client'
 
 var config = {
-  authority: "http://owenowen.iask.in",
-  client_id: "base",
-  redirect_uri: "http://owenowen.iask.in/callback.html",
+  authority: "http://localhost:5000",
+  client_id: "js",
+  redirect_uri: "http://localhost:8080/callback.html",
   response_type: "id_token token",
   scope:"openid profile base",
-  post_logout_redirect_uri : "http://owenowen.iask.in/index.html"
+  post_logout_redirect_uri : "http://localhost:8080"
 };
 
-// new Oidc.UserManager().signinRedirectCallback().then(function () {
-//     //window.location = "index.html";
-//     console.log("User not logged in");
-// }).catch(function (e) {
-//     console.error(e);
-// });
+// var config = {
+//     authority: "http://owenowen.iask.in",
+//     client_id: "base",
+//     redirect_uri: "http://owenowen.iask.in/callback.html",
+//     response_type: "id_token token",
+//     scope:"openid profile base",
+//     post_logout_redirect_uri : "http://owenowen.iask.in/index.html"
+// };
 
 var mgr = new Oidc.UserManager(config);
 
