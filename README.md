@@ -3,6 +3,8 @@
 
 [演示demo](http://owenowen.iask.in/index.html "演示demo")  账号superadmin 密码666666
 
+![example](https://raw.githubusercontent.com/owenxuwei/ids/master/test.png)
+
 还在为新开项目烦恼：一些登入问题？角色权限如何设置？后台非常重要的接口如何保护？业务系统太多，总是重复登入？ 
 
 那么来吧。。。
