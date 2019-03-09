@@ -1,7 +1,7 @@
-# dentityServe4-Admin
-基于 identityServe4 提供了界面管理功能。并增加了一些配置功能。
+# IdentityServe4-Admin
+基于 IdentityServe4 提供了界面管理功能。并增加了一些配置功能。
 
-[演示demo](http://owenowen.iask.in/index.html "演示demo")  账号superadmin 密码666666
+[演示demo](http://owenowen.iask.in/index.html "演示demo")  账号test 密码test
 
 ![example](https://raw.githubusercontent.com/owenxuwei/ids/master/test.png)
 
